@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "hypo.online — rychlá orientace na hypotéku v ČR",
+    "description": "Krátký dotazník a základní orientace. Nejde o rozhodnutí banky. Spojení s hypotečním specialistou."
+  },
+  "brand": "hypo.online",
+  "nav": {
+    "start": "Začít",
+    "privacy": "Ochrana údajů"
+  },
+  "home": {
+    "badge": "Orientace pro hypotéku v České republice",
+    "headline": "Zjistěte za pár minut, jestli má smysl řešit hypotéku se specialistou.",
+    "sub": "Nejde o schválení úvěru bankou — dostanete stručnou orientaci a můžete nechat kontakt pro hypotečního makléře.",
+    "trust1": "Údaje z dotazníku po vyhodnocení neukládáme.",
+    "trust2": "Ukládáme jen jméno, e-mail a telefon, pokud chcete kontakt.",
+    "trust3": "Mobilní rozhraní, stručné kroky.",
+    "cta": "Spustit kontrolu",
+    "secondary": "Jak to funguje",
+    "howTitle": "Jak to funguje",
+    "how1": "Odpovíte na několik krátkých otázek.",
+    "how2": "Zobrazíme orientační výsledek a další krok.",
+    "how3": "Volitelně zanecháte kontakt — spojí vás makléř."
+  },
+  "quiz": {
+    "progress": "Krok {current} z {total}",
+    "next": "Pokračovat",
+    "back": "Zpět",
+    "intent": "Co nejvíc řešíte?",
+    "intent_a": "Koupě bydlení",
+    "intent_b": "Refinancování / předčasná splátka",
+    "intent_c": "Zatím jen zjišťuji",
+    "income": "Jaký máte typ příjmu?",
+    "income_employed": "Zaměstnání (ČR)",
+    "income_self": "OSVČ / podnikání",
+    "income_abroad": "Příjem ze zahraničí / jiná situace",
+    "timeline": "Kdy zhruba plánujete čerpání?",
+    "timeline_0": "Do 3 měsíců",
+    "timeline_1": "3–12 měsíců",
+    "timeline_2": "Ještě nevím",
+    "resultTitle": "Orientační výsledek",
+    "result_ok": "Podle zadaného profilu často dává smysl konzultace s hypotečním specialistou — banky se liší a detaily rozhodují.",
+    "result_review": "U vaší kombinace bývá často potřeba individuální posouzení (dokumentace, stabilita příjmu, rezidence). Specialistovi to pomůže nastavit správný postup.",
+    "result_contactTitle": "Chcete, aby se vám někdo ozval?",
+    "result_contactHint": "Uložíme jen údaje níže — neukládáme odpovědi z dotazníku.",
+    "name": "Jméno",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "submit": "Odeslat kontakt",
+    "disclaimer": "Toto není nabídka úvěru ani rozhodnutí banky. Slouží to k orientaci a předání kontaktu partnerovi."
+  },
+  "privacy": {
+    "title": "Ochrana osobních údajů",
+    "p1": "Zpracováváme jen to, co je pro službu nutné. Odpovědi z rychlé kontroly použijeme jen k okamžitému výpočtu výsledku a neukládáme je.",
+    "p2": "Pokud vyplníte kontaktní údaje, slouží k tomu, aby se vám ozval vybraný hypoteční makléř. Detaily zpracování doplňte s právníkem do plného znění.",
+    "back": "Zpět na úvod"
+  }
+}

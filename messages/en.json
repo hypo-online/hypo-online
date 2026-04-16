@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "hypo.online — quick mortgage orientation in the Czech Republic",
+    "description": "Short questionnaire and basic orientation. Not a bank decision. Optional intro to a mortgage broker."
+  },
+  "brand": "hypo.online",
+  "nav": {
+    "start": "Get started",
+    "privacy": "Privacy"
+  },
+  "home": {
+    "badge": "Mortgage orientation for the Czech Republic",
+    "headline": "See in a few minutes whether it is worth speaking with a mortgage specialist.",
+    "sub": "This is not a bank approval — you get a brief orientation and can leave contact details for a broker.",
+    "trust1": "We do not store your questionnaire answers after the result.",
+    "trust2": "We only store name, email and phone if you request contact.",
+    "trust3": "Mobile-first, short steps.",
+    "cta": "Start check",
+    "secondary": "How it works",
+    "howTitle": "How it works",
+    "how1": "You answer a few short questions.",
+    "how2": "We show an indicative outcome and next step.",
+    "how3": "Optionally you leave contact — a broker will reach out."
+  },
+  "quiz": {
+    "progress": "Step {current} of {total}",
+    "next": "Continue",
+    "back": "Back",
+    "intent": "What are you mainly looking for?",
+    "intent_a": "Buying a home",
+    "intent_b": "Refinancing / early repayment",
+    "intent_c": "Just exploring",
+    "income": "What best describes your income?",
+    "income_employed": "Employment (Czech Republic)",
+    "income_self": "Self-employed / business",
+    "income_abroad": "Foreign income / other",
+    "timeline": "When do you roughly expect to draw the loan?",
+    "timeline_0": "Within 3 months",
+    "timeline_1": "3–12 months",
+    "timeline_2": "Not sure yet",
+    "resultTitle": "Indicative outcome",
+    "result_ok": "For this profile, a consultation with a mortgage specialist is often worthwhile — banks differ and details matter.",
+    "result_review": "Your combination often needs individual review (documentation, income stability, residency). A specialist can structure the next steps.",
+    "result_contactTitle": "Want someone to contact you?",
+    "result_contactHint": "We only save the fields below — not your questionnaire answers.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "submit": "Send contact",
+    "disclaimer": "This is not a loan offer or a bank decision. It is for orientation and broker handoff."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "p1": "We process only what the service needs. Answers from the quick check are used only to compute your result and are not stored.",
+    "p2": "If you submit contact details, they are used so a selected mortgage broker can reach you. Add full legal text with your counsel.",
+    "back": "Back to home"
+  }
+}
