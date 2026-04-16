@@ -19,17 +19,26 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations();
 
+  const steps = [
+    { title: t("home.how_step1_title"), body: t("home.how_step1_body") },
+    { title: t("home.how_step2_title"), body: t("home.how_step2_body") },
+    { title: t("home.how_step3_title"), body: t("home.how_step3_body") },
+    { title: t("home.how_step4_title"), body: t("home.how_step4_body") },
+    { title: t("home.how_step5_title"), body: t("home.how_step5_body") },
+    { title: t("home.how_step6_title"), body: t("home.how_step6_body") },
+  ] as const;
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-6">
       <header className="mb-10 flex items-center justify-between gap-4">
         <span className="text-sm font-semibold tracking-tight text-[var(--color-brand-800)]">
           {t("brand")}
         </span>
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
           <LocaleSwitcher />
           <Link
             href="/privacy"
-            className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+            className="shrink-0 text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
           >
             {t("nav.privacy")}
           </Link>
@@ -76,15 +85,24 @@ export default async function HomePage({ params }: Props) {
         </a>
       </div>
 
-      <section id="how" className="mt-16 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
-          {t("home.howTitle")}
-        </h2>
-        <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-zinc-700">
-          <li>{t("home.how1")}</li>
-          <li>{t("home.how2")}</li>
-          <li>{t("home.how3")}</li>
+      <section id="how" className="mt-16 space-y-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
+        <div>
+          <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+            {t("home.howTitle")}
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+            {t("home.howIntro")}
+          </p>
+        </div>
+        <ol className="space-y-5">
+          {steps.map((s, i) => (
+            <li key={i} className="text-sm leading-relaxed text-zinc-700">
+              <p className="font-semibold text-[var(--color-brand-950)]">{s.title}</p>
+              <p className="mt-1 text-zinc-700">{s.body}</p>
+            </li>
+          ))}
         </ol>
+        <p className="text-xs leading-relaxed text-zinc-500">{t("home.how_lead_note")}</p>
       </section>
     </div>
   );

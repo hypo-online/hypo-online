@@ -2,30 +2,33 @@
 
 import { usePathname, useRouter } from "@/navigation";
 import { useLocale } from "next-intl";
-
-const locales = ["cs", "en"] as const;
+import { useTranslations } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { LOCALE_LABELS } from "@/lib/locale-labels";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   return (
-    <div className="flex items-center gap-2 rounded-full bg-white/80 px-2 py-1 text-xs font-semibold shadow-sm ring-1 ring-black/5 backdrop-blur">
-      {locales.map((loc) => (
-        <button
-          key={loc}
-          type="button"
-          onClick={() => router.replace(pathname, { locale: loc })}
-          className={
-            loc === locale
-              ? "rounded-full bg-[var(--color-brand-600)] px-2.5 py-1 text-white"
-              : "rounded-full px-2.5 py-1 text-zinc-600 hover:bg-zinc-100"
-          }
-        >
-          {loc.toUpperCase()}
-        </button>
-      ))}
-    </div>
+    <label className="flex items-center gap-2 text-xs font-semibold text-zinc-700">
+      <span className="sr-only">{t("language")}</span>
+      <select
+        className="max-w-[11rem] truncate rounded-full border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold shadow-sm outline-none focus:border-[var(--color-brand-600)] sm:max-w-xs"
+        value={locale}
+        onChange={(e) =>
+          router.replace(pathname, { locale: e.target.value as (typeof routing.locales)[number] })
+        }
+        aria-label={t("language")}
+      >
+        {routing.locales.map((loc) => (
+          <option key={loc} value={loc}>
+            {LOCALE_LABELS[loc] ?? loc.toUpperCase()}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }

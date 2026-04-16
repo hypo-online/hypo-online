@@ -1,26 +1,38 @@
 {
   "meta": {
-    "title": "hypo.online — quick mortgage orientation in the Czech Republic",
-    "description": "Short questionnaire and basic orientation. Not a bank decision. Optional intro to a mortgage broker."
+    "title": "hypo.online — mortgage orientation in the Czech Republic",
+    "description": "Short check, AI-style approval probability, and optional broker contact. Not a bank decision."
   },
   "brand": "hypo.online",
   "nav": {
     "start": "Get started",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "language": "Language"
   },
   "home": {
-    "badge": "Mortgage orientation for the Czech Republic",
-    "headline": "See in a few minutes whether it is worth speaking with a mortgage specialist.",
-    "sub": "This is not a bank approval — you get a brief orientation and can leave contact details for a broker.",
-    "trust1": "We do not store your questionnaire answers after the result.",
-    "trust2": "We only store name, email and phone if you request contact.",
-    "trust3": "Mobile-first, short steps.",
+    "badge": "Mortgages in the Czech Republic — expat-friendly",
+    "headline": "In a few minutes: an indicative approval probability and the right next step.",
+    "sub": "This is not a bank approval. An automated model estimates a probability; a licensed mortgage broker can still help even when the signal is yellow or red.",
+    "trust1": "Questionnaire answers are used only to compute your result and are not stored afterwards.",
+    "trust2": "If you request contact, we keep only name, email and phone for broker handoff.",
+    "trust3": "Built for phones first — Czech banks, foreign income, and Prague-focused reality.",
     "cta": "Start check",
     "secondary": "How it works",
     "howTitle": "How it works",
-    "how1": "You answer a few short questions.",
-    "how2": "We show an indicative outcome and next step.",
-    "how3": "Optionally you leave contact — a broker will reach out."
+    "howIntro": "hypo.online helps people living in Czechia understand whether it is realistic to pursue a mortgage now — especially foreigners, mixed couples, and self-employed applicants. The flow is short on purpose: enough signal for brokers, not a 40-field bank form.",
+    "how_step1_title": "1) You answer a few focused questions",
+    "how_step1_body": "Typical topics: what you are solving (purchase vs refinance), how your income is structured (employment in CZ, self-employed, foreign employer), and rough timing. Everything is mobile-friendly with one decision per screen.",
+    "how_step2_title": "2) An AI-style model estimates an approval probability",
+    "how_step2_body": "Our backend runs an automated scoring model (machine-learnable rules today; you can swap in a hosted LLM later). It outputs a percentage that represents indicative bank-friendliness — not a promise. The final decision is always with the bank after full documentation.",
+    "how_step3_title": "3) You see a semaphore: green, yellow, or red",
+    "how_step3_body": "Green suggests a relatively smoother path on average. Yellow and red often mean more documentation, residency, or income-proof complexity — but they are not “stop” signals. Many good files start yellow and finish green after broker structuring.",
+    "how_step4_title": "4) Yellow and red leads are still processed",
+    "how_step4_body": "We intentionally keep the contact form for every colour. Brokers frequently earn their fee on non-obvious cases. If you want human help, you can always leave your details — the broker team triages urgency and next documents.",
+    "how_step5_title": "5) Optional contact → licensed mortgage brokers",
+    "how_step5_body": "If you submit your name, email and phone, we route the lead to partner mortgage brokers in Czechia. They contact you about realistic banks, rates, and paperwork — in line with your language where possible.",
+    "how_step6_title": "6) What we never do",
+    "how_step6_body": "We do not pretend to be a bank, we do not store your questionnaire payload after scoring, and we do not replace regulated advice. Use the output as orientation, then let a professional review your actual documents.",
+    "how_lead_note": "AI probability + semaphore are marketing-grade summaries. Brokers may decline a lead after KYC — that is normal in lending."
   },
   "quiz": {
     "progress": "Step {current} of {total}",
@@ -38,20 +50,30 @@
     "timeline_0": "Within 3 months",
     "timeline_1": "3–12 months",
     "timeline_2": "Not sure yet",
-    "resultTitle": "Indicative outcome",
-    "result_ok": "For this profile, a consultation with a mortgage specialist is often worthwhile — banks differ and details matter.",
-    "result_review": "Your combination often needs individual review (documentation, income stability, residency). A specialist can structure the next steps.",
-    "result_contactTitle": "Want someone to contact you?",
+    "resultTitle": "Your indicative result",
+    "probabilityLabel": "Estimated approval probability",
+    "aiNotice": "This percentage is generated by an automated AI-style scoring model using your answers. It is not a bank decision and can be wrong for your specific documents.",
+    "semaphoreLegend": "Traffic-light signal",
+    "signal_green": "Green",
+    "signal_yellow": "Yellow",
+    "signal_red": "Red",
+    "resultIntro": "Our model estimates an indicative approval probability of {percent}%.",
+    "hint_green": "On average, similar profiles often proceed with a broker conversation and bank pre-checks without unusual blockers.",
+    "hint_yellow": "Similar profiles often need extra documentation or a specialist path — still very workable with a broker.",
+    "hint_red": "Similar profiles can be challenging for standard bank scoring — brokers may suggest alternative structures, timing, or lenders. Still worth a call if you are serious.",
+    "allSignalsLead": "Yellow and red are not dead ends — submit your contact if you want a human review.",
+    "result_contactTitle": "Want a broker to contact you?",
     "result_contactHint": "We only save the fields below — not your questionnaire answers.",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
     "submit": "Send contact",
-    "disclaimer": "This is not a loan offer or a bank decision. It is for orientation and broker handoff."
+    "thankyou": "Thank you — a broker will reach out.",
+    "disclaimer": "Not a loan offer. Banks decide after full underwriting. The model output is probabilistic and may change as rules change."
   },
   "privacy": {
     "title": "Privacy",
-    "p1": "We process only what the service needs. Answers from the quick check are used only to compute your result and are not stored.",
+    "p1": "We process only what the service needs. Answers from the quick check are used only to compute your result (including the AI-style probability) and are not stored afterwards.",
     "p2": "If you submit contact details, they are used so a selected mortgage broker can reach you. Add full legal text with your counsel.",
     "back": "Back to home"
   }

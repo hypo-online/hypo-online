@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import type { QuizPayload } from "@/lib/evaluation";
+import type { QuizPayload, Signal } from "@/lib/evaluation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Semaphore } from "@/components/semaphore";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -13,7 +14,8 @@ export function QuizFlow({ locale }: { locale: string }) {
   const [intent, setIntent] = useState<QuizPayload["intent"]>("purchase");
   const [income, setIncome] = useState<QuizPayload["income"]>("employed");
   const [timeline, setTimeline] = useState<QuizPayload["timeline"]>("soon");
-  const [resultKey, setResultKey] = useState<"ok" | "review" | null>(null);
+  const [probability, setProbability] = useState<number | null>(null);
+  const [signal, setSignal] = useState<Signal | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,8 +42,9 @@ export function QuizFlow({ locale }: { locale: string }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("evaluate failed");
-      const data = (await res.json()) as { resultKey: "ok" | "review" };
-      setResultKey(data.resultKey);
+      const data = (await res.json()) as { probability: number; signal: Signal };
+      setProbability(data.probability);
+      setSignal(data.signal);
       setStep(3);
     } catch {
       setError("Request failed");
@@ -51,7 +54,7 @@ export function QuizFlow({ locale }: { locale: string }) {
   }
 
   async function submitLead() {
-    if (!resultKey) return;
+    if (probability === null || !signal) return;
     setLoading(true);
     setError(null);
     try {
@@ -63,7 +66,8 @@ export function QuizFlow({ locale }: { locale: string }) {
           email: email.trim(),
           phone: phone.trim(),
           locale,
-          resultKey,
+          probability,
+          signal,
         }),
       });
       if (!res.ok) throw new Error("lead failed");
@@ -75,9 +79,18 @@ export function QuizFlow({ locale }: { locale: string }) {
     }
   }
 
+  const hint =
+    signal === "green"
+      ? t("hint_green")
+      : signal === "yellow"
+        ? t("hint_yellow")
+        : signal === "red"
+          ? t("hint_red")
+          : "";
+
   return (
     <div className="flex flex-1 flex-col">
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-medium text-zinc-600">
           {t("progress", { current: progressStep, total: totalSteps })}
         </p>
@@ -171,19 +184,43 @@ export function QuizFlow({ locale }: { locale: string }) {
         </section>
       )}
 
-      {step === 3 && resultKey && (
+      {step === 3 && probability !== null && signal && (
         <section className="flex flex-1 flex-col gap-6">
           <div>
             <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
               {t("resultTitle")}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-700">
-              {resultKey === "ok" ? t("result_ok") : t("result_review")}
+            <p className="mt-3 text-sm font-medium text-[var(--color-brand-950)]">
+              {t("resultIntro", { percent: probability })}
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-zinc-500">
-              {t("disclaimer")}
-            </p>
+            <p className="mt-2 text-xs leading-relaxed text-zinc-600">{t("aiNotice")}</p>
           </div>
+
+          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              {t("probabilityLabel")}
+            </p>
+            <p className="mt-2 text-center text-4xl font-bold tabular-nums text-[var(--color-brand-950)]">
+              {probability}%
+            </p>
+            <div className="mt-4 flex justify-center">
+              <Semaphore signal={signal} />
+            </div>
+            <div className="mt-4 flex justify-center gap-4 text-xs font-semibold text-zinc-600">
+              <span className={signal === "red" ? "text-red-700" : ""}>{t("signal_red")}</span>
+              <span className={signal === "yellow" ? "text-amber-700" : ""}>
+                {t("signal_yellow")}
+              </span>
+              <span className={signal === "green" ? "text-emerald-700" : ""}>
+                {t("signal_green")}
+              </span>
+            </div>
+            <p className="mt-1 text-center text-xs text-zinc-500">{t("semaphoreLegend")}</p>
+          </div>
+
+          <p className="text-sm leading-relaxed text-zinc-700">{hint}</p>
+          <p className="text-sm font-medium text-[var(--color-brand-800)]">{t("allSignalsLead")}</p>
+          <p className="text-xs leading-relaxed text-zinc-500">{t("disclaimer")}</p>
 
           {!leadDone ? (
             <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
@@ -234,11 +271,7 @@ export function QuizFlow({ locale }: { locale: string }) {
               </button>
             </div>
           ) : (
-            <p className="text-sm font-medium text-emerald-800">
-              {locale === "cs"
-                ? "Děkujeme — ozveme se přes makléře."
-                : "Thank you — a broker will reach out."}
-            </p>
+            <p className="text-sm font-medium text-emerald-800">{t("thankyou")}</p>
           )}
         </section>
       )}

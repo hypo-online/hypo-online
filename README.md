@@ -1,6 +1,6 @@
 # hypo.online
 
-Mobile-first mortgage orientation funnel for the Czech Republic (Czech + English). Questionnaire answers are evaluated on the server and not stored; contact details are optional and intended for broker handoff.
+Mobile-first mortgage orientation funnel for the Czech Republic. **14 locales** (Czech, English, Ukrainian, and 11 other Prague-focused languages). Questionnaire answers are scored on the server (AI-style model today) and not stored; contact details are optional for broker handoff — **including yellow/red semaphore outcomes**.
 
 ## Prerequisites
 
@@ -14,7 +14,9 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000` — you will be redirected to `/cs` or `/en`.
+Open `http://localhost:3000` — middleware redirects to a locale prefix (default **`/cs`**). Use the language menu (header / quiz) to switch: `cs`, `en`, `uk`, `ru`, `de`, `vi`, `pl`, `sk`, `ro`, `es`, `fr`, `it`, `tr`, `zh`.
+
+Canonical copy lives in `messages/en.json`; other locale files are **deep-merged** on top so missing keys fall back to English.
 
 ## Environment
 
@@ -48,5 +50,5 @@ Enable **2FA** on GitHub; do not commit `.env.local`.
 
 ## Product notes
 
-- Replace rules in `lib/evaluation.ts` with broker-approved logic.
-- Extend `messages/cs.json` and `messages/en.json` for copy; add locales in `i18n/routing.ts` when ready.
+- Replace / tune scoring in `lib/evaluation.ts` (or plug in a real LLM) with broker-approved logic and legal review of “AI + % probability” claims. Today the “AI-style” scorer is **transparent rules in code**, not a hosted neural model — keep marketing copy aligned with what you actually run.
+- Extend `messages/*.json` for copy; add locales in `i18n/routing.ts` and labels in `lib/locale-labels.ts`.

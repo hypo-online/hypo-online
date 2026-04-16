@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
-import {
-  evaluateMortgageFit,
-  type QuizPayload,
-} from "@/lib/evaluation";
+import { evaluateMortgageFit, type QuizPayload } from "@/lib/evaluation";
 
 /**
- * Computes a coarse result in memory. Do not log request bodies in production —
- * they contain user inputs we do not retain.
+ * Computes probability + semaphore in memory.
+ * Do not log request bodies in production — they contain user inputs we do not retain.
  */
 export async function POST(request: Request) {
   let body: unknown;
@@ -20,19 +17,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const resultKey = evaluateMortgageFit(body);
+  const { probability, signal } = evaluateMortgageFit(body);
 
-  return NextResponse.json({ resultKey });
+  return NextResponse.json({ probability, signal });
 }
 
 function isQuizPayload(value: unknown): value is QuizPayload {
   if (!value || typeof value !== "object") return false;
   const v = value as Record<string, unknown>;
-  return (
-    isIntent(v.intent) &&
-    isIncome(v.income) &&
-    isTimeline(v.timeline)
-  );
+  return isIntent(v.intent) && isIncome(v.income) && isTimeline(v.timeline);
 }
 
 function isIntent(v: unknown): v is QuizPayload["intent"] {

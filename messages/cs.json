@@ -1,26 +1,38 @@
 {
   "meta": {
-    "title": "hypo.online — rychlá orientace na hypotéku v ČR",
-    "description": "Krátký dotazník a základní orientace. Nejde o rozhodnutí banky. Spojení s hypotečním specialistou."
+    "title": "hypo.online — orientace na hypotéku v České republice",
+    "description": "Krátká kontrola, pravděpodobnost schválení (AI model) a volitelný kontakt na makléře. Nejde o rozhodnutí banky."
   },
   "brand": "hypo.online",
   "nav": {
     "start": "Začít",
-    "privacy": "Ochrana údajů"
+    "privacy": "Ochrana údajů",
+    "language": "Jazyk"
   },
   "home": {
-    "badge": "Orientace pro hypotéku v České republice",
-    "headline": "Zjistěte za pár minut, jestli má smysl řešit hypotéku se specialistou.",
-    "sub": "Nejde o schválení úvěru bankou — dostanete stručnou orientaci a můžete nechat kontakt pro hypotečního makléře.",
-    "trust1": "Údaje z dotazníku po vyhodnocení neukládáme.",
-    "trust2": "Ukládáme jen jméno, e-mail a telefon, pokud chcete kontakt.",
-    "trust3": "Mobilní rozhraní, stručné kroky.",
+    "badge": "Hypotéky v ČR — vhodné i pro cizince",
+    "headline": "Za pár minut: orientační pravděpodobnost schválení a další krok.",
+    "sub": "Nejde o schválení bankou. Automatický model odhadne pravděpodobnost; makléř vám může pomoci i u žlutého nebo červeného signálu.",
+    "trust1": "Odpovědi z dotazníku použijeme jen k výpočtu výsledku a poté je neukládáme.",
+    "trust2": "Pokud požádáte o kontakt, ukládáme jen jméno, e-mail a telefon pro předání makléři.",
+    "trust3": "Primárně pro mobil — české banky, příjem ze zahraničí, realita Prahy a okolí.",
     "cta": "Spustit kontrolu",
     "secondary": "Jak to funguje",
     "howTitle": "Jak to funguje",
-    "how1": "Odpovíte na několik krátkých otázek.",
-    "how2": "Zobrazíme orientační výsledek a další krok.",
-    "how3": "Volitelně zanecháte kontakt — spojí vás makléř."
+    "howIntro": "hypo.online pomáhá lidem žijícím v Česku zorientovat se, jestli dává smysl řešit hypotéku teď — zejména cizinci, smíšeným párům a OSVČ. Tok je krátka záměrně: dost signálu pro makléře, ne čtyřicetipólový bankovní formulář.",
+    "how_step1_title": "1) Odpovíte na několik cílených otázek",
+    "how_step1_body": "Typicky: co řešíte (koupě vs. refinancování), jak máte strukturovaný příjem (zaměstnání v ČR, OSVČ, zahraniční zaměstnavatel) a hrubé časování. Jedna otázka na obrazovku, ovládání palcem.",
+    "how_step2_title": "2) AI model odhadne pravděpodobnost schválení",
+    "how_step2_body": "Backend spustí automatizovaný skóring (dnes pravidla vhodná pro nahrazení LLM). Výstupem je procento — orientační „bankovní přívětivost“, ne slib. Konečné rozhodnutí je vždy na bance po kompletní dokumentaci.",
+    "how_step3_title": "3) Uvidíte semafor: zelená, žlutá, červená",
+    "how_step3_body": "Zelená znamená v průměru hladší cestu. Žlutá a červená často znamenají více dokumentace, rezidence nebo důkazů příjmu — ale nejsou to signály „končíme“. Mnoho dobrých případů začíná žlutě a po práci makléře skončí zeleně.",
+    "how_step4_title": "4) Žluté a červené leady se stále zpracovávají",
+    "how_step4_body": "Kontaktní formulář necháváme u všech barev schválně. Makléři často přidají nejvíc hodnoty v netypických situacích. Chcete-li lidský rozbor, nechte kontakt — tým makléřů třídí urgentnost a další dokumenty.",
+    "how_step5_title": "5) Volitelný kontakt → licencovaní hypoteční makléři",
+    "how_step5_body": "Pošlete-li jméno, e-mail a telefon, lead předáme partnerským hypotečním makléřům v ČR. Ozvou se ohledně reálných bank, sazeb a papírování — ideálně i ve zvoleném jazyce, pokud to jde.",
+    "how_step6_title": "6) Co neděláme",
+    "how_step6_body": "Nejsme banka, neukládáme obsah dotazníku po vyhodnocení a nenahrazujeme regulované poradenství. Výsledek berete jako orientaci, pak nechte profesionála projít skutečné dokumenty.",
+    "how_lead_note": "Procento + semafor jsou marketingově srozumitelné souhrny. Makléř může lead po KYC odmítnout — v úvěrech běžné."
   },
   "quiz": {
     "progress": "Krok {current} z {total}",
@@ -38,21 +50,31 @@
     "timeline_0": "Do 3 měsíců",
     "timeline_1": "3–12 měsíců",
     "timeline_2": "Ještě nevím",
-    "resultTitle": "Orientační výsledek",
-    "result_ok": "Podle zadaného profilu často dává smysl konzultace s hypotečním specialistou — banky se liší a detaily rozhodují.",
-    "result_review": "U vaší kombinace bývá často potřeba individuální posouzení (dokumentace, stabilita příjmu, rezidence). Specialistovi to pomůže nastavit správný postup.",
-    "result_contactTitle": "Chcete, aby se vám někdo ozval?",
+    "resultTitle": "Váš orientační výsledek",
+    "probabilityLabel": "Odhadovaná pravděpodobnost schválení",
+    "aiNotice": "Procento generuje automatický AI‑styl skóring podle vašich odpovědí. Nejde o rozhodnutí banky a u konkrétních dokumentů se může mýlit.",
+    "semaphoreLegend": "Signál semaforu",
+    "signal_green": "Zelená",
+    "signal_yellow": "Žlutá",
+    "signal_red": "Červená",
+    "resultIntro": "Model odhaduje orientační pravděpodobnost schválení {percent} %.",
+    "hint_green": "U podobných profilů často stačí konzultace s makléřem a předběžné bankovní kontroly bez zvláštních blokérů.",
+    "hint_yellow": "U podobných profilů bývá často potřeba více dokumentace nebo specializovaná cesta — s makléřem stále dobře řešitelné.",
+    "hint_red": "U podobných profilů může být standardní bankovní skóring náročnější — makléř může navrhnout strukturu, časování nebo jiné věřitele. U vážného zájmu má smysl zavolat i tak.",
+    "allSignalsLead": "Žlutá a červená neznamenají konec — pokud chcete lidský rozbor, kontakt pošlete i v těchto barvách.",
+    "result_contactTitle": "Chcete, aby se vám makléř ozval?",
     "result_contactHint": "Uložíme jen údaje níže — neukládáme odpovědi z dotazníku.",
     "name": "Jméno",
     "email": "E-mail",
     "phone": "Telefon",
     "submit": "Odeslat kontakt",
-    "disclaimer": "Toto není nabídka úvěru ani rozhodnutí banky. Slouží to k orientaci a předání kontaktu partnerovi."
+    "thankyou": "Děkujeme — makléř se ozve.",
+    "disclaimer": "Není to nabídka úvěru. Banka rozhodne po plném underwritingu. Výstup modelu je pravděpodobnostní a může se měnit s pravidly."
   },
   "privacy": {
     "title": "Ochrana osobních údajů",
-    "p1": "Zpracováváme jen to, co je pro službu nutné. Odpovědi z rychlé kontroly použijeme jen k okamžitému výpočtu výsledku a neukládáme je.",
-    "p2": "Pokud vyplníte kontaktní údaje, slouží k tomu, aby se vám ozval vybraný hypoteční makléř. Detaily zpracování doplňte s právníkem do plného znění.",
+    "p1": "Zpracováváme jen to, co je nutné. Odpovědi z rychlé kontroly použijeme jen k výpočtu výsledku (včetně AI pravděpodobnosti) a poté je neukládáme.",
+    "p2": "Kontaktní údaje slouží k tomu, aby se vám ozval vybraný hypoteční makléř. Plné právní znění doplňte s právníkem.",
     "back": "Zpět na úvod"
   }
 }
