@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { HypoOnlineLogo } from "@/components/hypo-online-logo";
 import { Link } from "@/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { HeroGraphic } from "@/components/hero-graphic";
@@ -83,10 +84,10 @@ export default async function HomePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <header className="mb-10 flex items-center justify-between gap-4">
-        <span className="text-sm font-semibold tracking-tight text-[var(--color-brand-800)]">
-          {t("brand")}
-        </span>
+      <header className="mb-5 flex items-center justify-between gap-4">
+        <Link href="/" className="block shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 rounded-md">
+          <HypoOnlineLogo className="h-8 w-auto sm:h-9" gradientId="hypoHeaderGrad" />
+        </Link>
         <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
           <LocaleSwitcher />
           <Link
@@ -97,6 +98,29 @@ export default async function HomePage({ params }: Props) {
           </Link>
         </div>
       </header>
+
+      <section
+        className="card-surface mb-8 border-2 border-[#c4b5fd]/80 bg-gradient-to-br from-[#faf5ff] via-white to-[#f5f3ff] p-4 shadow-md shadow-violet-900/10 sm:p-5 dark:border-violet-400/25 dark:from-[#2e1064]/40 dark:via-[var(--color-surface)] dark:to-[#1e1b4b]/35"
+        aria-label={copy.heroCta}
+      >
+        <Link
+          href="/quiz"
+          className="inline-flex w-full min-h-[52px] items-center justify-center rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#6d28d9] to-[#5b21b6] px-5 text-base font-bold tracking-tight text-white shadow-lg shadow-violet-600/35 transition hover:brightness-110 active:scale-[0.99] sm:min-h-[56px] sm:text-lg"
+        >
+          {copy.heroCta}
+        </Link>
+        <p className="mt-2 text-center text-xs leading-relaxed text-[var(--color-brand-900)] sm:text-sm dark:text-violet-100/90">
+          {copy.heroMicro}
+        </p>
+        <div className="mt-3 flex justify-center">
+          <a
+            href="#how"
+            className="text-sm font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+          >
+            {t("home.secondary")}
+          </a>
+        </div>
+      </section>
 
       <p className="mb-3 inline-flex w-fit rounded-full bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-brand-800)] ring-1 ring-[var(--color-border)]">
         {t("home.badge")}
@@ -129,24 +153,6 @@ export default async function HomePage({ params }: Props) {
           {t("home.trust3")}
         </li>
       </ul>
-
-      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Link
-          href="/quiz"
-          className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98]"
-        >
-          {copy.heroCta}
-        </Link>
-        <a
-          href="#how"
-          className="inline-flex min-h-[48px] items-center justify-center rounded-lg px-4 text-base font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline"
-        >
-          {t("home.secondary")}
-        </a>
-      </div>
-      <p className="mt-3 text-xs text-muted">
-        {copy.heroMicro}
-      </p>
 
       <section className="card-surface mt-10 p-5">
         <p className="text-xs font-semibold uppercase tracking-wide text-muted">
