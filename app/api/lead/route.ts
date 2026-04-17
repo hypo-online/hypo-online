@@ -7,6 +7,13 @@ type LeadBody = {
   locale: string;
   probability: number;
   signal: "green" | "yellow" | "red";
+  intent: "purchase" | "refinance" | "explore";
+  income: "employed" | "self" | "abroad";
+  timeline: "soon" | "mid" | "unknown";
+  consents: {
+    brokerContact: boolean;
+    analytics: boolean;
+  };
 };
 
 /**
@@ -48,6 +55,13 @@ function isLeadBody(value: unknown): value is LeadBody {
     typeof v.probability === "number" &&
     Number.isFinite(v.probability) &&
     (v.signal === "green" || v.signal === "yellow" || v.signal === "red") &&
+    (v.intent === "purchase" || v.intent === "refinance" || v.intent === "explore") &&
+    (v.income === "employed" || v.income === "self" || v.income === "abroad") &&
+    (v.timeline === "soon" || v.timeline === "mid" || v.timeline === "unknown") &&
+    typeof v.consents === "object" &&
+    v.consents !== null &&
+    (v.consents as Record<string, unknown>).brokerContact === true &&
+    typeof (v.consents as Record<string, unknown>).analytics === "boolean" &&
     v.name.trim().length > 0 &&
     v.email.includes("@")
   );
@@ -74,6 +88,10 @@ async function sendBrokerEmail(to: string, lead: LeadBody) {
         `Locale: ${lead.locale}`,
         `Pravděpodobnost (model): ${lead.probability}%`,
         `Semafor: ${lead.signal}`,
+        `Typ záměru: ${lead.intent}`,
+        `Typ příjmu: ${lead.income}`,
+        `Časový horizont: ${lead.timeline}`,
+        `Souhlas s analytikou: ${lead.consents.analytics ? "ano" : "ne"}`,
         "",
         "Dotazníkové odpovědi nejsou uložené v systému.",
       ].join("\n"),

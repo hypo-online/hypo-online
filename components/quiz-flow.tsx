@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import type { QuizPayload, Signal } from "@/lib/evaluation";
+import type { QuizPayload, ScoreFactor, Signal } from "@/lib/evaluation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Semaphore } from "@/components/semaphore";
 import { trackEvent } from "@/lib/analytics";
@@ -11,12 +11,18 @@ type Step = 0 | 1 | 2 | 3;
 
 export function QuizFlow({ locale }: { locale: string }) {
   const t = useTranslations("quiz");
+  const c = quizCopy(locale);
   const [step, setStep] = useState<Step>(0);
   const [intent, setIntent] = useState<QuizPayload["intent"]>("purchase");
   const [income, setIncome] = useState<QuizPayload["income"]>("employed");
   const [timeline, setTimeline] = useState<QuizPayload["timeline"]>("soon");
   const [probability, setProbability] = useState<number | null>(null);
   const [signal, setSignal] = useState<Signal | null>(null);
+  const [factors, setFactors] = useState<ScoreFactor[]>([]);
+  const [simulatedImprovement, setSimulatedImprovement] = useState<{
+    probability: number;
+    delta: number;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,14 +30,30 @@ export function QuizFlow({ locale }: { locale: string }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [leadDone, setLeadDone] = useState(false);
+  const [deleteDone, setDeleteDone] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [brokerConsent, setBrokerConsent] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState<boolean | null>(null);
 
   const totalSteps = 3;
   const progressStep = step < 3 ? step + 1 : 3;
+  const progressPercent = Math.round((progressStep / totalSteps) * 100);
 
   const payload = useMemo(
     (): QuizPayload => ({ intent, income, timeline }),
     [intent, income, timeline],
   );
+
+  useEffect(() => {
+    if (analyticsConsent === true) {
+      trackEvent("quiz_started", { locale });
+    }
+  }, [analyticsConsent, locale]);
+
+  function emitEvent(name: string, props?: Record<string, string | number>) {
+    if (analyticsConsent !== true) return;
+    trackEvent(name, props);
+  }
 
   async function runEvaluate() {
     setLoading(true);
@@ -43,13 +65,28 @@ export function QuizFlow({ locale }: { locale: string }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("evaluate failed");
-      const data = (await res.json()) as { probability: number; signal: Signal };
+      const data = (await res.json()) as {
+        probability: number;
+        signal: Signal;
+        factors: ScoreFactor[];
+        simulatedImprovement: { probability: number; delta: number };
+      };
       setProbability(data.probability);
       setSignal(data.signal);
+      setFactors(data.factors);
+      setSimulatedImprovement(data.simulatedImprovement);
       setStep(3);
-      trackEvent("step3_complete", { probability: data.probability, signal: data.signal });
+      emitEvent("quiz_completed", {
+        locale,
+        probability: data.probability,
+        signal: data.signal,
+      });
+      emitEvent("step3_complete", {
+        probability: data.probability,
+        signal: data.signal,
+      });
     } catch {
-      setError("Request failed");
+      setError(c.requestFailed);
     } finally {
       setLoading(false);
     }
@@ -57,6 +94,23 @@ export function QuizFlow({ locale }: { locale: string }) {
 
   async function submitLead() {
     if (probability === null || !signal) return;
+    setValidationError(null);
+
+    if (!name.trim() || !email.trim() || !phone.trim()) {
+      setValidationError(c.errFillContact);
+      return;
+    }
+
+    if (!email.includes("@")) {
+      setValidationError(c.errInvalidEmail);
+      return;
+    }
+
+    if (!brokerConsent) {
+      setValidationError(c.errNeedBrokerConsent);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -70,13 +124,43 @@ export function QuizFlow({ locale }: { locale: string }) {
           locale,
           probability,
           signal,
+          intent,
+          income,
+          timeline,
+          consents: {
+            brokerContact: brokerConsent,
+            analytics: analyticsConsent === true,
+          },
         }),
       });
       if (!res.ok) throw new Error("lead failed");
       setLeadDone(true);
-      trackEvent("lead_submit", { signal, probability });
+      emitEvent("lead_submit", { signal, probability });
     } catch {
-      setError("Request failed");
+      setError(c.requestFailed);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function requestDeletion() {
+    if (!email.trim() || !email.includes("@")) {
+      setValidationError(c.errDeleteEmail);
+      return;
+    }
+    setLoading(true);
+    setValidationError(null);
+    try {
+      const res = await fetch("/api/data-delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), locale }),
+      });
+      if (!res.ok) throw new Error("delete failed");
+      setDeleteDone(true);
+      emitEvent("data_delete_requested", { locale });
+    } catch {
+      setError(c.requestFailed);
     } finally {
       setLoading(false);
     }
@@ -93,47 +177,53 @@ export function QuizFlow({ locale }: { locale: string }) {
 
   const improvementTips =
     signal === "green"
-      ? [
-          locale === "cs"
-            ? "Připravte potvrzení o příjmu za poslední období."
-            : "Prepare proof of income for the latest period.",
-          locale === "cs"
-            ? "Zkontrolujte rezervu vlastních prostředků na vedlejší náklady."
-            : "Confirm own-funds reserve for side costs and fees.",
-        ]
+      ? c.tipsGreen
       : signal === "yellow"
-        ? [
-            locale === "cs"
-              ? "Doložte stabilitu příjmu (delší historie zaměstnání / podnikání)."
-              : "Document income stability (longer employment/business history).",
-            locale === "cs"
-              ? "Snižte stávající měsíční závazky před podáním."
-              : "Reduce existing monthly debt obligations before submission.",
-            locale === "cs"
-              ? "Připravte dokumenty k rezidenci/pobytu, pokud jste cizinec."
-              : "Prepare residency documents if you are a foreign applicant.",
-          ]
+        ? c.tipsYellow
         : signal === "red"
-          ? [
-              locale === "cs"
-                ? "Nechte makléře navrhnout alternativní strukturu (nižší LTV, spolužadatel)."
-                : "Ask a broker for alternative structuring (lower LTV, co-applicant).",
-              locale === "cs"
-                ? "Nejprve stabilizujte příjem a závazky, pak proveďte nový check."
-                : "Stabilize income and liabilities first, then re-run the check.",
-              locale === "cs"
-                ? "Vyplatí se řešit individuálně – i červené případy se často otočí."
-                : "Individual review matters — red cases can still be turned around.",
-            ]
+          ? c.tipsRed
           : [];
 
   return (
     <div className="flex flex-1 flex-col">
+      {analyticsConsent === null && (
+        <section className="mb-5 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
+          <p className="font-semibold text-[var(--color-brand-950)]">
+            {c.analyticsTitle}
+          </p>
+          <p className="mt-1 text-xs text-zinc-600">
+            {c.analyticsText}
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setAnalyticsConsent(true)}
+              className="h-10 rounded-lg bg-[var(--color-brand-600)] px-3 text-xs font-semibold text-white"
+            >
+              {c.allow}
+            </button>
+            <button
+              type="button"
+              onClick={() => setAnalyticsConsent(false)}
+              className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-700"
+            >
+              {c.withoutAnalytics}
+            </button>
+          </div>
+        </section>
+      )}
+
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-medium text-zinc-600">
           {t("progress", { current: progressStep, total: totalSteps })}
         </p>
         <LocaleSwitcher />
+      </div>
+      <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-zinc-200">
+        <div
+          className="h-full rounded-full bg-[var(--color-brand-600)] transition-all"
+          style={{ width: `${progressPercent}%` }}
+        />
       </div>
 
       {step === 0 && (
@@ -160,7 +250,7 @@ export function QuizFlow({ locale }: { locale: string }) {
             onBack={undefined}
             onNext={() => {
               setStep(1);
-              trackEvent("step1_complete", { intent });
+              emitEvent("step1_complete", { intent });
             }}
             nextLabel={t("next")}
           />
@@ -191,7 +281,7 @@ export function QuizFlow({ locale }: { locale: string }) {
             onBack={() => setStep(0)}
             onNext={() => {
               setStep(2);
-              trackEvent("step2_complete", { income });
+              emitEvent("step2_complete", { income });
             }}
             backLabel={t("back")}
             nextLabel={t("next")}
@@ -266,9 +356,22 @@ export function QuizFlow({ locale }: { locale: string }) {
           <p className="text-sm leading-relaxed text-zinc-700">{hint}</p>
           <div className="rounded-xl border border-zinc-200 bg-white p-4">
             <p className="text-sm font-semibold text-[var(--color-brand-950)]">
-              {locale === "cs"
-                ? "Jak zvýšit šanci na schválení"
-                : "How to improve approval odds"}
+              {c.whyScore}
+            </p>
+            <div className="mt-3 grid gap-2">
+              {factors.map((factor) => (
+                <FactorRow key={factor.key} factor={factor} locale={locale} />
+              ))}
+            </div>
+            {simulatedImprovement && (
+              <p className="mt-3 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-900">
+                {c.improveDelta(simulatedImprovement.delta, simulatedImprovement.probability)}
+              </p>
+            )}
+          </div>
+          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+            <p className="text-sm font-semibold text-[var(--color-brand-950)]">
+              {c.improveTitle}
             </p>
             <ul className="mt-2 space-y-1 text-sm text-zinc-700">
               {improvementTips.map((tip) => (
@@ -278,6 +381,20 @@ export function QuizFlow({ locale }: { locale: string }) {
           </div>
           <p className="text-sm font-medium text-[var(--color-brand-800)]">{t("allSignalsLead")}</p>
           <p className="text-xs leading-relaxed text-zinc-500">{t("disclaimer")}</p>
+
+          <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4">
+            <p className="text-sm font-semibold text-indigo-900">
+              {c.nextTitle}
+            </p>
+            <p className="mt-1 text-xs text-indigo-800">
+              {c.nextSla}
+            </p>
+            <ul className="mt-2 space-y-1 text-xs text-indigo-900">
+              <li>• {c.next1}</li>
+              <li>• {c.next2}</li>
+              <li>• {c.next3}</li>
+            </ul>
+          </div>
 
           {!leadDone ? (
             <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
@@ -317,22 +434,72 @@ export function QuizFlow({ locale }: { locale: string }) {
                     inputMode="tel"
                   />
                 </label>
+                <label className="flex items-start gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-700">
+                  <input
+                    type="checkbox"
+                    checked={brokerConsent}
+                    onChange={(e) => setBrokerConsent(e.target.checked)}
+                    className="mt-0.5"
+                  />
+                  <span>
+                    {c.brokerConsentText}
+                  </span>
+                </label>
+                <label className="flex items-start gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-700">
+                  <input
+                    type="checkbox"
+                    checked={analyticsConsent === true}
+                    onChange={(e) => setAnalyticsConsent(e.target.checked)}
+                    className="mt-0.5"
+                  />
+                  <span>
+                    {c.analyticsConsentText}
+                  </span>
+                </label>
               </div>
               <button
                 type="button"
                 onClick={submitLead}
-                disabled={loading || !name.trim() || !email.trim() || !phone.trim()}
+                disabled={loading}
                 className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-xl bg-[var(--color-brand-600)] text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {t("submit")}
               </button>
+              <p className="mt-2 text-xs text-zinc-500">
+                {c.retentionHelp}
+              </p>
             </div>
           ) : (
-            <p className="text-sm font-medium text-emerald-800">{t("thankyou")}</p>
+            <div className="space-y-3">
+              <p className="text-sm font-medium text-emerald-800">{t("thankyou")}</p>
+              <div className="rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700">
+                <p className="font-semibold text-[var(--color-brand-950)]">
+                  {c.assignedDesk}
+                </p>
+                <p className="mt-1 text-xs">
+                  {c.assignedDeskText}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={requestDeletion}
+                disabled={loading || deleteDone}
+                className="h-10 rounded-lg border border-zinc-300 bg-white px-3 text-xs font-semibold text-zinc-700 disabled:opacity-60"
+              >
+                {deleteDone
+                  ? c.deleteSent
+                  : c.deleteRequest}
+              </button>
+            </div>
           )}
         </section>
       )}
 
+      {validationError && (
+        <p className="mt-3 text-sm text-amber-700" role="alert">
+          {validationError}
+        </p>
+      )}
       {error && (
         <p className="mt-4 text-sm text-red-600" role="alert">
           {error}
@@ -340,6 +507,138 @@ export function QuizFlow({ locale }: { locale: string }) {
       )}
     </div>
   );
+}
+
+function FactorRow({
+  factor,
+  locale,
+}: {
+  factor: ScoreFactor;
+  locale: string;
+}) {
+  const c = quizCopy(locale);
+  const labels: Record<ScoreFactor["key"], string> = c.factorLabels;
+  const statusLabel =
+    factor.status === "good" ? c.statusGood : factor.status === "concern" ? c.statusConcern : c.statusBlocker;
+
+  const statusColor =
+    factor.status === "good"
+      ? "text-emerald-700 bg-emerald-50"
+      : factor.status === "concern"
+        ? "text-amber-700 bg-amber-50"
+        : "text-red-700 bg-red-50";
+
+  return (
+    <div className="flex items-center justify-between rounded-lg border border-zinc-100 px-3 py-2">
+      <div>
+        <p className="text-sm font-medium text-zinc-800">{labels[factor.key]}</p>
+        <p className="text-xs text-zinc-500">{factor.score}/10</p>
+      </div>
+      <span className={`rounded-full px-2 py-1 text-xs font-semibold ${statusColor}`}>
+        {statusLabel}
+      </span>
+    </div>
+  );
+}
+
+type QuizCopy = {
+  errFillContact: string; errInvalidEmail: string; errNeedBrokerConsent: string; errDeleteEmail: string;
+  requestFailed: string;
+  tipsGreen: string[]; tipsYellow: string[]; tipsRed: string[];
+  analyticsTitle: string; analyticsText: string; allow: string; withoutAnalytics: string;
+  whyScore: string; improveTitle: string; nextTitle: string; nextSla: string; next1: string; next2: string; next3: string;
+  brokerConsentText: string; analyticsConsentText: string; retentionHelp: string; assignedDesk: string; assignedDeskText: string; deleteSent: string; deleteRequest: string;
+  factorLabels: Record<ScoreFactor["key"], string>; statusGood: string; statusConcern: string; statusBlocker: string;
+  improveDelta: (delta: number, prob: number) => string;
+};
+
+function quizCopy(locale: string): QuizCopy {
+  const en: QuizCopy = {
+    errFillContact: "Please fill in name, email, and phone.",
+    errInvalidEmail: "Email format looks invalid.",
+    errNeedBrokerConsent: "Broker contact consent is required to submit.",
+    errDeleteEmail: "Enter a valid email for deletion request.",
+    requestFailed: "Request failed. Please try again.",
+    tipsGreen: ["Prepare proof of income for the latest period.", "Confirm own-funds reserve for side costs and fees."],
+    tipsYellow: ["Document income stability (longer employment/business history).", "Reduce existing monthly debt obligations before submission.", "Prepare residency documents if you are a foreign applicant."],
+    tipsRed: ["Ask a broker for alternative structuring (lower LTV, co-applicant).", "Stabilize income and liabilities first, then re-run the check.", "Individual review matters — red cases can still be turned around."],
+    analyticsTitle: "Anonymous analytics consent",
+    analyticsText: "Helps improve the questionnaire flow. No personal data is sent.",
+    allow: "Allow",
+    withoutAnalytics: "Use without analytics",
+    whyScore: "Why your score looks like this",
+    improveTitle: "How to improve approval odds",
+    nextTitle: "What happens after submit",
+    nextSla: "Broker team contacts you within 24 hours (Mon–Fri).",
+    next1: "Step 1: confirm basic details",
+    next2: "Step 2: document checklist",
+    next3: "Step 3: realistic financing path",
+    brokerConsentText: "I agree that my contact details may be shared with a mortgage broker for follow-up.",
+    analyticsConsentText: "I consent to anonymous analytics for service improvement.",
+    retentionHelp: "Contacts are retained only as needed for lead handling. You can request deletion below.",
+    assignedDesk: "Assigned desk",
+    assignedDeskText: "CZ/SK multilingual mortgage desk • SLA: contact within 24h (Mon–Fri)",
+    deleteSent: "Deletion request sent",
+    deleteRequest: "Request data deletion",
+    factorLabels: { incomeStrength: "Income strength", profileStability: "Profile stability", documentationReadiness: "Documentation readiness", timelineReadiness: "Timeline readiness" },
+    statusGood: "Good", statusConcern: "Concern", statusBlocker: "Blocker",
+    improveDelta: (d, p) => `If you improve weaker areas, your modeled score may move by +${d} points to ${p}%.`,
+  };
+  const cs: QuizCopy = {
+    ...en,
+    errFillContact: "Vyplňte jméno, e-mail a telefon.",
+    errInvalidEmail: "E-mail nevypadá správně.",
+    errNeedBrokerConsent: "Pro předání makléři je potřeba souhlas se zpracováním kontaktu.",
+    errDeleteEmail: "Pro výmaz zadejte platný e-mail.",
+    requestFailed: "Požadavek se nepodařilo dokončit. Zkuste to prosím znovu.",
+    analyticsTitle: "Souhlas s anonymní analytikou",
+    analyticsText: "Pomáhá nám zlepšovat kroky dotazníku. Neodesíláme osobní údaje.",
+    allow: "Souhlasím",
+    withoutAnalytics: "Použít bez analytiky",
+    whyScore: "Proč vyšlo právě toto skóre",
+    improveTitle: "Jak zvýšit šanci na schválení",
+    nextTitle: "Co bude následovat po odeslání",
+    nextSla: "Makléřský tým vás kontaktuje do 24 hodin (Po–Pá).",
+    next1: "Krok 1: potvrzení základních údajů",
+    next2: "Krok 2: seznam požadovaných dokumentů",
+    next3: "Krok 3: návrh realistického postupu",
+    brokerConsentText: "Souhlasím, aby moje kontaktní údaje byly předány hypotečnímu makléři za účelem kontaktování.",
+    analyticsConsentText: "Souhlasím s anonymní analytikou pro zlepšování služby.",
+    retentionHelp: "Kontakty držíme jen po nezbytnou dobu pro zpracování leadu. Žádost o výmaz můžete poslat níže.",
+    assignedDesk: "Přiřazený tým",
+    assignedDeskText: "CZ/SK multilingual mortgage desk • SLA: kontakt do 24h (Po–Pá)",
+    deleteSent: "Žádost o výmaz odeslána",
+    deleteRequest: "Požádat o výmaz dat",
+    factorLabels: { incomeStrength: "Síla příjmu", profileStability: "Stabilita profilu", documentationReadiness: "Připravenost dokumentace", timelineReadiness: "Časová připravenost" },
+    statusGood: "Dobré", statusConcern: "Pozor", statusBlocker: "Blokér",
+    improveDelta: (d, p) => `Pokud zlepšíte slabší oblasti, modelově se můžete posunout o +${d} bodů na ${p} %.`,
+  };
+  const de: QuizCopy = { ...en, analyticsTitle: "Einwilligung für anonyme Analytik", allow: "Zustimmen", withoutAnalytics: "Ohne Analytik fortfahren", whyScore: "Warum Ihr Ergebnis so ausfällt", improveTitle: "Wie Sie die Genehmigungschance verbessern", nextTitle: "Was nach dem Absenden passiert", assignedDesk: "Zugewiesenes Team", deleteRequest: "Datenlöschung anfordern", statusConcern: "Hinweis", statusBlocker: "Blocker", requestFailed: "Anfrage fehlgeschlagen. Bitte erneut versuchen." };
+  const pl: QuizCopy = { ...en, analyticsTitle: "Zgoda na anonimową analitykę", allow: "Zgadzam się", withoutAnalytics: "Kontynuuj bez analityki", whyScore: "Dlaczego wynik wygląda właśnie tak", improveTitle: "Jak zwiększyć szansę akceptacji", nextTitle: "Co stanie się po wysłaniu", assignedDesk: "Przydzielony zespół", deleteRequest: "Poproś o usunięcie danych", requestFailed: "Żądanie nie powiodło się. Spróbuj ponownie." };
+  const sk: QuizCopy = { ...en, analyticsTitle: "Súhlas s anonymnou analytikou", allow: "Súhlasím", withoutAnalytics: "Použiť bez analytiky", whyScore: "Prečo vyšlo toto skóre", improveTitle: "Ako zvýšiť šancu schválenia", nextTitle: "Čo nasleduje po odoslaní", assignedDesk: "Priradený tím", deleteRequest: "Požiadať o výmaz dát", requestFailed: "Požiadavka zlyhala. Skúste to znova." };
+  const uk: QuizCopy = { ...en, analyticsTitle: "Згода на анонімну аналітику", allow: "Дозволити", withoutAnalytics: "Продовжити без аналітики", whyScore: "Чому ваш результат саме такий", improveTitle: "Як підвищити шанси схвалення", nextTitle: "Що буде після надсилання", assignedDesk: "Призначена команда", deleteRequest: "Запросити видалення даних", deleteSent: "Запит на видалення надіслано", requestFailed: "Запит не виконано. Спробуйте ще раз." };
+  const ru: QuizCopy = { ...en, analyticsTitle: "Согласие на анонимную аналитику", allow: "Разрешить", withoutAnalytics: "Продолжить без аналитики", whyScore: "Почему получился такой результат", improveTitle: "Как повысить шансы одобрения", nextTitle: "Что будет после отправки", assignedDesk: "Назначенная команда", deleteRequest: "Запросить удаление данных", deleteSent: "Запрос на удаление отправлен", requestFailed: "Запрос не выполнен. Попробуйте снова." };
+  const vi: QuizCopy = { ...en, analyticsTitle: "Dong y phan tich an danh", allow: "Dong y", withoutAnalytics: "Tiep tuc khong dung phan tich", whyScore: "Vi sao diem cua ban nhu vay", improveTitle: "Cach tang kha nang duoc chap thuan", nextTitle: "Dieu gi xay ra sau khi gui", assignedDesk: "Nhom phu trach", deleteRequest: "Yeu cau xoa du lieu", deleteSent: "Da gui yeu cau xoa", requestFailed: "Yeu cau that bai. Vui long thu lai." };
+  const ro: QuizCopy = { ...en, analyticsTitle: "Consimtamant pentru analiza anonima", allow: "Permite", withoutAnalytics: "Continua fara analiza", whyScore: "De ce arata scorul asa", improveTitle: "Cum cresti sansele de aprobare", nextTitle: "Ce urmeaza dupa trimitere", assignedDesk: "Echipa alocata", deleteRequest: "Solicita stergerea datelor", deleteSent: "Cererea de stergere a fost trimisa", requestFailed: "Cererea a esuat. Incearca din nou." };
+  const es: QuizCopy = { ...en, analyticsTitle: "Consentimiento para analitica anonima", allow: "Permitir", withoutAnalytics: "Continuar sin analitica", whyScore: "Por que tu puntuacion es asi", improveTitle: "Como mejorar la probabilidad de aprobacion", nextTitle: "Que pasa despues del envio", assignedDesk: "Equipo asignado", deleteRequest: "Solicitar borrado de datos", deleteSent: "Solicitud de borrado enviada", requestFailed: "La solicitud fallo. Intentalo de nuevo." };
+  const fr: QuizCopy = { ...en, analyticsTitle: "Consentement a l'analyse anonyme", allow: "Autoriser", withoutAnalytics: "Continuer sans analyse", whyScore: "Pourquoi votre score est ainsi", improveTitle: "Comment augmenter vos chances d'approbation", nextTitle: "Ce qui se passe apres l'envoi", assignedDesk: "Equipe assignee", deleteRequest: "Demander la suppression des donnees", deleteSent: "Demande de suppression envoyee", requestFailed: "La requete a echoue. Reessayez." };
+  const it: QuizCopy = { ...en, analyticsTitle: "Consenso per analisi anonima", allow: "Consenti", withoutAnalytics: "Continua senza analisi", whyScore: "Perche il tuo punteggio e cosi", improveTitle: "Come aumentare le probabilita di approvazione", nextTitle: "Cosa succede dopo l'invio", assignedDesk: "Team assegnato", deleteRequest: "Richiedi cancellazione dati", deleteSent: "Richiesta di cancellazione inviata", requestFailed: "Richiesta non riuscita. Riprova." };
+  const tr: QuizCopy = { ...en, analyticsTitle: "Anonim analiz izni", allow: "Izin ver", withoutAnalytics: "Analiz olmadan devam et", whyScore: "Skorunuz neden boyle", improveTitle: "Onay olasiligini nasil artirirsiniz", nextTitle: "Gonderimden sonra ne olur", assignedDesk: "Atanan ekip", deleteRequest: "Veri silme talep et", deleteSent: "Silme talebi gonderildi", requestFailed: "Istek basarisiz oldu. Lutfen tekrar deneyin." };
+  const zh: QuizCopy = { ...en, analyticsTitle: "同意匿名分析", allow: "允许", withoutAnalytics: "不使用分析继续", whyScore: "为何得到这个分数", improveTitle: "如何提高获批概率", nextTitle: "提交后会发生什么", assignedDesk: "已分配团队", deleteRequest: "申请删除数据", deleteSent: "删除申请已发送", requestFailed: "请求失败，请重试。" };
+  if (locale === "cs") return cs;
+  if (locale === "de") return de;
+  if (locale === "pl") return pl;
+  if (locale === "sk") return sk;
+  if (locale === "uk") return uk;
+  if (locale === "ru") return ru;
+  if (locale === "vi") return vi;
+  if (locale === "ro") return ro;
+  if (locale === "es") return es;
+  if (locale === "fr") return fr;
+  if (locale === "it") return it;
+  if (locale === "tr") return tr;
+  if (locale === "zh") return zh;
+  return en;
 }
 
 function Option({

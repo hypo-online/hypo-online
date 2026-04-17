@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { evaluateMortgageFit, type QuizPayload } from "@/lib/evaluation";
+import {
+  evaluateMortgageFit,
+  type QuizPayload,
+} from "@/lib/evaluation";
 
 /**
  * Computes probability + semaphore in memory.
@@ -17,9 +20,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
-  const { probability, signal } = evaluateMortgageFit(body);
+  const { probability, signal, factors, simulatedImprovement } =
+    evaluateMortgageFit(body);
 
-  return NextResponse.json({ probability, signal });
+  return NextResponse.json({
+    probability,
+    signal,
+    factors,
+    simulatedImprovement,
+  });
 }
 
 function isQuizPayload(value: unknown): value is QuizPayload {
