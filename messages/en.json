@@ -71,6 +71,149 @@
     "thankyou": "Thank you — a broker will reach out.",
     "disclaimer": "Not a loan offer. Banks decide after full underwriting. The model output is probabilistic and may change as rules change."
   },
+  "quizV2": {
+    "err_step": "Please complete this step before continuing.",
+    "unit_mil": "mil. CZK",
+    "unit_kc_mo": "CZK / month",
+    "currency_ph": "e.g. EUR",
+    "A1": {
+      "title": "Are you planning a property purchase or a refinance?",
+      "hint": "Purchase = new mortgage on a property. Refinance = moving an existing mortgage to another lender.",
+      "purchase": "Property purchase (new loan)",
+      "refinance": "Refinance (transfer mortgage)"
+    },
+    "A2": {
+      "title": "Where is / will the property be located?",
+      "hint": "Prague centre is typically easiest for bank appetite; other regions may have stricter LTV.",
+      "prague-center": "Prague — central districts",
+      "prague-outskirts": "Prague — outer districts",
+      "central-bohemia": "Central Bohemia around Prague",
+      "other-city": "Another city in Czechia",
+      "abroad": "Outside Czechia"
+    },
+    "A3": {
+      "title": "What is the estimated property price?",
+      "hint": "Rough market value in millions of CZK."
+    },
+    "A4": {
+      "title": "How much own funds do you have for a down payment?",
+      "hint": "Higher equity usually improves conditions; many banks prefer ~20%+.",
+      "lt10": "Under 10% (high risk)",
+      "10-15": "10–15% (less ideal)",
+      "15-20": "15–20% (good)",
+      "gt20": "Over 20% (strong)"
+    },
+    "A5": {
+      "title": "When do you plan to buy / refinance?",
+      "hint": "Shorter horizons leave less time to prepare documents.",
+      "urgent": "Within 1–2 months",
+      "standard": "Within 3–6 months",
+      "future": "Within 6–12 months",
+      "research": "Just gathering information"
+    },
+    "B1": {
+      "title": "What is your main income?",
+      "hint": "Employment in CZ is usually the simplest path; self-employed and foreign income need more documentation.",
+      "employed-cz": "Employment in Czechia",
+      "osvcc-cz": "Trade licence / self-employed in Czechia",
+      "foreign-income": "Income from abroad (employment/business)",
+      "mixed": "Combination of several sources",
+      "no-income": "No income (e.g. student)"
+    },
+    "B2": {
+      "employed_title": "What is your monthly GROSS salary (CZK)?",
+      "employed_hint": "Gross = before tax and social/health deductions.",
+      "osvcc_title": "What is your average monthly income over the last year (CZK)?",
+      "osvcc_hint": "Banks often average the last two tax returns conservatively.",
+      "foreign_title": "Monthly income in CZK (after your rough conversion)",
+      "foreign_hint": "Foreign income usually needs contract and bank statement verification.",
+      "mixed_title": "Total approximate gross monthly income from all sources (CZK)",
+      "mixed_hint": "Sum everything you can document."
+    },
+    "B3": {
+      "employed_title": "How long have you worked for your current employer?",
+      "osvcc_title": "How long have you had your trade licence / self-employment?",
+      "foreign_title": "How long have you had this foreign income?",
+      "hint": "Banks often prefer more than 12 months with the same setup.",
+      "lt6": "Less than 6 months",
+      "6-12": "6–12 months",
+      "1-3": "1–3 years",
+      "gt3": "More than 3 years"
+    },
+    "B4": {
+      "title": "Do you have additional income sources?",
+      "hint": "Extra documented income can help affordability; passive income is often haircut by banks.",
+      "rental": "Rental income",
+      "investment": "Investment income (interest/dividends)",
+      "second-job": "Second job / side income",
+      "spouse": "Partner has income (joint application)",
+      "benefits": "Benefits / social support",
+      "none": "None — primary income only",
+      "amount_rental": "Monthly rental income (CZK)",
+      "amount_investment": "Monthly investment income (CZK)",
+      "amount_second": "Monthly side income (CZK)",
+      "amount_spouse": "Partner gross monthly income (CZK)",
+      "amount_benefits": "Monthly benefits (CZK)"
+    },
+    "B5": {
+      "title": "How stable do you expect your employability to be over the next 20–30 years?",
+      "hint": "Banks ask whether you can service the loan long-term.",
+      "low": "Very unstable",
+      "high": "Very stable"
+    },
+    "C1": {
+      "title": "Do you have instalment loans (car, personal, student)?",
+      "hint": "Higher existing payments reduce room for a mortgage (DTI).",
+      "none": "No instalment loans",
+      "yes": "Yes, I have instalment loans",
+      "types_title": "Which types?",
+      "type_auto": "Car loan / leasing",
+      "type_consumer": "Consumer loan",
+      "type_student": "Student loan",
+      "type_other": "Other",
+      "monthly": "Monthly payment (CZK)",
+      "remaining": "Remaining months (optional)"
+    },
+    "C2": {
+      "title": "Credit cards — what is your situation?",
+      "hint": "High utilisation hurts scoring; paying in full each month is better.",
+      "none": "No credit cards",
+      "undebt": "I have cards and pay them off monthly",
+      "debt": "I carry balances on cards",
+      "cc_debt": "Total card debt (CZK)",
+      "cc_limit": "Total card limit (CZK)"
+    },
+    "C3": {
+      "title": "Other monthly financial obligations?",
+      "hint": "Alimony counts fully in affordability; enforcement is a serious issue.",
+      "alimony": "Alimony / child support",
+      "family-loan": "Loan from family/friends",
+      "medical": "Medical debt instalments",
+      "court": "Court judgement / enforcement",
+      "rent-stable": "Rent (not a loan)",
+      "alimony_amt": "Monthly alimony (CZK)",
+      "family_amt": "Monthly repayment (CZK)",
+      "medical_amt": "Monthly repayment (CZK)",
+      "court_note": "Brief note (optional)"
+    },
+    "C4": {
+      "title": "Any past payment issues?",
+      "hint": "Czech banks check credit bureaus; very recent problems weigh heavily.",
+      "clean": "No — always on time",
+      "resolved": "1–2 late payments, resolved",
+      "serious": "Serious issues (default, insolvency, enforcement)",
+      "unknown": "Prefer not to say"
+    },
+    "C5": {
+      "title": "What is your status in Czechia?",
+      "hint": "Permanent residence is usually simplest; thin residency adds documentation and risk.",
+      "czech-citizen": "Czech citizen / permanent residence",
+      "longterm": "Long-term stay / work permit (roughly 6–12+ months)",
+      "temporary": "Short-term stay (<3 months)",
+      "eu-unregistered": "EU citizen without registration",
+      "illegal": "Third-country national without permission"
+    }
+  },
   "privacy": {
     "title": "Privacy",
     "p1": "We process only what the service needs. Answers from the quick check are used only to compute your result (including the AI-style probability) and are not stored afterwards.",

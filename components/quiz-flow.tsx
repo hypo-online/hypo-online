@@ -2,20 +2,71 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import type { QuizPayload, ScoreFactor, Signal } from "@/lib/evaluation";
+import type { ScoreFactor, Signal } from "@/lib/evaluation";
+import { EnhancedQuizPanel } from "@/components/enhanced-quiz-panel";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Semaphore } from "@/components/semaphore";
 import { trackEvent } from "@/lib/analytics";
+import { deriveCoarseFromEnhanced } from "@/lib/questionnaire/derive-coarse";
+import {
+  clampActiveId,
+  isLastQuestion,
+  nextQuestionId,
+  prevQuestionId,
+} from "@/lib/questionnaire/navigation";
+import { canAdvanceStep } from "@/lib/questionnaire/step-validate";
+import type {
+  B1Employment,
+  EnhancedQuizAnswers,
+  QuestionId,
+} from "@/lib/questionnaire/types";
+import { validateEnhancedAnswers } from "@/lib/questionnaire/validate";
+import { visibleQuestionIds } from "@/lib/questionnaire/visibility";
 
-type Step = 0 | 1 | 2 | 3;
+function initialAnswers(): EnhancedQuizAnswers {
+  return {
+    "C1-loans": { has: "none", loans: [] },
+    "C3-other": { selected: [] },
+    "B4-secondary": {},
+    "B5-confidence": 50,
+    "A3-price": 5,
+  };
+}
+
+function mergeAnswers(
+  prev: EnhancedQuizAnswers,
+  patch: Partial<EnhancedQuizAnswers>,
+): EnhancedQuizAnswers {
+  const next = { ...prev, ...patch };
+  if (patch["B1-employment"] !== undefined) {
+    return applyB1Branch(next, patch["B1-employment"]);
+  }
+  return next;
+}
+
+function applyB1Branch(
+  merged: EnhancedQuizAnswers,
+  b1: B1Employment,
+): EnhancedQuizAnswers {
+  const out: EnhancedQuizAnswers = { ...merged, "B1-employment": b1 };
+  if (b1 !== "foreign-income") delete out["C5-residency"];
+  if (b1 === "no-income") {
+    delete out["B2-income"];
+    delete out["B3-duration"];
+    delete out["B2-currency"];
+  }
+  return out;
+}
 
 export function QuizFlow({ locale }: { locale: string }) {
   const t = useTranslations("quiz");
+  const t2 = useTranslations("quizV2");
   const c = quizCopy(locale);
-  const [step, setStep] = useState<Step>(0);
-  const [intent, setIntent] = useState<QuizPayload["intent"]>("purchase");
-  const [income, setIncome] = useState<QuizPayload["income"]>("employed");
-  const [timeline, setTimeline] = useState<QuizPayload["timeline"]>("soon");
+
+  const [answers, setAnswers] = useState<EnhancedQuizAnswers>(initialAnswers);
+  const [activeId, setActiveId] = useState<QuestionId>("A1-type");
+  const [phase, setPhase] = useState<"quiz" | "result">("quiz");
+
   const [probability, setProbability] = useState<number | null>(null);
   const [signal, setSignal] = useState<Signal | null>(null);
   const [factors, setFactors] = useState<ScoreFactor[]>([]);
@@ -35,14 +86,26 @@ export function QuizFlow({ locale }: { locale: string }) {
   const [brokerConsent, setBrokerConsent] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] = useState<boolean | null>(null);
 
-  const totalSteps = 3;
-  const progressStep = step < 3 ? step + 1 : 3;
+  const leadCoarse = useMemo(() => deriveCoarseFromEnhanced(answers), [answers]);
+
+  const visibleIds = useMemo(
+    () => visibleQuestionIds(answers),
+    [answers],
+  );
+
+  useEffect(() => {
+    const clamped = clampActiveId(activeId, answers);
+    if (clamped !== activeId) setActiveId(clamped);
+  }, [answers, activeId]);
+
+  const totalSteps = Math.max(1, visibleIds.length);
+  const stepIndex = Math.max(0, visibleIds.indexOf(activeId));
+  const progressStep = phase === "quiz" ? stepIndex + 1 : totalSteps;
   const progressPercent = Math.round((progressStep / totalSteps) * 100);
 
-  const payload = useMemo(
-    (): QuizPayload => ({ intent, income, timeline }),
-    [intent, income, timeline],
-  );
+  function patchAnswer(patch: Partial<EnhancedQuizAnswers>) {
+    setAnswers((prev) => mergeAnswers(prev, patch));
+  }
 
   useEffect(() => {
     if (analyticsConsent === true) {
@@ -55,14 +118,39 @@ export function QuizFlow({ locale }: { locale: string }) {
     trackEvent(name, props);
   }
 
+  function goNext() {
+    setValidationError(null);
+    if (!canAdvanceStep(activeId, answers)) {
+      setValidationError(t2("err_step"));
+      return;
+    }
+    if (isLastQuestion(activeId, answers)) {
+      void runEvaluate();
+      return;
+    }
+    const n = nextQuestionId(activeId, answers);
+    if (n) setActiveId(n);
+  }
+
+  function goBack() {
+    setValidationError(null);
+    const p = prevQuestionId(activeId, answers);
+    if (p) setActiveId(p);
+  }
+
   async function runEvaluate() {
+    const verr = validateEnhancedAnswers(answers);
+    if (verr) {
+      setValidationError(t2("err_step"));
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       const res = await fetch("/api/evaluate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ v: 2, answers }),
       });
       if (!res.ok) throw new Error("evaluate failed");
       const data = (await res.json()) as {
@@ -75,7 +163,7 @@ export function QuizFlow({ locale }: { locale: string }) {
       setSignal(data.signal);
       setFactors(data.factors);
       setSimulatedImprovement(data.simulatedImprovement);
-      setStep(3);
+      setPhase("result");
       emitEvent("quiz_completed", {
         locale,
         probability: data.probability,
@@ -124,9 +212,9 @@ export function QuizFlow({ locale }: { locale: string }) {
           locale,
           probability,
           signal,
-          intent,
-          income,
-          timeline,
+          intent: leadCoarse.intent,
+          income: leadCoarse.income,
+          timeline: leadCoarse.timeline,
           consents: {
             brokerContact: brokerConsent,
             analytics: analyticsConsent === true,
@@ -226,100 +314,24 @@ export function QuizFlow({ locale }: { locale: string }) {
         />
       </div>
 
-      {step === 0 && (
-        <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
-            {t("intent")}
-          </h2>
-          <Option
-            selected={intent === "purchase"}
-            onSelect={() => setIntent("purchase")}
-            label={t("intent_a")}
-          />
-          <Option
-            selected={intent === "refinance"}
-            onSelect={() => setIntent("refinance")}
-            label={t("intent_b")}
-          />
-          <Option
-            selected={intent === "explore"}
-            onSelect={() => setIntent("explore")}
-            label={t("intent_c")}
+      {phase === "quiz" && (
+        <div className="flex flex-1 flex-col">
+          <EnhancedQuizPanel
+            activeId={activeId}
+            answers={answers}
+            onPatch={patchAnswer}
           />
           <NavRow
-            onBack={undefined}
-            onNext={() => {
-              setStep(1);
-              emitEvent("step1_complete", { intent });
-            }}
-            nextLabel={t("next")}
-          />
-        </section>
-      )}
-
-      {step === 1 && (
-        <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
-            {t("income")}
-          </h2>
-          <Option
-            selected={income === "employed"}
-            onSelect={() => setIncome("employed")}
-            label={t("income_employed")}
-          />
-          <Option
-            selected={income === "self"}
-            onSelect={() => setIncome("self")}
-            label={t("income_self")}
-          />
-          <Option
-            selected={income === "abroad"}
-            onSelect={() => setIncome("abroad")}
-            label={t("income_abroad")}
-          />
-          <NavRow
-            onBack={() => setStep(0)}
-            onNext={() => {
-              setStep(2);
-              emitEvent("step2_complete", { income });
-            }}
-            backLabel={t("back")}
-            nextLabel={t("next")}
-          />
-        </section>
-      )}
-
-      {step === 2 && (
-        <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
-            {t("timeline")}
-          </h2>
-          <Option
-            selected={timeline === "soon"}
-            onSelect={() => setTimeline("soon")}
-            label={t("timeline_0")}
-          />
-          <Option
-            selected={timeline === "mid"}
-            onSelect={() => setTimeline("mid")}
-            label={t("timeline_1")}
-          />
-          <Option
-            selected={timeline === "unknown"}
-            onSelect={() => setTimeline("unknown")}
-            label={t("timeline_2")}
-          />
-          <NavRow
-            onBack={() => setStep(1)}
-            onNext={runEvaluate}
+            onBack={prevQuestionId(activeId, answers) ? goBack : undefined}
+            onNext={goNext}
             backLabel={t("back")}
             nextLabel={t("next")}
             busy={loading}
           />
-        </section>
+        </div>
       )}
 
-      {step === 3 && probability !== null && signal && (
+      {phase === "result" && probability !== null && signal && (
         <section className="flex flex-1 flex-col gap-6">
           <div>
             <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
@@ -1035,30 +1047,6 @@ function quizCopy(locale: string): QuizCopy {
   if (locale === "tr") return tr;
   if (locale === "zh") return zh;
   return en;
-}
-
-function Option({
-  label,
-  selected,
-  onSelect,
-}: {
-  label: string;
-  selected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={`flex min-h-[48px] w-full rounded-lg border px-4 py-4 text-left text-[15px] font-medium transition ${
-        selected
-          ? "border-[var(--color-brand-600)] bg-[var(--color-brand-600)] text-white"
-          : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
-      }`}
-    >
-      {label}
-    </button>
-  );
 }
 
 function NavRow({

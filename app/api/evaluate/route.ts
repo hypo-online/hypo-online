@@ -3,6 +3,9 @@ import {
   evaluateMortgageFit,
   type QuizPayload,
 } from "@/lib/evaluation";
+import { evaluateEnhancedMortgageFit } from "@/lib/enhanced-evaluation";
+import type { EnhancedQuizAnswers } from "@/lib/questionnaire/types";
+import { validateEnhancedAnswers } from "@/lib/questionnaire/validate";
 
 /**
  * Computes probability + semaphore in memory.
@@ -14,6 +17,21 @@ export async function POST(request: Request) {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  if (isEnhancedBody(body)) {
+    const err = validateEnhancedAnswers(body.answers);
+    if (err) {
+      return NextResponse.json({ error: "Invalid payload", code: err }, { status: 400 });
+    }
+    const { probability, signal, factors, simulatedImprovement } =
+      evaluateEnhancedMortgageFit(body.answers);
+    return NextResponse.json({
+      probability,
+      signal,
+      factors,
+      simulatedImprovement,
+    });
   }
 
   if (!isQuizPayload(body)) {
@@ -29,6 +47,14 @@ export async function POST(request: Request) {
     factors,
     simulatedImprovement,
   });
+}
+
+function isEnhancedBody(
+  value: unknown,
+): value is { v: 2; answers: EnhancedQuizAnswers } {
+  if (!value || typeof value !== "object") return false;
+  const v = value as Record<string, unknown>;
+  return v.v === 2 && typeof v.answers === "object" && v.answers !== null;
 }
 
 function isQuizPayload(value: unknown): value is QuizPayload {

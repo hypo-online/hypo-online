@@ -71,6 +71,149 @@
     "thankyou": "Děkujeme — makléř se ozve.",
     "disclaimer": "Není to nabídka úvěru. Banka rozhodne po plném underwritingu. Výstup modelu je pravděpodobnostní a může se měnit s pravidly."
   },
+  "quizV2": {
+    "err_step": "Doplňte prosím povinné údaje v tomto kroku.",
+    "unit_mil": "mil. Kč",
+    "unit_kc_mo": "Kč / měsíc",
+    "currency_ph": "např. EUR",
+    "A1": {
+      "title": "Máte v plánu koupi nemovitosti nebo refinancování?",
+      "hint": "Koupi = první hypotéka na nový majetek. Refinancování = převedení stávající hypotéky na jinou banku.",
+      "purchase": "Koupi nemovitosti (nový úvěr)",
+      "refinance": "Refinancování (převod hypotéky)"
+    },
+    "A2": {
+      "title": "Kde se nachází / bude nacházet nemovitost?",
+      "hint": "Pražské centrum má obvykle nejnižší riziko. Ostatní regiony mohou mít přísnější LTV.",
+      "prague-center": "Praha, střed",
+      "prague-outskirts": "Praha, okrajové části",
+      "central-bohemia": "Středočeský kraj kolem Prahy",
+      "other-city": "Jiné město v ČR",
+      "abroad": "Mimo ČR"
+    },
+    "A3": {
+      "title": "Jaká je odhadovaná cena nemovitosti?",
+      "hint": "Orientační tržní hodnota v milionech Kč."
+    },
+    "A4": {
+      "title": "Jaké máte disponibilní prostředky na akonto?",
+      "hint": "Vyšší akonto = lepší podmínky. Banky často preferují cca 20 %+.",
+      "lt10": "Méně než 10 % (vysoké riziko)",
+      "10-15": "10–15 % (méně ideální)",
+      "15-20": "15–20 % (dobré)",
+      "gt20": "Více než 20 % (silné)"
+    },
+    "A5": {
+      "title": "Kdy plánujete koupi/refinancování?",
+      "hint": "Kratší horizont = méně času na přípravu dokumentů.",
+      "urgent": "Během 1–2 měsíců",
+      "standard": "Během 3–6 měsíců",
+      "future": "Během 6–12 měsíců",
+      "research": "Jenom sbíráme informace"
+    },
+    "B1": {
+      "title": "Jaký je váš hlavní příjem?",
+      "hint": "Zaměstnání v ČR má nejjednodušší cestu. OSVČ a zahraniční příjem vyžadují více dokumentace.",
+      "employed-cz": "Zaměstnání v ČR",
+      "osvcc-cz": "Živnost / OSVČ v ČR",
+      "foreign-income": "Příjem ze zahraničí",
+      "mixed": "Kombinace více zdrojů",
+      "no-income": "Bez příjmu (např. student)"
+    },
+    "B2": {
+      "employed_title": "Jaký je váš měsíční HRUBÝ plat (Kč)?",
+      "employed_hint": "Hrubý = před daní a odvody.",
+      "osvcc_title": "Jaký je váš průměrný měsíční příjem za poslední rok (Kč)?",
+      "osvcc_hint": "Banky často berou konzervativně poslední daňová přiznání.",
+      "foreign_title": "Měsíční příjem v Kč (po přepočtu)",
+      "foreign_hint": "Zahraniční příjem vyžaduje ověření smlouvy a výpisů.",
+      "mixed_title": "Celkový orientační hrubý měsíční příjem ze všech zdrojů (Kč)",
+      "mixed_hint": "Sečtěte vše, co umíte doložit."
+    },
+    "B3": {
+      "employed_title": "Jak dlouho pracujete u současného zaměstnavatele?",
+      "osvcc_title": "Jak dlouho máte živnost / OSVČ?",
+      "foreign_title": "Jak dlouho máte tento zahraniční příjem?",
+      "hint": "Banky často preferují déle než 12 měsíců u stejného režimu.",
+      "lt6": "Méně než 6 měsíců",
+      "6-12": "6–12 měsíců",
+      "1-3": "1–3 roky",
+      "gt3": "Více než 3 roky"
+    },
+    "B4": {
+      "title": "Máte další zdroje příjmu?",
+      "hint": "Doložitelné další příjmy mohou pomoci; pasivní příjmy banky často krátí.",
+      "rental": "Pronájem nemovitosti",
+      "investment": "Investiční příjmy",
+      "second-job": "Vedlejší výdělek",
+      "spouse": "Partner má příjem (společná žádost)",
+      "benefits": "Dávky / podpora",
+      "none": "Žádné — jen hlavní příjem",
+      "amount_rental": "Měsíční pronájem (Kč)",
+      "amount_investment": "Měsíční investiční příjem (Kč)",
+      "amount_second": "Měsíční vedlejší příjem (Kč)",
+      "amount_spouse": "Hrubý měsíční příjem partnera (Kč)",
+      "amount_benefits": "Měsíční dávky (Kč)"
+    },
+    "B5": {
+      "title": "Jak stabilní vidíte svou uplatnitelnost v příštích 20–30 letech?",
+      "hint": "Banky řeší, zda zvládnete splátky dlouhodobě.",
+      "low": "Velmi nestabilní",
+      "high": "Velmi stabilní"
+    },
+    "C1": {
+      "title": "Máte splátkové půjčky (auto, spotřebitelský, studentský)?",
+      "hint": "Čím vyšší stávající splátky, tím méně místa na hypotéku (DTI).",
+      "none": "Žádné splátkové půjčky",
+      "yes": "Ano, mám splátkové půjčky",
+      "types_title": "Jaké typy?",
+      "type_auto": "Úvěr/leasing na auto",
+      "type_consumer": "Spotřebitelský úvěr",
+      "type_student": "Studentský úvěr",
+      "type_other": "Jiné",
+      "monthly": "Měsíční splátka (Kč)",
+      "remaining": "Zbývající měsíce (volitelné)"
+    },
+    "C2": {
+      "title": "Kreditní karty — jaká je situace?",
+      "hint": "Vysoká čerpání limitu škodí skóre; ideálně splácet celé měsíčně.",
+      "none": "Nemám kreditní karty",
+      "undebt": "Mám karty a splácím je včas v plné výši",
+      "debt": "Mám dluhy na kartách",
+      "cc_debt": "Celkový dluh na kartách (Kč)",
+      "cc_limit": "Celkový limit (Kč)"
+    },
+    "C3": {
+      "title": "Další měsíční závazky?",
+      "hint": "Výživné se počítá plně; exekuce je vážný problém.",
+      "alimony": "Výživné / alimenty",
+      "family-loan": "Půjčka od rodiny/přátel",
+      "medical": "Splátky zdravotních dluhů",
+      "court": "Soudní rozhodnutí / exekuce",
+      "rent-stable": "Nájem (ne úvěr)",
+      "alimony_amt": "Měsíční výživné (Kč)",
+      "family_amt": "Měsíční splátka (Kč)",
+      "medical_amt": "Měsíční splátka (Kč)",
+      "court_note": "Stručná poznámka (volitelné)"
+    },
+    "C4": {
+      "title": "Měl/a jste problémy se splátkami v minulosti?",
+      "hint": "České banky kontrolují registry; velmi čerstvé problémy váží hodně.",
+      "clean": "Ne — vždy včas",
+      "resolved": "1–2 opožděné platby, vyřešeno",
+      "serious": "Vážné problémy (default, insolvence, exekuce)",
+      "unknown": "Nechci uvádět"
+    },
+    "C5": {
+      "title": "Jaký je váš status v ČR?",
+      "hint": "Trvalý pobyt je obvykle nejjednodušší; slabší status zvyšuje riziko a papírování.",
+      "czech-citizen": "Český občan / trvalý pobyt",
+      "longterm": "Dlouhodobý pobyt / pracovní povolení",
+      "temporary": "Krátkodobý pobyt (<3 měsíce)",
+      "eu-unregistered": "Občan EU bez registrace",
+      "illegal": "Občan třetí země bez povolení"
+    }
+  },
   "privacy": {
     "title": "Ochrana osobních údajů",
     "p1": "Zpracováváme jen to, co je nutné. Odpovědi z rychlé kontroly použijeme jen k výpočtu výsledku (včetně AI pravděpodobnosti) a poté je neukládáme.",
