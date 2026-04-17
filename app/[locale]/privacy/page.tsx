@@ -17,21 +17,21 @@ export default async function PrivacyPage({ params }: Props) {
   const copy = privacyCopy(locale);
 
   return (
-    <div className="mx-auto max-w-lg px-4 pb-16 pt-10 sm:max-w-2xl sm:px-6">
+    <div className="mx-auto max-w-lg px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
       <Link
         href="/"
         className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
       >
         {t("back")}
       </Link>
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-[var(--color-brand-950)]">
+      <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {t("title")}
       </h1>
-      <div className="prose prose-zinc mt-6 max-w-none space-y-4 text-sm leading-relaxed">
+      <div className="prose prose-zinc mt-6 max-w-none space-y-4 text-[15px] leading-relaxed text-body">
         <p>{t("p1")}</p>
         <p>{t("p2")}</p>
       </div>
-      <section className="mt-8 rounded-2xl bg-white p-6 text-sm leading-relaxed text-zinc-700 shadow-sm ring-1 ring-black/5">
+      <section className="card-surface mt-8 p-6 text-sm leading-relaxed text-body">
         <h2 className="text-base font-semibold text-[var(--color-brand-950)]">
           {copy.title}
         </h2>

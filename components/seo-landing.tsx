@@ -9,7 +9,7 @@ type SeoLandingProps = {
 
 export function SeoLanding({ title, intro, bullets, ctaLabel }: SeoLandingProps) {
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6">
+    <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-8">
       <Link
         href="/"
         className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
@@ -17,20 +17,20 @@ export function SeoLanding({ title, intro, bullets, ctaLabel }: SeoLandingProps)
         ← hypo.online
       </Link>
 
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-[var(--color-brand-950)]">
+      <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {title}
       </h1>
-      <p className="mt-4 text-base leading-relaxed text-zinc-700">{intro}</p>
+      <p className="mt-4 text-[15px] leading-relaxed text-body">{intro}</p>
 
-      <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <ul className="space-y-2 text-sm text-zinc-700">
+      <div className="card-surface mt-8 p-6">
+        <ul className="space-y-2 text-sm text-body">
           {bullets.map((item) => (
             <li key={item}>• {item}</li>
           ))}
         </ul>
         <Link
           href="/quiz"
-          className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)]"
+          className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98] sm:w-auto"
         >
           {ctaLabel}
         </Link>

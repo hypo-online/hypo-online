@@ -17,7 +17,7 @@ export default async function HypotekaKalkulackaPage({ params }: Props) {
   setRequestLocale(locale);
   const copy = calcCopy(locale);
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6">
+    <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-8">
       <Link
         href="/"
         className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
@@ -25,18 +25,18 @@ export default async function HypotekaKalkulackaPage({ params }: Props) {
         ← hypo.online
       </Link>
 
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-[var(--color-brand-950)]">
+      <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {copy.h1}
       </h1>
-      <p className="mt-4 text-base leading-relaxed text-zinc-700">
+      <p className="mt-4 text-[15px] leading-relaxed text-body">
         {copy.p1}
       </p>
 
-      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 p-6">
+        <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
           {copy.s1Title}
         </h2>
-        <ul className="mt-3 space-y-2 text-sm text-zinc-700">
+        <ul className="mt-3 space-y-2 text-sm text-body">
           <li>
             •{" "}
             {copy.s1b1}
@@ -52,39 +52,39 @@ export default async function HypotekaKalkulackaPage({ params }: Props) {
         </ul>
       </section>
 
-      <section className="mt-8 space-y-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 space-y-4 p-6">
+        <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
           {copy.s2Title}
         </h2>
-        <p className="text-sm leading-relaxed text-zinc-700">
+        <p className="text-sm leading-relaxed text-body">
           {copy.s2p1}
         </p>
-        <p className="text-sm leading-relaxed text-zinc-700">
+        <p className="text-sm leading-relaxed text-body">
           {copy.s2p2}
         </p>
       </section>
 
-      <section className="mt-8 space-y-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 space-y-4 p-6">
+        <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
           {copy.s3Title}
         </h2>
-        <ul className="space-y-2 text-sm text-zinc-700">
+        <ul className="space-y-2 text-sm text-body">
           <li>• {copy.s3b1}</li>
           <li>• {copy.s3b2}</li>
           <li>• {copy.s3b3}</li>
         </ul>
       </section>
 
-      <div className="mt-8 rounded-2xl finance-panel p-6">
-        <h2 className="text-xl font-semibold">
+      <div className="mt-8 rounded-xl finance-panel p-6">
+        <h2 className="text-xl font-semibold text-white">
           {copy.ctaTitle}
         </h2>
-        <p className="mt-2 text-sm text-indigo-100">
+        <p className="mt-2 text-sm text-white/90">
           {copy.ctaText}
         </p>
         <Link
           href="/quiz"
-          className="mt-4 inline-flex h-11 items-center justify-center rounded-xl bg-white px-5 text-sm font-semibold text-[var(--color-brand-900)]"
+          className="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-white px-5 text-sm font-semibold text-[#052e4d] transition hover:bg-white/95 active:scale-[0.98]"
         >
           {copy.ctaButton}
         </Link>

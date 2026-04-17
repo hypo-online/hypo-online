@@ -5,7 +5,7 @@ type AiFlowGraphicProps = {
 export function AiFlowGraphic({ locale }: AiFlowGraphicProps) {
   const c = aiFlowCopy(locale);
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+    <div className="card-surface p-4">
       <div className="grid gap-2 sm:grid-cols-3">
         <Node title={c.inputTitle} text={c.inputText} />
         <Node title={c.scoringTitle} text={c.scoringText} />
@@ -17,9 +17,9 @@ export function AiFlowGraphic({ locale }: AiFlowGraphicProps) {
 
 function Node({ title, text }: { title: string; text: string }) {
   return (
-    <div className="relative rounded-xl border border-zinc-200 bg-zinc-50 p-3">
-      <p className="text-sm font-semibold text-[var(--color-brand-900)]">{title}</p>
-      <p className="mt-1 text-xs text-zinc-600">{text}</p>
+    <div className="relative rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3">
+      <p className="text-sm font-semibold text-[var(--color-brand-950)]">{title}</p>
+      <p className="mt-1 text-xs text-body">{text}</p>
     </div>
   );
 }

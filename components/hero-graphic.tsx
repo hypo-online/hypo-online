@@ -1,28 +1,24 @@
+/** Visual-only snapshot: no copy — avoids i18n drift; colors follow semantic signal tokens */
 export function HeroGraphic() {
   return (
-    <div className="finance-panel relative overflow-hidden rounded-2xl p-4 shadow-lg ring-1 ring-black/10">
-      <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-indigo-400/20 blur-2xl" />
-      <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-blue-300/20 blur-2xl" />
-
-      <p className="text-xs font-semibold uppercase tracking-wide text-indigo-200">
-        Approval Snapshot
-      </p>
-      <div className="mt-3 grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-white/10 p-3">
-          <p className="text-[11px] text-indigo-100">Probability</p>
-          <p className="mt-1 text-2xl font-bold">71%</p>
+    <div className="card-surface p-5">
+      <div className="flex flex-wrap items-center gap-5">
+        <div
+          className="flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-signal-green)] bg-[var(--color-signal-green-bg)] text-2xl font-semibold tabular-nums text-[var(--color-signal-green)]"
+          aria-hidden
+        >
+          71%
         </div>
-        <div className="rounded-xl bg-white/10 p-3">
-          <p className="text-[11px] text-indigo-100">Signal</p>
-          <p className="mt-1 text-2xl font-bold text-emerald-300">GREEN</p>
+        <div className="min-w-0 flex-1 space-y-3">
+          <div className="flex gap-2" aria-hidden>
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-signal-red)] opacity-35" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-signal-amber)] opacity-35" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-signal-green)]" />
+          </div>
+          <div className="h-px w-full bg-[var(--color-border)]" />
+          <div className="h-2 w-3/4 max-w-[12rem] rounded bg-[var(--color-border)]" />
+          <div className="h-2 w-1/2 max-w-[8rem] rounded bg-[var(--color-border)]/70" />
         </div>
-      </div>
-
-      <div className="mt-3 rounded-xl bg-white/10 p-3">
-        <p className="text-[11px] text-indigo-100">Top next action</p>
-        <p className="mt-1 text-sm leading-relaxed text-indigo-50">
-          Prepare income docs and reduce one monthly liability before broker call.
-        </p>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export default async function HomePage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-6">
+    <div className="mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -94,16 +94,16 @@ export default async function HomePage({ params }: Props) {
         </div>
       </header>
 
-      <p className="mb-3 inline-flex w-fit rounded-full bg-white px-3 py-1 text-xs font-medium text-[var(--color-brand-800)] shadow-sm ring-1 ring-black/5">
+      <p className="mb-3 inline-flex w-fit rounded-full bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-brand-800)] ring-1 ring-[var(--color-border)]">
         {t("home.badge")}
       </p>
-      <h1 className="text-balance text-3xl font-semibold tracking-tight text-[var(--color-brand-950)] sm:text-4xl">
+      <h1 className="text-balance text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)] sm:text-4xl">
         {copy.heroHeadline}
       </h1>
-      <p className="mt-4 text-pretty text-base leading-relaxed text-zinc-600 sm:text-lg">
+      <p className="mt-4 text-pretty text-[15px] leading-relaxed text-body sm:text-lg">
         {copy.heroSub}
       </p>
-      <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <div className="today-notice mt-6 rounded-lg border bg-[var(--color-signal-amber-bg)] px-4 py-3 text-sm text-[var(--color-signal-amber)]">
         <strong>{copy.todayLabel}</strong> {copy.todayText}
       </div>
 
@@ -111,17 +111,17 @@ export default async function HomePage({ params }: Props) {
         <HeroGraphic />
       </div>
 
-      <ul className="mt-8 space-y-3 text-sm leading-relaxed text-zinc-700">
+      <ul className="mt-10 space-y-3 text-[15px] leading-relaxed text-body">
         <li className="flex gap-2">
-          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-500)]" />
+          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-600)]" />
           {t("home.trust1")}
         </li>
         <li className="flex gap-2">
-          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-500)]" />
+          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-600)]" />
           {t("home.trust2")}
         </li>
         <li className="flex gap-2">
-          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-500)]" />
+          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[var(--color-brand-600)]" />
           {t("home.trust3")}
         </li>
       </ul>
@@ -129,35 +129,35 @@ export default async function HomePage({ params }: Props) {
       <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
         <Link
           href="/quiz"
-          className="inline-flex h-12 items-center justify-center rounded-xl bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white shadow-sm transition hover:bg-[var(--color-brand-800)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-600)]"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98]"
         >
           {copy.heroCta}
         </Link>
         <a
           href="#how"
-          className="inline-flex h-12 items-center justify-center rounded-xl px-4 text-base font-semibold text-zinc-800 underline-offset-4 hover:underline"
+          className="inline-flex min-h-[48px] items-center justify-center rounded-lg px-4 text-base font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline"
         >
           {t("home.secondary")}
         </a>
       </div>
-      <p className="mt-3 text-xs text-zinc-500">
+      <p className="mt-3 text-xs text-muted">
         {copy.heroMicro}
       </p>
 
-      <section className="mt-8 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+      <section className="card-surface mt-10 p-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted">
           {copy.coverageTitle}
         </p>
-        <p className="mt-2 text-sm text-zinc-700">
+        <p className="mt-2 text-sm text-body">
           {copy.coverageText}
         </p>
       </section>
 
-      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 p-6">
+        <h2 className="text-xl font-semibold leading-snug text-[var(--color-brand-950)]">
           {copy.aiTitle}
         </h2>
-        <div className="mt-3 space-y-2 text-sm text-zinc-700">
+        <div className="mt-3 space-y-2 text-sm text-body">
           <p>• {copy.aiBullet1}</p>
           <p>• {copy.aiBullet2}</p>
           <p>• {copy.aiBullet3}</p>
@@ -167,39 +167,39 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 p-6">
+        <h2 className="text-xl font-semibold leading-snug text-[var(--color-brand-950)]">
           {copy.brokerFlowTitle}
         </h2>
-        <ol className="mt-3 space-y-2 text-sm text-zinc-700">
+        <ol className="mt-3 space-y-2 text-sm text-body">
           <li>1. {copy.brokerFlow1}</li>
           <li>2. {copy.brokerFlow2}</li>
           <li>3. {copy.brokerFlow3}</li>
         </ol>
       </section>
 
-      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 p-6">
+        <h2 className="text-xl font-semibold leading-snug text-[var(--color-brand-950)]">
           {copy.compareTitle}
         </h2>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 text-zinc-500">
+              <tr className="border-b border-[var(--color-border)] text-muted">
                 <th className="py-2 pr-3">{copy.compareColFactor}</th>
                 <th className="py-2 pr-3">hypo.online</th>
                 <th className="py-2 pr-3">{copy.compareColBank}</th>
                 <th className="py-2">{copy.compareColNoGuide}</th>
               </tr>
             </thead>
-            <tbody className="text-zinc-700">
-              <tr className="border-b border-zinc-100">
+            <tbody className="text-body">
+              <tr className="border-b border-[var(--color-border)]/70">
                 <td className="py-2 pr-3">{copy.compareRow1a}</td>
                 <td className="py-2 pr-3">{copy.compareRow1b}</td>
                 <td className="py-2 pr-3">{copy.compareRow1c}</td>
                 <td className="py-2">{copy.compareRow1d}</td>
               </tr>
-              <tr className="border-b border-zinc-100">
+              <tr className="border-b border-[var(--color-border)]/70">
                 <td className="py-2 pr-3">{copy.compareRow2a}</td>
                 <td className="py-2 pr-3">{copy.compareRow2b}</td>
                 <td className="py-2 pr-3">{copy.compareRow2c}</td>
@@ -216,31 +216,31 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      <section id="how" className="mt-16 space-y-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
+      <section id="how" className="card-surface mt-16 space-y-6 p-6 sm:p-8">
         <div>
-          <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+          <h2 className="text-xl font-semibold leading-snug text-[var(--color-brand-950)]">
             {t("home.howTitle")}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+          <p className="mt-3 text-sm leading-relaxed text-body">
             {t("home.howIntro")}
           </p>
         </div>
         <ol className="space-y-5">
           {steps.map((s, i) => (
-            <li key={i} className="text-sm leading-relaxed text-zinc-700">
+            <li key={i} className="text-sm leading-relaxed text-body">
               <p className="font-semibold text-[var(--color-brand-950)]">{s.title}</p>
-              <p className="mt-1 text-zinc-700">{s.body}</p>
+              <p className="mt-1 text-body">{s.body}</p>
             </li>
           ))}
         </ol>
-        <p className="text-xs leading-relaxed text-zinc-500">{t("home.how_lead_note")}</p>
+        <p className="text-xs leading-relaxed text-muted">{t("home.how_lead_note")}</p>
       </section>
 
-      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
-        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+      <section className="card-surface mt-8 p-6 sm:p-8">
+        <h2 className="text-xl font-semibold leading-snug text-[var(--color-brand-950)]">
           {copy.seoSectionTitle}
         </h2>
-        <p className="mt-2 text-sm text-zinc-600">
+        <p className="mt-2 text-sm text-body">
           {copy.seoSectionText}
         </p>
         <div className="mt-4 grid gap-2">
@@ -248,7 +248,7 @@ export default async function HomePage({ params }: Props) {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm font-medium text-[var(--color-brand-700)] hover:bg-zinc-50"
+              className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-brand-600)] transition hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
             >
               {item.label}
             </Link>

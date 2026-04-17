@@ -13,10 +13,10 @@ export function LocaleSwitcher() {
   const t = useTranslations("nav");
 
   return (
-    <label className="flex items-center gap-2 text-xs font-semibold text-zinc-700">
+    <label className="flex items-center gap-2 text-xs font-semibold text-body">
       <span className="sr-only">{t("language")}</span>
       <select
-        className="max-w-[11rem] truncate rounded-full border border-zinc-200 bg-white px-3 py-2 text-xs font-semibold shadow-sm outline-none focus:border-[var(--color-brand-600)] sm:max-w-xs"
+        className="max-w-[11rem] min-h-[44px] truncate rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-xs font-semibold focus-visible:border-[var(--color-brand-600)] sm:max-w-xs"
         value={locale}
         onChange={(e) =>
           router.replace(pathname, { locale: e.target.value as (typeof routing.locales)[number] })

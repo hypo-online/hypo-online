@@ -187,25 +187,25 @@ export function QuizFlow({ locale }: { locale: string }) {
   return (
     <div className="flex flex-1 flex-col">
       {analyticsConsent === null && (
-        <section className="mb-5 rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700 shadow-sm">
+        <section className="card-surface mb-6 p-4 text-sm text-body">
           <p className="font-semibold text-[var(--color-brand-950)]">
             {c.analyticsTitle}
           </p>
-          <p className="mt-1 text-xs text-zinc-600">
+          <p className="mt-1 text-xs text-muted">
             {c.analyticsText}
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => setAnalyticsConsent(true)}
-              className="h-10 rounded-lg bg-[var(--color-brand-600)] px-3 text-xs font-semibold text-white"
+              className="h-11 min-h-[44px] rounded-lg bg-[var(--color-brand-600)] px-3 text-xs font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98]"
             >
               {c.allow}
             </button>
             <button
               type="button"
               onClick={() => setAnalyticsConsent(false)}
-              className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-700"
+              className="h-11 min-h-[44px] rounded-lg border border-[var(--color-brand-600)] bg-transparent px-3 text-xs font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] dark:hover:bg-white/5"
             >
               {c.withoutAnalytics}
             </button>
@@ -214,12 +214,12 @@ export function QuizFlow({ locale }: { locale: string }) {
       )}
 
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-zinc-600">
+        <p className="text-sm font-medium text-body">
           {t("progress", { current: progressStep, total: totalSteps })}
         </p>
         <LocaleSwitcher />
       </div>
-      <div className="mb-6 h-2 w-full overflow-hidden rounded-full bg-zinc-200">
+      <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-[var(--color-border)]">
         <div
           className="h-full rounded-full bg-[var(--color-brand-600)] transition-all"
           style={{ width: `${progressPercent}%` }}
@@ -228,7 +228,7 @@ export function QuizFlow({ locale }: { locale: string }) {
 
       {step === 0 && (
         <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
             {t("intent")}
           </h2>
           <Option
@@ -259,7 +259,7 @@ export function QuizFlow({ locale }: { locale: string }) {
 
       {step === 1 && (
         <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
             {t("income")}
           </h2>
           <Option
@@ -291,7 +291,7 @@ export function QuizFlow({ locale }: { locale: string }) {
 
       {step === 2 && (
         <section className="flex flex-1 flex-col gap-4">
-          <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
             {t("timeline")}
           </h2>
           <Option
@@ -322,17 +322,17 @@ export function QuizFlow({ locale }: { locale: string }) {
       {step === 3 && probability !== null && signal && (
         <section className="flex flex-1 flex-col gap-6">
           <div>
-            <h2 className="text-xl font-semibold text-[var(--color-brand-950)]">
+            <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
               {t("resultTitle")}
             </h2>
             <p className="mt-3 text-sm font-medium text-[var(--color-brand-950)]">
               {t("resultIntro", { percent: probability })}
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-zinc-600">{t("aiNotice")}</p>
+            <p className="mt-2 text-xs leading-relaxed text-body">{t("aiNotice")}</p>
           </div>
 
-          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-            <p className="text-center text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          <div className="card-surface p-6">
+            <p className="text-center text-xs font-semibold uppercase tracking-wide text-muted">
               {t("probabilityLabel")}
             </p>
             <p className="mt-2 text-center text-4xl font-bold tabular-nums text-[var(--color-brand-950)]">
@@ -341,20 +341,20 @@ export function QuizFlow({ locale }: { locale: string }) {
             <div className="mt-4 flex justify-center">
               <Semaphore signal={signal} />
             </div>
-            <div className="mt-4 flex justify-center gap-4 text-xs font-semibold text-zinc-600">
-              <span className={signal === "red" ? "text-red-700" : ""}>{t("signal_red")}</span>
-              <span className={signal === "yellow" ? "text-amber-700" : ""}>
+            <div className="mt-4 flex justify-center gap-4 text-xs font-semibold text-body">
+              <span className={signal === "red" ? "text-[var(--color-signal-red)]" : ""}>{t("signal_red")}</span>
+              <span className={signal === "yellow" ? "text-[var(--color-signal-amber)]" : ""}>
                 {t("signal_yellow")}
               </span>
-              <span className={signal === "green" ? "text-emerald-700" : ""}>
+              <span className={signal === "green" ? "text-[var(--color-signal-green)]" : ""}>
                 {t("signal_green")}
               </span>
             </div>
-            <p className="mt-1 text-center text-xs text-zinc-500">{t("semaphoreLegend")}</p>
+            <p className="mt-1 text-center text-xs text-muted">{t("semaphoreLegend")}</p>
           </div>
 
-          <p className="text-sm leading-relaxed text-zinc-700">{hint}</p>
-          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+          <p className="text-sm leading-relaxed text-body">{hint}</p>
+          <div className="card-surface p-4">
             <p className="text-sm font-semibold text-[var(--color-brand-950)]">
               {c.whyScore}
             </p>
@@ -364,32 +364,32 @@ export function QuizFlow({ locale }: { locale: string }) {
               ))}
             </div>
             {simulatedImprovement && (
-              <p className="mt-3 rounded-lg bg-indigo-50 px-3 py-2 text-xs text-indigo-900">
+              <p className="mt-3 rounded-lg border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-brand-600)] bg-[var(--color-surface-muted)] px-3 py-2 text-xs text-body">
                 {c.improveDelta(simulatedImprovement.delta, simulatedImprovement.probability)}
               </p>
             )}
           </div>
-          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+          <div className="card-surface p-4">
             <p className="text-sm font-semibold text-[var(--color-brand-950)]">
               {c.improveTitle}
             </p>
-            <ul className="mt-2 space-y-1 text-sm text-zinc-700">
+            <ul className="mt-2 space-y-1 text-sm text-body">
               {improvementTips.map((tip) => (
                 <li key={tip}>• {tip}</li>
               ))}
             </ul>
           </div>
           <p className="text-sm font-medium text-[var(--color-brand-800)]">{t("allSignalsLead")}</p>
-          <p className="text-xs leading-relaxed text-zinc-500">{t("disclaimer")}</p>
+          <p className="text-xs leading-relaxed text-muted">{t("disclaimer")}</p>
 
-          <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4">
-            <p className="text-sm font-semibold text-indigo-900">
+          <div className="rounded-lg border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-brand-600)] bg-[var(--color-surface-muted)] p-4">
+            <p className="text-sm font-semibold text-[var(--color-brand-950)]">
               {c.nextTitle}
             </p>
-            <p className="mt-1 text-xs text-indigo-800">
+            <p className="mt-1 text-xs text-body">
               {c.nextSla}
             </p>
-            <ul className="mt-2 space-y-1 text-xs text-indigo-900">
+            <ul className="mt-2 space-y-1 text-xs text-body">
               <li>• {c.next1}</li>
               <li>• {c.next2}</li>
               <li>• {c.next3}</li>
@@ -397,25 +397,25 @@ export function QuizFlow({ locale }: { locale: string }) {
           </div>
 
           {!leadDone ? (
-            <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+            <div className="card-surface p-6">
               <h3 className="text-base font-semibold text-[var(--color-brand-950)]">
                 {t("result_contactTitle")}
               </h3>
-              <p className="mt-2 text-sm text-zinc-600">{t("result_contactHint")}</p>
-              <div className="mt-4 space-y-3">
-                <label className="block text-sm font-medium text-zinc-800">
+              <p className="mt-2 text-sm text-body">{t("result_contactHint")}</p>
+              <div className="mt-4 space-y-4">
+                <label className="block text-sm font-medium text-[var(--color-brand-950)]">
                   {t("name")}
                   <input
-                    className="mt-1 w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-base outline-none ring-0 focus:border-[var(--color-brand-600)]"
+                    className="mt-2 min-h-[44px] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 text-[15px] transition focus-visible:border-[var(--color-brand-600)] focus-visible:shadow-[inset_0_0_0_3px_color-mix(in_srgb,var(--color-brand-600)_14%,transparent)]"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     autoComplete="name"
                   />
                 </label>
-                <label className="block text-sm font-medium text-zinc-800">
+                <label className="block text-sm font-medium text-[var(--color-brand-950)]">
                   {t("email")}
                   <input
-                    className="mt-1 w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-base outline-none focus:border-[var(--color-brand-600)]"
+                    className="mt-2 min-h-[44px] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 text-[15px] transition focus-visible:border-[var(--color-brand-600)] focus-visible:shadow-[inset_0_0_0_3px_color-mix(in_srgb,var(--color-brand-600)_14%,transparent)]"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
@@ -423,10 +423,10 @@ export function QuizFlow({ locale }: { locale: string }) {
                     inputMode="email"
                   />
                 </label>
-                <label className="block text-sm font-medium text-zinc-800">
+                <label className="block text-sm font-medium text-[var(--color-brand-950)]">
                   {t("phone")}
                   <input
-                    className="mt-1 w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-base outline-none focus:border-[var(--color-brand-600)]"
+                    className="mt-2 min-h-[44px] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 text-[15px] transition focus-visible:border-[var(--color-brand-600)] focus-visible:shadow-[inset_0_0_0_3px_color-mix(in_srgb,var(--color-brand-600)_14%,transparent)]"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     autoComplete="tel"
@@ -434,7 +434,7 @@ export function QuizFlow({ locale }: { locale: string }) {
                     inputMode="tel"
                   />
                 </label>
-                <label className="flex items-start gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-700">
+                <label className="flex items-start gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2.5 text-xs text-body">
                   <input
                     type="checkbox"
                     checked={brokerConsent}
@@ -445,7 +445,7 @@ export function QuizFlow({ locale }: { locale: string }) {
                     {c.brokerConsentText}
                   </span>
                 </label>
-                <label className="flex items-start gap-2 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-700">
+                <label className="flex items-start gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2.5 text-xs text-body">
                   <input
                     type="checkbox"
                     checked={analyticsConsent === true}
@@ -461,18 +461,18 @@ export function QuizFlow({ locale }: { locale: string }) {
                 type="button"
                 onClick={submitLead}
                 disabled={loading}
-                className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-xl bg-[var(--color-brand-600)] text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-[var(--color-brand-600)] text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {t("submit")}
               </button>
-              <p className="mt-2 text-xs text-zinc-500">
+              <p className="mt-2 text-xs text-muted">
                 {c.retentionHelp}
               </p>
             </div>
           ) : (
             <div className="space-y-3">
-              <p className="text-sm font-medium text-emerald-800">{t("thankyou")}</p>
-              <div className="rounded-xl border border-zinc-200 bg-white p-4 text-sm text-zinc-700">
+              <p className="text-sm font-medium text-[var(--color-signal-green)]">{t("thankyou")}</p>
+              <div className="card-surface p-4 text-sm text-body">
                 <p className="font-semibold text-[var(--color-brand-950)]">
                   {c.assignedDesk}
                 </p>
@@ -484,7 +484,7 @@ export function QuizFlow({ locale }: { locale: string }) {
                 type="button"
                 onClick={requestDeletion}
                 disabled={loading || deleteDone}
-                className="h-10 rounded-lg border border-zinc-300 bg-white px-3 text-xs font-semibold text-zinc-700 disabled:opacity-60"
+                className="min-h-[44px] rounded-lg border border-[var(--color-brand-600)] bg-transparent px-4 text-xs font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] disabled:opacity-60 dark:hover:bg-white/5"
               >
                 {deleteDone
                   ? c.deleteSent
@@ -496,12 +496,12 @@ export function QuizFlow({ locale }: { locale: string }) {
       )}
 
       {validationError && (
-        <p className="mt-3 text-sm text-amber-700" role="alert">
+        <p className="mt-3 text-sm text-[var(--color-signal-amber)]" role="alert">
           {validationError}
         </p>
       )}
       {error && (
-        <p className="mt-4 text-sm text-red-600" role="alert">
+        <p className="mt-4 text-sm text-[var(--color-signal-red)]" role="alert">
           {error}
         </p>
       )}
@@ -523,16 +523,16 @@ function FactorRow({
 
   const statusColor =
     factor.status === "good"
-      ? "text-emerald-700 bg-emerald-50"
+      ? "text-[var(--color-signal-green)] bg-[var(--color-signal-green-bg)]"
       : factor.status === "concern"
-        ? "text-amber-700 bg-amber-50"
-        : "text-red-700 bg-red-50";
+        ? "text-[var(--color-signal-amber)] bg-[var(--color-signal-amber-bg)]"
+        : "text-[var(--color-signal-red)] bg-[var(--color-signal-red-bg)]";
 
   return (
-    <div className="flex items-center justify-between rounded-lg border border-zinc-100 px-3 py-2">
+    <div className="flex items-center justify-between rounded-lg border border-[var(--color-border)] px-3 py-2">
       <div>
-        <p className="text-sm font-medium text-zinc-800">{labels[factor.key]}</p>
-        <p className="text-xs text-zinc-500">{factor.score}/10</p>
+        <p className="text-sm font-medium text-[var(--color-brand-950)]">{labels[factor.key]}</p>
+        <p className="text-xs text-muted">{factor.score}/10</p>
       </div>
       <span className={`rounded-full px-2 py-1 text-xs font-semibold ${statusColor}`}>
         {statusLabel}
@@ -1050,10 +1050,10 @@ function Option({
     <button
       type="button"
       onClick={onSelect}
-      className={`flex w-full rounded-2xl border px-4 py-4 text-left text-base font-medium transition ${
+      className={`flex min-h-[48px] w-full rounded-lg border px-4 py-4 text-left text-[15px] font-medium transition ${
         selected
-          ? "border-[var(--color-brand-600)] bg-white shadow-sm ring-2 ring-[var(--color-brand-600)]/20"
-          : "border-zinc-200 bg-white/60 hover:border-zinc-300"
+          ? "border-[var(--color-brand-600)] bg-[var(--color-brand-600)] text-white"
+          : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
       }`}
     >
       {label}
@@ -1080,7 +1080,7 @@ function NavRow({
         <button
           type="button"
           onClick={onBack}
-          className="h-12 flex-1 rounded-xl border border-zinc-200 bg-white text-sm font-semibold text-zinc-800 hover:bg-zinc-50"
+          className="h-12 min-h-[48px] flex-1 rounded-lg border border-[var(--color-brand-600)] bg-transparent text-sm font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] dark:hover:bg-white/5"
         >
           {backLabel}
         </button>
@@ -1091,7 +1091,7 @@ function NavRow({
         type="button"
         onClick={onNext}
         disabled={busy}
-        className="h-12 flex-1 rounded-xl bg-[var(--color-brand-600)] text-sm font-semibold text-white hover:bg-[var(--color-brand-800)] disabled:opacity-60"
+        className="h-12 min-h-[48px] flex-1 rounded-lg bg-[var(--color-brand-600)] text-sm font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98] disabled:opacity-60"
       >
         {busy ? "…" : nextLabel}
       </button>

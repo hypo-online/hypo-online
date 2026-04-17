@@ -16,7 +16,7 @@ export default async function QuizPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-16 pt-8 sm:max-w-xl sm:px-6">
+    <div className="mx-auto flex min-h-dvh max-w-[640px] flex-col px-4 pb-16 pt-8 sm:px-8">
       <div className="mb-6 flex items-center justify-between gap-4">
         <Link
           href="/"

@@ -5,24 +5,24 @@ const ORDER: Signal[] = ["red", "yellow", "green"];
 export function Semaphore({ signal }: { signal: Signal }) {
   return (
     <div
-      className="flex items-center justify-center gap-3 rounded-2xl bg-zinc-900 px-5 py-4 shadow-inner"
+      className="flex items-center justify-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-5 py-4"
       role="img"
       aria-label={`Signal: ${signal}`}
     >
       {ORDER.map((key) => {
         const active = key === signal;
-        const color =
+        const base =
           key === "green"
-            ? "bg-emerald-400"
+            ? "bg-[var(--color-signal-green)]"
             : key === "yellow"
-              ? "bg-amber-300"
-              : "bg-red-500";
+              ? "bg-[var(--color-signal-amber)]"
+              : "bg-[var(--color-signal-red)]";
         return (
           <span
             key={key}
-            className={`h-10 w-10 rounded-full transition ${color} ${
+            className={`h-10 w-10 rounded-full transition ${base} ${
               active
-                ? "opacity-100 ring-4 ring-white/80 scale-110 shadow-lg"
+                ? "opacity-100 ring-2 ring-[var(--color-brand-950)]/15 scale-110"
                 : "opacity-25 scale-95"
             }`}
           />
