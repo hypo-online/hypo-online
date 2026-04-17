@@ -57,11 +57,33 @@ function incomeCopy(locale: string) {
   if (locale === "ro") return { ...en, metaTitle: "Ipoteca si venit | hypo.online", title: "Ipoteca si venit: ce conteaza pentru banca", cta: "Verifica profilul de venit" };
   if (locale === "es") return { ...en, metaTitle: "Hipoteca e ingresos | hypo.online", title: "Hipoteca e ingresos: que valora el banco", cta: "Comprobar perfil de ingresos" };
   if (locale === "fr") return { ...en, metaTitle: "Hypotheque et revenu | hypo.online", title: "Hypotheque et revenu : ce qui compte pour la banque", cta: "Verifier le profil de revenu" };
-  if (locale === "it") return { ...en, metaTitle: "Mutuo e reddito | hypo.online", title: "Mutuo e reddito: cosa conta per la banca", cta: "Verifica profilo reddito" };
+  if (locale === "it") return {
+    ...en,
+    metaTitle: "Mutuo e reddito | hypo.online",
+    title: "Mutuo e reddito: cosa conta per la banca",
+    intro: "Scopri come le banche valutano in genere dipendenti, autonomi e richiedenti con reddito estero.",
+    bullets: [
+      "Differenza tra profilo di reddito stabile e più rischioso.",
+      "Documenti tipici che accelerano l'approvazione.",
+      "Quando conviene ottimizzare il profilo prima di fare domanda.",
+    ],
+    cta: "Verifica il profilo reddito",
+  };
   if (locale === "tr") return { ...en, metaTitle: "Ipotek ve gelir | hypo.online", title: "Ipotek ve gelir: bankalar neye bakar", cta: "Gelir profilini kontrol et" };
   if (locale === "zh") return { ...en, metaTitle: "按揭与收入 | hypo.online", title: "按揭与收入：银行关注什么", cta: "检查收入画像" };
   if (locale === "sk") return { ...en, metaTitle: "Hypotéka a príjem | hypo.online", title: "Hypotéka a príjem: čo banku zaujíma", cta: "Overiť profil príjmu" };
   if (locale === "de") return { ...en, metaTitle: "Hypothek und Einkommen | hypo.online", title: "Hypothek und Einkommen: worauf Banken achten", cta: "Einkommensprofil prüfen" };
-  if (locale === "pl") return { ...en, metaTitle: "Hipoteka i dochód | hypo.online", title: "Hipoteka i dochód: na co patrzą banki", cta: "Sprawdź profil dochodu" };
+  if (locale === "pl") return {
+    ...en,
+    metaTitle: "Hipoteka i dochód | hypo.online",
+    title: "Hipoteka i dochód: na co patrzą banki",
+    intro: "Zobacz, jak banki zwykle oceniają osoby zatrudnione, samozatrudnione i klientów z dochodem zagranicznym.",
+    bullets: [
+      "Różnica między stabilnym a bardziej ryzykownym profilem dochodu.",
+      "Typowe dokumenty, które przyspieszają akceptację.",
+      "Kiedy lepiej najpierw zoptymalizować profil i złożyć wniosek później.",
+    ],
+    cta: "Sprawdź profil dochodu",
+  };
   return en;
 }

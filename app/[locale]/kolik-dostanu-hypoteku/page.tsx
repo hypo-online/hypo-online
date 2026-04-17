@@ -57,11 +57,33 @@ function borrowCopy(locale: string) {
   if (locale === "ro") return { ...en, metaTitle: "Cat pot imprumuta pentru ipoteca | hypo.online", title: "Cat pot imprumuta pentru ipoteca?", cta: "Verifica limita orientativa" };
   if (locale === "es") return { ...en, metaTitle: "Cuanta hipoteca puedo conseguir | hypo.online", title: "Cuanta hipoteca puedo conseguir?", cta: "Comprobar limite orientativo" };
   if (locale === "fr") return { ...en, metaTitle: "Combien puis-je emprunter en hypotheque | hypo.online", title: "Combien puis-je emprunter en hypotheque ?", cta: "Verifier la limite indicative" };
-  if (locale === "it") return { ...en, metaTitle: "Quanto mutuo posso ottenere | hypo.online", title: "Quanto mutuo posso ottenere?", cta: "Verifica limite indicativo" };
+  if (locale === "it") return {
+    ...en,
+    metaTitle: "Quanto mutuo posso ottenere | hypo.online",
+    title: "Quanto mutuo posso ottenere?",
+    intro: "Verifica rapidamente se le tue aspettative sono in linea con i limiti tipici delle banche e cosa può frenare il risultato.",
+    bullets: [
+      "Tiene conto del tipo di reddito e delle tempistiche.",
+      "Semaforo e probabilità invece di una risposta generica.",
+      "Passaggio al broker disponibile anche con esito giallo o rosso.",
+    ],
+    cta: "Verifica il limite indicativo",
+  };
   if (locale === "tr") return { ...en, metaTitle: "Ne kadar ipotek alabilirim | hypo.online", title: "Ne kadar ipotek alabilirim?", cta: "Tahmini limiti kontrol et" };
   if (locale === "zh") return { ...en, metaTitle: "我能获得多少按揭 | hypo.online", title: "我能获得多少按揭额度？", cta: "查看预估额度" };
   if (locale === "sk") return { ...en, metaTitle: "Koľko hypotéky môžem získať | hypo.online", title: "Koľko hypotéky môžem získať?", cta: "Zistiť orientačný limit" };
   if (locale === "de") return { ...en, metaTitle: "Wie viel Hypothek kann ich erhalten | hypo.online", title: "Wie viel Hypothek kann ich erhalten?", cta: "Richtwert prüfen" };
-  if (locale === "pl") return { ...en, metaTitle: "Ile kredytu hipotecznego mogę dostać | hypo.online", title: "Ile kredytu hipotecznego mogę dostać?", cta: "Sprawdź orientacyjny limit" };
+  if (locale === "pl") return {
+    ...en,
+    metaTitle: "Ile kredytu hipotecznego mogę dostać | hypo.online",
+    title: "Ile kredytu hipotecznego mogę dostać?",
+    intro: "Szybko sprawdź, czy Twoje oczekiwania mieszczą się w typowych limitach banków i co może osłabić wynik.",
+    bullets: [
+      "Uwzględnia typ dochodu i horyzont czasowy.",
+      "Semafor i prawdopodobieństwo zamiast ogólnej odpowiedzi.",
+      "Przekazanie do brokera dostępne także przy żółtym i czerwonym wyniku.",
+    ],
+    cta: "Sprawdź orientacyjny limit",
+  };
   return en;
 }

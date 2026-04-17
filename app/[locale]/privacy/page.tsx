@@ -73,10 +73,11 @@ function privacyCopy(locale: string) {
   }
   if (locale === "pl") {
     return {
-      ...en,
       title: "Przepływ danych i okresy retencji",
       b1: "Dane z ankiety: używane tylko podczas oceny, bez trwałego zapisu.",
       b2: "Dane kontaktowe (imię, e-mail, telefon): tylko do przekazania doradcy i kontaktu zwrotnego.",
+      b3: "Analityka: tylko anonimowe zdarzenia po udzieleniu zgody.",
+      b4: "Prosbe o usuniecie danych mozna wyslac bezposrednio z widoku wyniku po wyslaniu kontaktu.",
     };
   }
   if (locale === "sk") {

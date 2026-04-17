@@ -45,7 +45,7 @@ function aiFlowCopy(locale: string) {
   }
   if (locale === "sk") return { ...en, inputTitle: "Vstup", inputText: "Príjem, cieľ, časovanie", matchText: "Maklér + ďalší krok" };
   if (locale === "de") return { ...en, inputTitle: "Eingabe", inputText: "Einkommen, Ziel, Zeitplan", matchTitle: "Zuordnung", matchText: "Makler + nächster Schritt" };
-  if (locale === "pl") return { ...en, inputTitle: "Dane wejściowe", inputText: "Dochód, cel, harmonogram", matchTitle: "Dopasowanie", matchText: "Doradca + kolejny krok" };
+  if (locale === "pl") return { ...en, inputTitle: "Dane wejściowe", inputText: "Dochód, cel, harmonogram", matchTitle: "Dopasowanie", matchText: "Broker + kolejny krok" };
   if (locale === "uk") return { ...en, inputTitle: "Вхідні дані", inputText: "Дохід, ціль, термін", scoringText: "AI модель + банківські правила", matchTitle: "Підбір", matchText: "Брокер + наступний крок" };
   if (locale === "ru") return { ...en, inputTitle: "Входные данные", inputText: "Доход, цель, сроки", scoringText: "AI модель + банковские правила", matchTitle: "Подбор", matchText: "Брокер + следующий шаг" };
   if (locale === "vi") return { ...en, inputTitle: "Du lieu dau vao", inputText: "Thu nhap, muc tieu, thoi gian", matchTitle: "Ghep noi", matchText: "Moi gioi + buoc tiep theo" };

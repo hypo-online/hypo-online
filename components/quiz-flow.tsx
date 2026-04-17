@@ -614,7 +614,40 @@ function quizCopy(locale: string): QuizCopy {
     improveDelta: (d, p) => `Pokud zlepšíte slabší oblasti, modelově se můžete posunout o +${d} bodů na ${p} %.`,
   };
   const de: QuizCopy = { ...en, analyticsTitle: "Einwilligung für anonyme Analytik", allow: "Zustimmen", withoutAnalytics: "Ohne Analytik fortfahren", whyScore: "Warum Ihr Ergebnis so ausfällt", improveTitle: "Wie Sie die Genehmigungschance verbessern", nextTitle: "Was nach dem Absenden passiert", assignedDesk: "Zugewiesenes Team", deleteRequest: "Datenlöschung anfordern", statusConcern: "Hinweis", statusBlocker: "Blocker", requestFailed: "Anfrage fehlgeschlagen. Bitte erneut versuchen." };
-  const pl: QuizCopy = { ...en, analyticsTitle: "Zgoda na anonimową analitykę", allow: "Zgadzam się", withoutAnalytics: "Kontynuuj bez analityki", whyScore: "Dlaczego wynik wygląda właśnie tak", improveTitle: "Jak zwiększyć szansę akceptacji", nextTitle: "Co stanie się po wysłaniu", assignedDesk: "Przydzielony zespół", deleteRequest: "Poproś o usunięcie danych", requestFailed: "Żądanie nie powiodło się. Spróbuj ponownie." };
+  const pl: QuizCopy = {
+    ...en,
+    errFillContact: "Uzupełnij imię, e-mail i telefon.",
+    errInvalidEmail: "Format adresu e-mail jest nieprawidłowy.",
+    errNeedBrokerConsent: "Aby wysłać formularz, potrzebna jest zgoda na kontakt z brokerem.",
+    errDeleteEmail: "Podaj poprawny e-mail, aby zgłosić usunięcie danych.",
+    requestFailed: "Żądanie nie powiodło się. Spróbuj ponownie.",
+    tipsGreen: ["Przygotuj potwierdzenie dochodów z ostatniego okresu.", "Sprawdź rezerwę własnych środków na koszty dodatkowe i opłaty."],
+    tipsYellow: ["Udokumentuj stabilność dochodów (dłuższa historia pracy lub działalności).", "Zmniejsz bieżące miesięczne zobowiązania przed złożeniem wniosku.", "Przygotuj dokumenty pobytowe, jeśli jesteś obcokrajowcem."],
+    tipsRed: ["Poproś brokera o alternatywną strukturę finansowania (niższe LTV, współkredytobiorca).", "Najpierw ustabilizuj dochody i zobowiązania, potem ponów weryfikację.", "Ocena indywidualna ma znaczenie — nawet „czerwone” przypadki da się poprawić."],
+    analyticsTitle: "Zgoda na anonimową analitykę",
+    analyticsText: "Pomaga nam ulepszać przebieg ankiety. Nie wysyłamy danych osobowych.",
+    allow: "Zgadzam się",
+    withoutAnalytics: "Kontynuuj bez analityki",
+    whyScore: "Dlaczego Twój wynik wygląda tak",
+    improveTitle: "Jak zwiększyć szansę akceptacji",
+    nextTitle: "Co dzieje się po wysłaniu",
+    nextSla: "Zespół brokerów skontaktuje się w ciągu 24 godzin (pn–pt).",
+    next1: "Krok 1: potwierdzenie podstawowych danych",
+    next2: "Krok 2: lista wymaganych dokumentów",
+    next3: "Krok 3: realistyczna ścieżka finansowania",
+    brokerConsentText: "Wyrażam zgodę na przekazanie moich danych kontaktowych brokerowi hipotecznemu w celu kontaktu.",
+    analyticsConsentText: "Wyrażam zgodę na anonimową analitykę w celu ulepszania usługi.",
+    retentionHelp: "Dane kontaktowe przechowujemy tylko przez czas potrzebny do obsługi zgłoszenia. Poniżej możesz poprosić o usunięcie.",
+    assignedDesk: "Przydzielony zespół",
+    assignedDeskText: "Wielojęzyczny zespół hipoteczny CZ/SK • kontakt w 24 h (pn–pt)",
+    deleteSent: "Wysłano prośbę o usunięcie danych",
+    deleteRequest: "Poproś o usunięcie danych",
+    factorLabels: { incomeStrength: "Siła dochodu", profileStability: "Stabilność profilu", documentationReadiness: "Gotowość dokumentów", timelineReadiness: "Gotowość czasowa" },
+    statusGood: "Dobrze",
+    statusConcern: "Uwaga",
+    statusBlocker: "Blokada",
+    improveDelta: (d, p) => `Po poprawie słabszych obszarów wynik modelowy może wzrosnąć o +${d} pkt do ${p}%.`,
+  };
   const sk: QuizCopy = { ...en, analyticsTitle: "Súhlas s anonymnou analytikou", allow: "Súhlasím", withoutAnalytics: "Použiť bez analytiky", whyScore: "Prečo vyšlo toto skóre", improveTitle: "Ako zvýšiť šancu schválenia", nextTitle: "Čo nasleduje po odoslaní", assignedDesk: "Priradený tím", deleteRequest: "Požiadať o výmaz dát", requestFailed: "Požiadavka zlyhala. Skúste to znova." };
   const uk: QuizCopy = { ...en, analyticsTitle: "Згода на анонімну аналітику", allow: "Дозволити", withoutAnalytics: "Продовжити без аналітики", whyScore: "Чому ваш результат саме такий", improveTitle: "Як підвищити шанси схвалення", nextTitle: "Що буде після надсилання", assignedDesk: "Призначена команда", deleteRequest: "Запросити видалення даних", deleteSent: "Запит на видалення надіслано", requestFailed: "Запит не виконано. Спробуйте ще раз." };
   const ru: QuizCopy = { ...en, analyticsTitle: "Согласие на анонимную аналитику", allow: "Разрешить", withoutAnalytics: "Продолжить без аналитики", whyScore: "Почему получился такой результат", improveTitle: "Как повысить шансы одобрения", nextTitle: "Что будет после отправки", assignedDesk: "Назначенная команда", deleteRequest: "Запросить удаление данных", deleteSent: "Запрос на удаление отправлен", requestFailed: "Запрос не выполнен. Попробуйте снова." };
@@ -622,7 +655,40 @@ function quizCopy(locale: string): QuizCopy {
   const ro: QuizCopy = { ...en, analyticsTitle: "Consimtamant pentru analiza anonima", allow: "Permite", withoutAnalytics: "Continua fara analiza", whyScore: "De ce arata scorul asa", improveTitle: "Cum cresti sansele de aprobare", nextTitle: "Ce urmeaza dupa trimitere", assignedDesk: "Echipa alocata", deleteRequest: "Solicita stergerea datelor", deleteSent: "Cererea de stergere a fost trimisa", requestFailed: "Cererea a esuat. Incearca din nou." };
   const es: QuizCopy = { ...en, analyticsTitle: "Consentimiento para analitica anonima", allow: "Permitir", withoutAnalytics: "Continuar sin analitica", whyScore: "Por que tu puntuacion es asi", improveTitle: "Como mejorar la probabilidad de aprobacion", nextTitle: "Que pasa despues del envio", assignedDesk: "Equipo asignado", deleteRequest: "Solicitar borrado de datos", deleteSent: "Solicitud de borrado enviada", requestFailed: "La solicitud fallo. Intentalo de nuevo." };
   const fr: QuizCopy = { ...en, analyticsTitle: "Consentement a l'analyse anonyme", allow: "Autoriser", withoutAnalytics: "Continuer sans analyse", whyScore: "Pourquoi votre score est ainsi", improveTitle: "Comment augmenter vos chances d'approbation", nextTitle: "Ce qui se passe apres l'envoi", assignedDesk: "Equipe assignee", deleteRequest: "Demander la suppression des donnees", deleteSent: "Demande de suppression envoyee", requestFailed: "La requete a echoue. Reessayez." };
-  const it: QuizCopy = { ...en, analyticsTitle: "Consenso per analisi anonima", allow: "Consenti", withoutAnalytics: "Continua senza analisi", whyScore: "Perche il tuo punteggio e cosi", improveTitle: "Come aumentare le probabilita di approvazione", nextTitle: "Cosa succede dopo l'invio", assignedDesk: "Team assegnato", deleteRequest: "Richiedi cancellazione dati", deleteSent: "Richiesta di cancellazione inviata", requestFailed: "Richiesta non riuscita. Riprova." };
+  const it: QuizCopy = {
+    ...en,
+    errFillContact: "Compila nome, e-mail e telefono.",
+    errInvalidEmail: "Il formato dell'e-mail non sembra valido.",
+    errNeedBrokerConsent: "Per inviare il modulo serve il consenso al contatto con il broker.",
+    errDeleteEmail: "Inserisci un'e-mail valida per la richiesta di cancellazione.",
+    requestFailed: "Richiesta non riuscita. Riprova.",
+    tipsGreen: ["Prepara una prova di reddito dell'ultimo periodo.", "Verifica la riserva di fondi propri per costi accessori e commissioni."],
+    tipsYellow: ["Documenta la stabilità del reddito (storia lavorativa o attività più lunga).", "Riduci gli impegni mensili esistenti prima della domanda.", "Prepara i documenti di residenza se sei un richiedente straniero."],
+    tipsRed: ["Chiedi al broker una struttura alternativa (LTV più basso, co-intestatario).", "Stabilizza prima reddito e passività, poi ripeti la verifica.", "La valutazione individuale conta: anche i casi „rossi“ possono migliorare."],
+    analyticsTitle: "Consenso per analisi anonima",
+    analyticsText: "Ci aiuta a migliorare il flusso del questionario. Nessun dato personale viene inviato.",
+    allow: "Consenti",
+    withoutAnalytics: "Continua senza analisi",
+    whyScore: "Perché il tuo punteggio è così",
+    improveTitle: "Come aumentare le probabilità di approvazione",
+    nextTitle: "Cosa succede dopo l'invio",
+    nextSla: "Il team broker ti contatta entro 24 ore (lun–ven).",
+    next1: "Passo 1: conferma dei dati di base",
+    next2: "Passo 2: checklist dei documenti",
+    next3: "Passo 3: percorso di finanziamento realistico",
+    brokerConsentText: "Acconsento alla condivisione dei miei dati di contatto con un broker mutui per il follow-up.",
+    analyticsConsentText: "Acconsento all'analisi anonima per migliorare il servizio.",
+    retentionHelp: "I contatti sono conservati solo per il tempo necessario alla gestione della richiesta. Puoi chiedere la cancellazione qui sotto.",
+    assignedDesk: "Team assegnato",
+    assignedDeskText: "Desk mutui multilingue CZ/SK • contatto entro 24 h (lun–ven)",
+    deleteSent: "Richiesta di cancellazione inviata",
+    deleteRequest: "Richiedi la cancellazione dei dati",
+    factorLabels: { incomeStrength: "Solidità del reddito", profileStability: "Stabilità del profilo", documentationReadiness: "Prontezza documentale", timelineReadiness: "Prontezza temporale" },
+    statusGood: "Buono",
+    statusConcern: "Attenzione",
+    statusBlocker: "Blocco",
+    improveDelta: (d, p) => `Migliorando le aree deboli, il punteggio stimato può aumentare di +${d} punti fino a ${p}%.`,
+  };
   const tr: QuizCopy = { ...en, analyticsTitle: "Anonim analiz izni", allow: "Izin ver", withoutAnalytics: "Analiz olmadan devam et", whyScore: "Skorunuz neden boyle", improveTitle: "Onay olasiligini nasil artirirsiniz", nextTitle: "Gonderimden sonra ne olur", assignedDesk: "Atanan ekip", deleteRequest: "Veri silme talep et", deleteSent: "Silme talebi gonderildi", requestFailed: "Istek basarisiz oldu. Lutfen tekrar deneyin." };
   const zh: QuizCopy = { ...en, analyticsTitle: "同意匿名分析", allow: "允许", withoutAnalytics: "不使用分析继续", whyScore: "为何得到这个分数", improveTitle: "如何提高获批概率", nextTitle: "提交后会发生什么", assignedDesk: "已分配团队", deleteRequest: "申请删除数据", deleteSent: "删除申请已发送", requestFailed: "请求失败，请重试。" };
   if (locale === "cs") return cs;

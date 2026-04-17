@@ -135,7 +135,26 @@ function calcCopy(locale: string) {
     };
   }
   if (locale === "de") return { ...en, metaTitle: "Hypothekenrechner | hypo.online", h1: "Hypothekenrechner: Orientierung ohne Chaos", ctaButton: "Schnellprüfung starten" };
-  if (locale === "pl") return { ...en, metaTitle: "Kalkulator hipoteczny | hypo.online", h1: "Kalkulator hipoteczny: orientacja bez chaosu", ctaButton: "Uruchom szybki check" };
+  if (locale === "pl") return {
+    ...en,
+    metaTitle: "Kalkulator hipoteczny | hypo.online",
+    h1: "Kalkulator hipoteczny: orientacja bez chaosu",
+    p1: "Ta strona wyjaśnia, jak szybko oszacować, czy hipoteka jest realistyczna dla Twojego profilu. To wynik orientacyjny, nie wiążąca decyzja banku.",
+    s1Title: "Co ten kalkulator realnie rozwiązuje",
+    s1b1: "Szybki wstępny screening, zanim wejdziesz w pełny proces wniosku.",
+    s1b2: "Sygnał prawdopodobieństwa (procent + semafor) zamiast ogólnego „może”.",
+    s1b3: "Konkretny kolejny krok dla Ciebie i brokera.",
+    s2Title: "Jak czytać wynik",
+    s2p1: "Zielony nie oznacza automatycznej zgody, a czerwony nie oznacza końca. To mapa ryzyka: dochód, zobowiązania, środki własne, czas i dokumenty.",
+    s2p2: "Największą wartość daje wtedy, gdy doświadczony broker przejmie wynik i dopracuje profil przed złożeniem wniosku.",
+    s3Title: "Najczęstsze błędy wnioskodawców",
+    s3b1: "Zaczynanie zbyt późno, gdy terminy już napierają.",
+    s3b2: "Niepełna dokumentacja dochodów i zobowiązań.",
+    s3b3: "Niedoszacowanie kosztów własnych poza ceną zakupu.",
+    ctaTitle: "Chcesz szybki wynik orientacyjny teraz?",
+    ctaText: "Zajmuje to około 2 minuty i zwraca prawdopodobieństwo oraz rekomendowany kolejny krok.",
+    ctaButton: "Uruchom szybką weryfikację",
+  };
   if (locale === "sk") return { ...en, metaTitle: "Hypotekárna kalkulačka | hypo.online", h1: "Hypotekárna kalkulačka: orientácia bez chaosu", ctaButton: "Spustiť rýchly check" };
   if (locale === "uk") return { ...en, metaTitle: "Іпотечний калькулятор | hypo.online", h1: "Іпотечний калькулятор: орієнтація без хаосу", ctaButton: "Запустити швидку перевірку" };
   if (locale === "ru") return { ...en, metaTitle: "Ипотечный калькулятор | hypo.online", h1: "Ипотечный калькулятор: ориентация без хаоса", ctaButton: "Запустить быстрый чек" };
@@ -143,7 +162,26 @@ function calcCopy(locale: string) {
   if (locale === "ro") return { ...en, metaTitle: "Calculator ipotecar | hypo.online", h1: "Calculator ipotecar: orientare fara haos", ctaButton: "Porneste verificarea rapida" };
   if (locale === "es") return { ...en, metaTitle: "Calculadora hipotecaria | hypo.online", h1: "Calculadora hipotecaria: orientacion sin caos", ctaButton: "Iniciar chequeo rapido" };
   if (locale === "fr") return { ...en, metaTitle: "Calculateur hypothecaire | hypo.online", h1: "Calculateur hypothecaire : orientation sans chaos", ctaButton: "Demarrer la verification rapide" };
-  if (locale === "it") return { ...en, metaTitle: "Calcolatore mutuo | hypo.online", h1: "Calcolatore mutuo: orientamento senza caos", ctaButton: "Avvia controllo rapido" };
+  if (locale === "it") return {
+    ...en,
+    metaTitle: "Calcolatore mutuo | hypo.online",
+    h1: "Calcolatore mutuo: orientamento senza caos",
+    p1: "Questa pagina spiega come stimare rapidamente se un mutuo è realistico per il tuo profilo. È un risultato indicativo, non un'approvazione bancaria vincolante.",
+    s1Title: "Cosa risolve davvero questo calcolatore",
+    s1b1: "Pre-screening rapido prima di entrare nella richiesta completa.",
+    s1b2: "Segnale di probabilità (percentuale + semaforo) invece di un generico «forse».",
+    s1b3: "Prossimo passo concreto per te e per il broker.",
+    s2Title: "Come leggere il risultato",
+    s2p1: "Il verde non significa approvazione automatica e il rosso non significa fine del percorso. È una mappa dei rischi: reddito, passività, fondi propri, tempistiche e documenti.",
+    s2p2: "Il massimo valore si ottiene quando un broker esperto segue il risultato e ottimizza il profilo prima dell'invio.",
+    s3Title: "Errori più comuni dei richiedenti",
+    s3b1: "Partire troppo tardi quando le scadenze sono già strette.",
+    s3b2: "Documentazione di reddito e passività incompleta.",
+    s3b3: "Sottovalutare i costi propri oltre al prezzo di acquisto.",
+    ctaTitle: "Vuoi subito un risultato indicativo veloce?",
+    ctaText: "Servono circa 2 minuti e ottieni probabilità e prossimo passo consigliato.",
+    ctaButton: "Avvia verifica rapida",
+  };
   if (locale === "tr") return { ...en, metaTitle: "Ipotek hesaplayici | hypo.online", h1: "Ipotek hesaplayici: karmasa olmadan yonlendirme", ctaButton: "Hizli kontrolu baslat" };
   if (locale === "zh") return { ...en, metaTitle: "按揭计算器 | hypo.online", h1: "按揭计算器：清晰快速判断", ctaButton: "开始快速评估" };
   return en;

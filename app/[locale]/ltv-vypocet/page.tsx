@@ -57,11 +57,33 @@ function ltvCopy(locale: string) {
   if (locale === "ro") return { ...en, metaTitle: "Calcul LTV | hypo.online", title: "Calcul LTV pentru ipoteca", cta: "Ruleaza verificarea LTV" };
   if (locale === "es") return { ...en, metaTitle: "Calculo LTV | hypo.online", title: "Calculo LTV para hipotecas", cta: "Ejecutar verificacion LTV" };
   if (locale === "fr") return { ...en, metaTitle: "Calcul LTV | hypo.online", title: "Calcul LTV pour hypotheque", cta: "Lancer la verification LTV" };
-  if (locale === "it") return { ...en, metaTitle: "Calcolo LTV | hypo.online", title: "Calcolo LTV per mutui", cta: "Avvia verifica LTV" };
+  if (locale === "it") return {
+    ...en,
+    metaTitle: "Calcolo LTV | hypo.online",
+    title: "Calcolo LTV per mutui",
+    intro: "Capisci come il rapporto prestito/valore influisce su approvazione e tasso offerto.",
+    bullets: [
+      "Cosa significa un LTV più alto per rischio e scoring bancario.",
+      "Come i fondi propri cambiano il risultato.",
+      "Quando coinvolgere il broker per strutturare il finanziamento.",
+    ],
+    cta: "Avvia verifica LTV",
+  };
   if (locale === "tr") return { ...en, metaTitle: "LTV hesaplama | hypo.online", title: "Ipotek icin LTV hesaplama", cta: "LTV kontrolunu calistir" };
   if (locale === "zh") return { ...en, metaTitle: "LTV计算 | hypo.online", title: "按揭LTV计算", cta: "开始LTV检查" };
   if (locale === "sk") return { ...en, metaTitle: "LTV výpočet | hypo.online", title: "LTV výpočet pre hypotéku", cta: "Spustiť LTV check" };
   if (locale === "de") return { ...en, metaTitle: "LTV-Berechnung | hypo.online", title: "LTV-Berechnung für Hypotheken", cta: "LTV-Check starten" };
-  if (locale === "pl") return { ...en, metaTitle: "Kalkulacja LTV | hypo.online", title: "Kalkulacja LTV dla kredytu hipotecznego", cta: "Uruchom check LTV" };
+  if (locale === "pl") return {
+    ...en,
+    metaTitle: "Kalkulacja LTV | hypo.online",
+    title: "Kalkulacja LTV dla kredytu hipotecznego",
+    intro: "Zrozum, jak wskaźnik LTV wpływa na akceptację i oferowane oprocentowanie.",
+    bullets: [
+      "Co wyższe LTV oznacza dla ryzyka i scoringu bankowego.",
+      "Jak środki własne zmieniają wynik.",
+      "Kiedy warto zaangażować brokera przy strukturze finansowania.",
+    ],
+    cta: "Uruchom weryfikację LTV",
+  };
   return en;
 }
