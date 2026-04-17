@@ -48,6 +48,10 @@ export default async function HomePage({ params }: Props) {
       href: "/hypoteka-prijem",
       label: copy.seoLinkIncome,
     },
+    {
+      href: "/vzdelavani",
+      label: "Průvodce hypotékou v ČR",
+    },
   ] as const;
 
   const faqJsonLd = {
