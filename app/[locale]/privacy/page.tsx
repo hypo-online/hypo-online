@@ -65,10 +65,11 @@ function privacyCopy(locale: string) {
   }
   if (locale === "de") {
     return {
-      ...en,
       title: "Datenfluss und Aufbewahrungsfenster",
       b1: "Fragebogen-Daten: nur während der Auswertung genutzt, nicht dauerhaft gespeichert.",
       b2: "Kontaktdaten (Name, E-Mail, Telefon): nur für Makler-Übergabe und Folgekontakt.",
+      b3: "Analytik: nur anonyme Ereignisse bei erteilter Einwilligung.",
+      b4: "Löschanfrage: direkt aus der Ergebnisansicht nach Kontaktübermittlung möglich.",
     };
   }
   if (locale === "pl") {
@@ -77,7 +78,7 @@ function privacyCopy(locale: string) {
       b1: "Dane z ankiety: używane tylko podczas oceny, bez trwałego zapisu.",
       b2: "Dane kontaktowe (imię, e-mail, telefon): tylko do przekazania doradcy i kontaktu zwrotnego.",
       b3: "Analityka: tylko anonimowe zdarzenia po udzieleniu zgody.",
-      b4: "Prosbe o usuniecie danych mozna wyslac bezposrednio z widoku wyniku po wyslaniu kontaktu.",
+      b4: "Prośbę o usunięcie danych można wysłać bezpośrednio z widoku wyniku po wysłaniu kontaktu.",
     };
   }
   if (locale === "sk") {

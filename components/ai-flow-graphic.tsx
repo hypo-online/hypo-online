@@ -43,17 +43,80 @@ function aiFlowCopy(locale: string) {
       matchText: "Makléř + další krok",
     };
   }
-  if (locale === "sk") return { ...en, inputTitle: "Vstup", inputText: "Príjem, cieľ, časovanie", matchText: "Maklér + ďalší krok" };
-  if (locale === "de") return { ...en, inputTitle: "Eingabe", inputText: "Einkommen, Ziel, Zeitplan", matchTitle: "Zuordnung", matchText: "Makler + nächster Schritt" };
+  if (locale === "sk") {
+    return {
+      inputTitle: "Vstup",
+      inputText: "Príjem, cieľ, časovanie",
+      scoringTitle: "Skórovanie",
+      scoringText: "AI model + bankové pravidlá",
+      matchTitle: "Párovanie",
+      matchText: "Maklér + ďalší krok",
+    };
+  }
+  if (locale === "de") {
+    return {
+      inputTitle: "Eingabe",
+      inputText: "Einkommen, Ziel, Zeitplan",
+      scoringTitle: "Bewertung",
+      scoringText: "KI-Modell + bankähnliche Regeln",
+      matchTitle: "Zuordnung",
+      matchText: "Makler + nächster Schritt",
+    };
+  }
   if (locale === "pl") return { ...en, inputTitle: "Dane wejściowe", inputText: "Dochód, cel, harmonogram", matchTitle: "Dopasowanie", matchText: "Broker + kolejny krok" };
   if (locale === "uk") return { ...en, inputTitle: "Вхідні дані", inputText: "Дохід, ціль, термін", scoringText: "AI модель + банківські правила", matchTitle: "Підбір", matchText: "Брокер + наступний крок" };
   if (locale === "ru") return { ...en, inputTitle: "Входные данные", inputText: "Доход, цель, сроки", scoringText: "AI модель + банковские правила", matchTitle: "Подбор", matchText: "Брокер + следующий шаг" };
-  if (locale === "vi") return { ...en, inputTitle: "Du lieu dau vao", inputText: "Thu nhap, muc tieu, thoi gian", matchTitle: "Ghep noi", matchText: "Moi gioi + buoc tiep theo" };
+  if (locale === "vi") {
+    return {
+      inputTitle: "Đầu vào",
+      inputText: "Thu nhập, mục tiêu, thời gian",
+      scoringTitle: "Chấm điểm",
+      scoringText: "Mô hình AI + quy tắc kiểu ngân hàng",
+      matchTitle: "Ghép nối",
+      matchText: "Môi giới + bước tiếp theo",
+    };
+  }
   if (locale === "ro") return { ...en, inputTitle: "Date de intrare", inputText: "Venit, obiectiv, termen", matchTitle: "Potrivire", matchText: "Broker + pasul urmator" };
-  if (locale === "es") return { ...en, inputTitle: "Entrada", inputText: "Ingresos, objetivo, plazo", matchTitle: "Matching", matchText: "Broker + siguiente paso" };
-  if (locale === "fr") return { ...en, inputTitle: "Entree", inputText: "Revenu, objectif, delai", matchTitle: "Correspondance", matchText: "Courtier + prochaine etape" };
-  if (locale === "it") return { ...en, inputTitle: "Input", inputText: "Reddito, obiettivo, tempistica", matchTitle: "Abbinamento", matchText: "Broker + passo successivo" };
-  if (locale === "tr") return { ...en, inputTitle: "Girdi", inputText: "Gelir, hedef, zamanlama", matchTitle: "Eslesme", matchText: "Broker + sonraki adim" };
+  if (locale === "es") {
+    return {
+      inputTitle: "Entrada",
+      inputText: "Ingresos, objetivo, plazo",
+      scoringTitle: "Puntuación",
+      scoringText: "Modelo de IA + reglas tipo banco",
+      matchTitle: "Coincidencia",
+      matchText: "Broker + siguiente paso",
+    };
+  }
+  if (locale === "fr") {
+    return {
+      inputTitle: "Entrée",
+      inputText: "Revenu, objectif, délai",
+      scoringTitle: "Notation",
+      scoringText: "Modèle IA + règles type banque",
+      matchTitle: "Correspondance",
+      matchText: "Courtier + prochaine étape",
+    };
+  }
+  if (locale === "it") {
+    return {
+      inputTitle: "Dati in ingresso",
+      inputText: "Reddito, obiettivo, tempistica",
+      scoringTitle: "Punteggio",
+      scoringText: "Modello IA + regole tipo banca",
+      matchTitle: "Abbinamento",
+      matchText: "Broker + passo successivo",
+    };
+  }
+  if (locale === "tr") {
+    return {
+      inputTitle: "Girdi",
+      inputText: "Gelir, hedef, zamanlama",
+      scoringTitle: "Skorlama",
+      scoringText: "Yapay zeka modeli + banka benzeri kurallar",
+      matchTitle: "Eşleştirme",
+      matchText: "Broker + sonraki adım",
+    };
+  }
   if (locale === "zh") return { ...en, inputTitle: "输入", inputText: "收入、目标、时间", scoringText: "AI模型 + 银行规则", matchTitle: "匹配", matchText: "经纪人 + 下一步" };
   return en;
 }
