@@ -88,6 +88,42 @@ export function QuizFlow({ locale }: { locale: string }) {
           ? t("hint_red")
           : "";
 
+  const improvementTips =
+    signal === "green"
+      ? [
+          locale === "cs"
+            ? "Připravte potvrzení o příjmu za poslední období."
+            : "Prepare proof of income for the latest period.",
+          locale === "cs"
+            ? "Zkontrolujte rezervu vlastních prostředků na vedlejší náklady."
+            : "Confirm own-funds reserve for side costs and fees.",
+        ]
+      : signal === "yellow"
+        ? [
+            locale === "cs"
+              ? "Doložte stabilitu příjmu (delší historie zaměstnání / podnikání)."
+              : "Document income stability (longer employment/business history).",
+            locale === "cs"
+              ? "Snižte stávající měsíční závazky před podáním."
+              : "Reduce existing monthly debt obligations before submission.",
+            locale === "cs"
+              ? "Připravte dokumenty k rezidenci/pobytu, pokud jste cizinec."
+              : "Prepare residency documents if you are a foreign applicant.",
+          ]
+        : signal === "red"
+          ? [
+              locale === "cs"
+                ? "Nechte makléře navrhnout alternativní strukturu (nižší LTV, spolužadatel)."
+                : "Ask a broker for alternative structuring (lower LTV, co-applicant).",
+              locale === "cs"
+                ? "Nejprve stabilizujte příjem a závazky, pak proveďte nový check."
+                : "Stabilize income and liabilities first, then re-run the check.",
+              locale === "cs"
+                ? "Vyplatí se řešit individuálně – i červené případy se často otočí."
+                : "Individual review matters — red cases can still be turned around.",
+            ]
+          : [];
+
   return (
     <div className="flex flex-1 flex-col">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -219,6 +255,18 @@ export function QuizFlow({ locale }: { locale: string }) {
           </div>
 
           <p className="text-sm leading-relaxed text-zinc-700">{hint}</p>
+          <div className="rounded-xl border border-zinc-200 bg-white p-4">
+            <p className="text-sm font-semibold text-[var(--color-brand-950)]">
+              {locale === "cs"
+                ? "Jak zvýšit šanci na schválení"
+                : "How to improve approval odds"}
+            </p>
+            <ul className="mt-2 space-y-1 text-sm text-zinc-700">
+              {improvementTips.map((tip) => (
+                <li key={tip}>• {tip}</li>
+              ))}
+            </ul>
+          </div>
           <p className="text-sm font-medium text-[var(--color-brand-800)]">{t("allSignalsLead")}</p>
           <p className="text-xs leading-relaxed text-zinc-500">{t("disclaimer")}</p>
 

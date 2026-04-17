@@ -28,6 +28,13 @@ export default async function HomePage({ params }: Props) {
     { title: t("home.how_step6_title"), body: t("home.how_step6_body") },
   ] as const;
 
+  const seoLinks = [
+    { href: "/hypoteka-kalkulacka", label: "Hypotéka kalkulačka" },
+    { href: "/kolik-dostanu-hypoteku", label: "Kolik dostanu hypotéku" },
+    { href: "/ltv-vypocet", label: "LTV výpočet" },
+    { href: "/hypoteka-prijem", label: "Hypotéka a příjem" },
+  ] as const;
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-6">
       <header className="mb-10 flex items-center justify-between gap-4">
@@ -54,6 +61,9 @@ export default async function HomePage({ params }: Props) {
       <p className="mt-4 text-pretty text-base leading-relaxed text-zinc-600 sm:text-lg">
         {t("home.sub")}
       </p>
+      <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <strong>Dnes:</strong> sazby a pravidla bank se mění. Výsledek berte jako rychlou orientaci před hovorem s makléřem.
+      </div>
 
       <ul className="mt-8 space-y-3 text-sm leading-relaxed text-zinc-700">
         <li className="flex gap-2">
@@ -103,6 +113,26 @@ export default async function HomePage({ params }: Props) {
           ))}
         </ol>
         <p className="text-xs leading-relaxed text-zinc-500">{t("home.how_lead_note")}</p>
+      </section>
+
+      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
+        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+          SEO vstupy pro rychlé rozhodnutí
+        </h2>
+        <p className="mt-2 text-sm text-zinc-600">
+          Praktické stránky pro nejčastější dotazy. Každá navazuje na rychlý check a předání na makléře.
+        </p>
+        <div className="mt-4 grid gap-2">
+          {seoLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-lg border border-zinc-200 px-3 py-2 text-sm font-medium text-[var(--color-brand-700)] hover:bg-zinc-50"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );
