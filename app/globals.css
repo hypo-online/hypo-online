@@ -11,6 +11,14 @@
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-surface);
+  background:
+    radial-gradient(circle at 15% 0%, #e8eeff 0, transparent 35%),
+    radial-gradient(circle at 85% 0%, #eef2ff 0, transparent 32%),
+    var(--color-surface);
   color: var(--color-brand-950);
+}
+
+.finance-panel {
+  background: linear-gradient(165deg, #0f172f 0%, #17264a 45%, #101a33 100%);
+  color: #eef2ff;
 }

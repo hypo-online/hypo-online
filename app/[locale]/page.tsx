@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { HeroGraphic } from "@/components/hero-graphic";
+import { AiFlowGraphic } from "@/components/ai-flow-graphic";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -18,6 +20,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const isCs = locale === "cs";
 
   const steps = [
     { title: t("home.how_step1_title"), body: t("home.how_step1_body") },
@@ -35,8 +38,41 @@ export default async function HomePage({ params }: Props) {
     { href: "/hypoteka-prijem", label: "Hypotéka a příjem" },
   ] as const;
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: isCs ? "Je výsledek závazné schválení bankou?" : "Is this a binding bank approval?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: isCs
+            ? "Ne. Jde o orientační odhad pravděpodobnosti a další krok s makléřem."
+            : "No. It is an indicative probability estimate and next-step guidance with a broker.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: isCs
+          ? "Ukládáte odpovědi z dotazníku?"
+          : "Do you store questionnaire answers?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: isCs
+            ? "Ne. Odpovědi používáme jen pro okamžitý výpočet výsledku."
+            : "No. Answers are used only for immediate result computation.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <header className="mb-10 flex items-center justify-between gap-4">
         <span className="text-sm font-semibold tracking-tight text-[var(--color-brand-800)]">
           {t("brand")}
@@ -56,13 +92,24 @@ export default async function HomePage({ params }: Props) {
         {t("home.badge")}
       </p>
       <h1 className="text-balance text-3xl font-semibold tracking-tight text-[var(--color-brand-950)] sm:text-4xl">
-        {t("home.headline")}
+        {isCs
+          ? "Zjistěte během 2 minut, jestli má hypotéka reálnou šanci."
+          : "See in 2 minutes if your mortgage case is realistically approvable."}
       </h1>
       <p className="mt-4 text-pretty text-base leading-relaxed text-zinc-600 sm:text-lg">
-        {t("home.sub")}
+        {isCs
+          ? "Bez běhání po bankách. Automatický scoring + lidský makléř pro další krok."
+          : "No running between banks. Automated scoring plus a human broker for the next step."}
       </p>
       <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-        <strong>Dnes:</strong> sazby a pravidla bank se mění. Výsledek berte jako rychlou orientaci před hovorem s makléřem.
+        <strong>{isCs ? "Dnes:" : "Today:"}</strong>{" "}
+        {isCs
+          ? "bankovní pravidla i sazby se mění. Výsledek berte jako rychlou orientaci."
+          : "bank rules and rates move often. Treat the result as rapid orientation."}
+      </div>
+
+      <div className="mt-6">
+        <HeroGraphic />
       </div>
 
       <ul className="mt-8 space-y-3 text-sm leading-relaxed text-zinc-700">
@@ -85,7 +132,7 @@ export default async function HomePage({ params }: Props) {
           href="/quiz"
           className="inline-flex h-12 items-center justify-center rounded-xl bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white shadow-sm transition hover:bg-[var(--color-brand-800)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand-600)]"
         >
-          {t("home.cta")}
+          {isCs ? "Zjistit, kolik si mohu půjčit" : "Check how much I can borrow"}
         </Link>
         <a
           href="#how"
@@ -94,6 +141,83 @@ export default async function HomePage({ params }: Props) {
           {t("home.secondary")}
         </a>
       </div>
+      <p className="mt-3 text-xs text-zinc-500">
+        {isCs ? "Bez závazku, orientačně do 2 minut." : "No commitment, indicative in about 2 minutes."}
+      </p>
+
+      <section className="mt-8 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          {isCs ? "Spolupráce" : "Coverage"}
+        </p>
+        <p className="mt-2 text-sm text-zinc-700">
+          {isCs
+            ? "Spolupracujeme s hypotečními specialisty napříč CZ/SK trhem. Konkrétní banka záleží na vašem profilu."
+            : "We work with mortgage specialists across CZ/SK market coverage. Bank choice depends on your profile."}
+        </p>
+      </section>
+
+      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+          {isCs ? "Co dělá AI za vás" : "What AI does for you"}
+        </h2>
+        <div className="mt-3 space-y-2 text-sm text-zinc-700">
+          <p>• {isCs ? "Okamžitý předběžný scoring případu." : "Instant pre-scoring of your case."}</p>
+          <p>• {isCs ? "Porovnání vhodnosti podle profilu." : "Profile-based suitability comparison."}</p>
+          <p>• {isCs ? "Odhalení slabých míst před podáním." : "Surfacing weak points before submission."}</p>
+        </div>
+        <div className="mt-4">
+          <AiFlowGraphic locale={locale} />
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+          {isCs ? "Jak probíhá spolupráce s makléřem" : "How broker collaboration works"}
+        </h2>
+        <ol className="mt-3 space-y-2 text-sm text-zinc-700">
+          <li>1. {isCs ? "Po výsledku odešlete kontakt (volitelné)." : "After result, send contact (optional)."}</li>
+          <li>2. {isCs ? "Makléř se ozve a upřesní dokumenty." : "Broker calls and confirms document needs."}</li>
+          <li>3. {isCs ? "Dostanete realistický postup a další krok." : "You get a realistic path and next action."}</li>
+        </ol>
+      </section>
+
+      <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <h2 className="text-lg font-semibold text-[var(--color-brand-950)]">
+          {isCs ? "Srovnání cesty k hypotéce" : "Mortgage path comparison"}
+        </h2>
+        <div className="mt-4 overflow-x-auto">
+          <table className="min-w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-zinc-200 text-zinc-500">
+                <th className="py-2 pr-3">{isCs ? "Faktor" : "Factor"}</th>
+                <th className="py-2 pr-3">hypo.online</th>
+                <th className="py-2 pr-3">{isCs ? "Banka (pobočka)" : "Bank branch"}</th>
+                <th className="py-2">{isCs ? "Bez vedení" : "No guidance"}</th>
+              </tr>
+            </thead>
+            <tbody className="text-zinc-700">
+              <tr className="border-b border-zinc-100">
+                <td className="py-2 pr-3">{isCs ? "Rychlost orientace" : "Speed to orientation"}</td>
+                <td className="py-2 pr-3">{isCs ? "2 min check" : "2-min check"}</td>
+                <td className="py-2 pr-3">{isCs ? "Delší konzultace" : "Longer consultation"}</td>
+                <td className="py-2">{isCs ? "Nejasná" : "Unclear"}</td>
+              </tr>
+              <tr className="border-b border-zinc-100">
+                <td className="py-2 pr-3">{isCs ? "Personalizace" : "Personalization"}</td>
+                <td className="py-2 pr-3">{isCs ? "AI + makléř" : "AI + broker"}</td>
+                <td className="py-2 pr-3">{isCs ? "Podle jedné banky" : "Single-bank lens"}</td>
+                <td className="py-2">{isCs ? "Bez kontextu" : "Low context"}</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-3">{isCs ? "Další krok" : "Next step clarity"}</td>
+                <td className="py-2 pr-3">{isCs ? "Jasné doporučení" : "Clear recommendation"}</td>
+                <td className="py-2 pr-3">{isCs ? "Závislé na kapacitě" : "Capacity-dependent"}</td>
+                <td className="py-2">{isCs ? "Vysoká nejistota" : "High uncertainty"}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <section id="how" className="mt-16 space-y-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
         <div>

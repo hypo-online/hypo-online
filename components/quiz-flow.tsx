@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { QuizPayload, Signal } from "@/lib/evaluation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Semaphore } from "@/components/semaphore";
+import { trackEvent } from "@/lib/analytics";
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -46,6 +47,7 @@ export function QuizFlow({ locale }: { locale: string }) {
       setProbability(data.probability);
       setSignal(data.signal);
       setStep(3);
+      trackEvent("step3_complete", { probability: data.probability, signal: data.signal });
     } catch {
       setError("Request failed");
     } finally {
@@ -72,6 +74,7 @@ export function QuizFlow({ locale }: { locale: string }) {
       });
       if (!res.ok) throw new Error("lead failed");
       setLeadDone(true);
+      trackEvent("lead_submit", { signal, probability });
     } catch {
       setError("Request failed");
     } finally {
@@ -155,7 +158,10 @@ export function QuizFlow({ locale }: { locale: string }) {
           />
           <NavRow
             onBack={undefined}
-            onNext={() => setStep(1)}
+            onNext={() => {
+              setStep(1);
+              trackEvent("step1_complete", { intent });
+            }}
             nextLabel={t("next")}
           />
         </section>
@@ -183,7 +189,10 @@ export function QuizFlow({ locale }: { locale: string }) {
           />
           <NavRow
             onBack={() => setStep(0)}
-            onNext={() => setStep(2)}
+            onNext={() => {
+              setStep(2);
+              trackEvent("step2_complete", { income });
+            }}
             backLabel={t("back")}
             nextLabel={t("next")}
           />
