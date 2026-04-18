@@ -11,7 +11,11 @@ export function canAdvanceStep(
     case "A2-location":
       return !!a["A2-location"];
     case "A3-price":
-      return a["A3-price"] != null && a["A3-price"] >= 1;
+      return (
+        a["A3-price"] != null &&
+        a["A3-price"] >= 1 &&
+        a["A3-price"] <= 100
+      );
     case "A4-downpayment":
       return !!a["A4-downpayment"];
     case "A5-timeline":
@@ -52,6 +56,11 @@ export function canAdvanceStep(
         )
           return false;
         if (s === "medical" && (c3.medical == null || c3.medical < 0))
+          return false;
+        if (
+          s === "rent-stable" &&
+          (c3.rentMonthly == null || c3.rentMonthly <= 0)
+        )
           return false;
       }
       return true;

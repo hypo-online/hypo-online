@@ -96,12 +96,18 @@
       "hint": "Rough market value in millions of CZK."
     },
     "A4": {
-      "title": "How much own funds do you have for a down payment?",
-      "hint": "Higher equity usually improves conditions; many banks prefer ~20%+.",
+      "title": "Roughly what share of the property price will you cover with your own funds?",
+      "hint": "Approximate share of the purchase price. A larger own-funds share generally improves loan terms; many banks prefer around 20%+.",
       "lt10": "Under 10% (high risk)",
       "10-15": "10–15% (less ideal)",
       "15-20": "15–20% (good)",
-      "gt20": "Over 20% (strong)"
+      "gt20": "Over 20% (strong)",
+      "refi_title": "Roughly what equity do you have in the property (value above the mortgage)?",
+      "refi_hint": "For refinancing, this is the part of the property value that is yours beyond the current loan. More equity usually means better negotiating room.",
+      "refi_lt10": "Under 10% (weaker equity)",
+      "refi_10-15": "10–15%",
+      "refi_15-20": "15–20%",
+      "refi_gt20": "Over 20% (strong equity)"
     },
     "A5": {
       "title": "When do you plan to buy / refinance?",
@@ -156,9 +162,9 @@
       "amount_benefits": "Monthly benefits (CZK)"
     },
     "B5": {
-      "title": "How stable do you expect your employability to be over the next 20–30 years?",
-      "hint": "Banks ask whether you can service the loan long-term.",
-      "low": "Very unstable",
+      "title": "How stable do you expect your income to be over the next few years (roughly until your next typical rate-fix period)?",
+      "hint": "Lenders care whether you can keep up with payments through normal rate changes and life events—not a multi-decade career forecast.",
+      "low": "Very uncertain",
       "high": "Very stable"
     },
     "C1": {
@@ -194,7 +200,8 @@
       "alimony_amt": "Monthly alimony (CZK)",
       "family_amt": "Monthly repayment (CZK)",
       "medical_amt": "Monthly repayment (CZK)",
-      "court_note": "Brief note (optional)"
+      "court_note": "Brief note (optional)",
+      "rent_amt": "Monthly rent / housing cost (CZK)"
     },
     "C4": {
       "title": "Any past payment issues?",

@@ -96,12 +96,18 @@
       "hint": "Orientační tržní hodnota v milionech Kč."
     },
     "A4": {
-      "title": "Jaké máte disponibilní prostředky na akonto?",
-      "hint": "Vyšší akonto = lepší podmínky. Banky často preferují cca 20 %+.",
+      "title": "Kolik z ceny nemovitosti pokryjete vlastními prostředky?",
+      "hint": "Orientační podíl z kupní ceny. Čím vyšší vlastní podíl, tím obvykle výhodnější podmínky; banky často preferují cca 20 % +.",
       "lt10": "Méně než 10 % (vysoké riziko)",
       "10-15": "10–15 % (méně ideální)",
       "15-20": "15–20 % (dobré)",
-      "gt20": "Více než 20 % (silné)"
+      "gt20": "Více než 20 % (silné)",
+      "refi_title": "Jaký je zhruba váš vlastní podíl na hodnotě nemovitosti (equity – část hodnoty nad úvěrem)?",
+      "refi_hint": "U refinancování jde o to, kolik z hodnoty nemovitosti vám zbývá nad aktuální hypotékou. Vyšší vlastní podíl zlepšuje pozici při jednání s bankou.",
+      "refi_lt10": "Méně než 10 % (slabší equity)",
+      "refi_10-15": "10–15 %",
+      "refi_15-20": "15–20 %",
+      "refi_gt20": "Více než 20 % (silné equity)"
     },
     "A5": {
       "title": "Kdy plánujete koupi/refinancování?",
@@ -156,9 +162,9 @@
       "amount_benefits": "Měsíční dávky (Kč)"
     },
     "B5": {
-      "title": "Jak stabilní vidíte svou uplatnitelnost v příštích 20–30 letech?",
-      "hint": "Banky řeší, zda zvládnete splátky dlouhodobě.",
-      "low": "Velmi nestabilní",
+      "title": "Jak stabilní očekáváte svůj příjem v horizontu několika příštích let (zhruba do další běžné fixace úrokové sazby)?",
+      "hint": "Banky posuzují, zda zvládnete splátky při běžných změnách sazeb a životních situacích — ne prognózu kariéry na desítky let.",
+      "low": "Velmi nejisté",
       "high": "Velmi stabilní"
     },
     "C1": {
@@ -194,7 +200,8 @@
       "alimony_amt": "Měsíční výživné (Kč)",
       "family_amt": "Měsíční splátka (Kč)",
       "medical_amt": "Měsíční splátka (Kč)",
-      "court_note": "Stručná poznámka (volitelné)"
+      "court_note": "Stručná poznámka (volitelné)",
+      "rent_amt": "Měsíční nájem / náklady na bydlení mimo vlastní nemovitost (Kč)"
     },
     "C4": {
       "title": "Měl/a jste problémy se splátkami v minulosti?",

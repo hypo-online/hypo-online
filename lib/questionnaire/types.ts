@@ -78,6 +78,8 @@ export type OtherLiabilities = {
   "family-loan"?: number;
   medical?: number;
   courtNote?: string;
+  /** Monthly rent (CZK) when "rent-stable" is selected */
+  rentMonthly?: number;
 };
 
 /**

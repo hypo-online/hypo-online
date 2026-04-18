@@ -85,7 +85,7 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
           <input
             type="range"
             min={1}
-            max={15}
+            max={100}
             step={0.5}
             value={v}
             onChange={(e) =>
@@ -99,18 +99,23 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
 
     case "A4-downpayment": {
       const opts: A4Downpayment[] = ["lt10", "10-15", "15-20", "gt20"];
+      const refi = answers["A1-type"] === "refinance";
       return (
         <section className="flex flex-1 flex-col gap-4">
           <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
-            {t("A4.title")}
+            {t(refi ? "A4.refi_title" : "A4.title")}
           </h2>
-          <p className="text-sm text-body">{t("A4.hint")}</p>
+          <p className="text-sm text-body">{t(refi ? "A4.refi_hint" : "A4.hint")}</p>
           {opts.map((k) => (
             <OptionRow
               key={k}
               selected={answers["A4-downpayment"] === k}
               onSelect={() => onPatch({ "A4-downpayment": k })}
-              label={t(`A4.${k}` as "A4.lt10")}
+              label={t(
+                (refi
+                  ? (`A4.refi_${k}` as const)
+                  : (`A4.${k}` as const)) as "A4.lt10",
+              )}
             />
           ))}
         </section>
@@ -519,7 +524,11 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
         const next = new Set(sel);
         if (next.has(k)) next.delete(k);
         else next.add(k);
-        onPatch({ "C3-other": { ...c3, selected: [...next] } });
+        const patch: typeof c3 = { ...c3, selected: [...next] };
+        if (k === "rent-stable" && !next.has("rent-stable")) {
+          delete patch.rentMonthly;
+        }
+        onPatch({ "C3-other": patch });
       };
       const flags = [
         "alimony",
@@ -602,6 +611,24 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
                   onChange={(e) =>
                     onPatch({
                       "C3-other": { ...c3, courtNote: e.target.value },
+                    })
+                  }
+                />
+              )}
+              {k === "rent-stable" && sel.has("rent-stable") && (
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  className="ml-6 w-full max-w-xs rounded-lg border border-[var(--color-border)] px-3 py-2"
+                  placeholder={t("C3.rent_amt")}
+                  value={c3.rentMonthly ?? ""}
+                  onChange={(e) =>
+                    onPatch({
+                      "C3-other": {
+                        ...c3,
+                        rentMonthly: Number.parseInt(e.target.value, 10) || 0,
+                      },
                     })
                   }
                 />

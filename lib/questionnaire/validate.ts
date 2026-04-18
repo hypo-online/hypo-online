@@ -7,6 +7,7 @@ export function validateEnhancedAnswers(
   if (!a["A1-type"]) return "missing_A1";
   if (!a["A2-location"]) return "missing_A2";
   if (a["A3-price"] == null || Number.isNaN(a["A3-price"])) return "missing_A3";
+  if (a["A3-price"] < 1 || a["A3-price"] > 100) return "bad_A3";
   if (!a["A4-downpayment"]) return "missing_A4";
   if (!a["A5-timeline"]) return "missing_A5";
   if (!a["B1-employment"]) return "missing_B1";
@@ -45,6 +46,11 @@ export function validateEnhancedAnswers(
       return "c3_family";
     if (s === "medical" && (c3.medical == null || c3.medical < 0))
       return "c3_medical";
+    if (
+      s === "rent-stable" &&
+      (c3.rentMonthly == null || c3.rentMonthly <= 0)
+    )
+      return "c3_rent";
   }
 
   return null;

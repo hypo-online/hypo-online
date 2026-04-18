@@ -60,7 +60,12 @@ export function calculateDti(answers: EnhancedQuizAnswers): DtiResult {
       monthlyObligations += c3["family-loan"];
     if (c3.selected.includes("medical") && typeof c3.medical === "number")
       monthlyObligations += c3.medical;
-    // Rent (non-loan) is excluded from bank-style DTI here.
+    if (
+      c3.selected.includes("rent-stable") &&
+      typeof c3.rentMonthly === "number" &&
+      c3.rentMonthly > 0
+    )
+      monthlyObligations += c3.rentMonthly;
   }
 
   const denom = monthlyIncome > 0 ? monthlyIncome : 1;
