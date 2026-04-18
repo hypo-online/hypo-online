@@ -46,8 +46,8 @@ export default async function OpenGraphImage() {
             src={src}
             alt=""
             width={620}
-            height={200}
-            style={{ objectFit: "contain", maxHeight: 220 }}
+            height={413}
+            style={{ objectFit: "contain", maxHeight: 280 }}
           />
         </div>
         <div

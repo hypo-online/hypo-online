@@ -21,6 +21,7 @@ export const cizinciHypotekaVcr: EducationArticle = {
       paragraphs: [
         "České banky posuzují žádost v kontextu českého práva, daňového systému a úvěrových registrů (např. CBCB). To, že jste schváleni v jiné zemi, automaticky neznamená stejný výsledek zde — ale nejste v tom sami: velká část Prahy a regionů řeší zahraniční příjmy a smíšené domácnosti denně.",
         "Klíčové je oddělit tři vrstvy: legální pobyt a identifikace, doložitelný příjem, a nemovitost (účel, LTV, lokalita). Banka pak skládá interní skóre; výstup není jen „ano/ne“, ale často podmínky, výjimky nebo požadavek na vyšší vlastní zdroje.",
+        "Příklad: Rodina z Brazílie měla před třemi lety schválený úvěr v USA na stejný typ příjmu. V ČR dostala nejdřív odmítnutí — důvodem nebylo „jste Brazilci“, ale chybějící česká daňová historie a krátká délka českého účtu. Po 8 měsících pravidelných výplat na český účet a doložení českého daňového přiznání jiná banka schválila stejnou strukturu s akontací +5 %.",
       ],
     },
     {
@@ -28,6 +29,7 @@ export const cizinciHypotekaVcr: EducationArticle = {
       paragraphs: [
         "Typ pobytu (např. trvalý, dlouhodobý, pracovní vízum) ovlivňuje nejen ochotu banky úvěr nabídnout, ale i rozsah dokumentů. EU občané mají jinou administrativní cestu než státní příslušníci třetích zemí — u třetích zemí často přistupuje banka konzervativněji k délce pobytu a stabilitě zaměstnání.",
         "Počítejte s tím, že banka chce konzistentní příběh: stejné jméno v pasu, smlouvě, výpisu z účtu a u zaměstnavatele. Drobné nesoulady řešíte raději před podáním žádosti s makléřem než vysvětlováním u úvěrového oddělení.",
+        "Příklad: V pasu je příjmení s diakritikou, v pracovní smlouvě bez ní, na výpisu z účtu zkrácená varianta. Schvalovatel pozastavil žádost na 10 dní kvůli „AML stop“ — oprava přes doplněk od zaměstnavatele a notářsky ověřený výpis z pasu problém vyřešil. Časová ztráta šla minimalizovat tím, že se balík sjednotil už při prvním podání.",
       ],
     },
     {
@@ -36,6 +38,7 @@ export const cizinciHypotekaVcr: EducationArticle = {
         "Zaměstnání u českého plátce s běžnou pracovní smlouvou je pro banky nejjednodušší model: mzda, výplatní pásky, potvrzení zaměstnavatele.",
         "Příjem v EUR/USD z koncernu v jiné zemi je často akceptovatelný, ale vyžaduje překlady, smlouvy, výpisy z účtu a někdy kurzové či daňové sladění. OSVČ s českou živností a daňovým přiznáním je jiná kategorie než OSVČ s fakturací přes zahraniční firmu — obě jdou, ale dokumentační nároky se liší.",
         "Důležitý je také měsíční „míst“ pro splátky: banky pracují s vašimi závazky vůči jiným věřitelům, nájmu, výživnému atd. (viz článek o DTI a indikátorech).",
+        "Příklad: Vývojář fakturuje 4 000 EUR měsíčně přes německou GmbH, na český účet posílá 85 % po kurzu. Banka vezme průměr 6 měsíců, aplikuje haircut 20 % na volatilitu kurzu a započte jen 80 % z výsledku. Žadatel v Excelu počítal vyšší částku — makléř připravil tabulku „takto to počítáme my“ ještě před žádostí, aby nedošlo k šoku při schvalování.",
       ],
     },
     {
@@ -52,13 +55,14 @@ export const cizinciHypotekaVcr: EducationArticle = {
       h2: "Jak si ušetřit čas a nervy",
       paragraphs: [
         "Než poběžíte na pobočku, sepište si časovou osu: odkdy pobyt, odkdy příjem, kde leží vlastní zdroje na akonto. hypo.online vám pomůže s rychlou orientací; detailní strukturu úvěru nechte projít s licencovaným hypotečním makléřem, který zná aktuální appetite jednotlivých bank.",
+        "Příklad časové osy: měsíc 0 — sběr dokumentů a sjednocení jmen; měsíc 1 — předběžné nezávazné posouzení u 2 bank; měsíc 2 — rezervační smlouva až po písemném „go“ od obou bank; měsíc 3 — podpis úvěru a žádost o vklad. Když se rezervačka podepíše v týdnu 0 a dokumenty nejsou hotové do týdne 2, často vzniká pokuta — osa vám ukáže, kde jste pozdě.",
       ],
     },
   ],
   takeaways: [
     "Banka skládá puzzle: pobyt + příjem + nemovitost + vaše závazky.",
     "Zahraniční příjem jde, ale často déle a s více papíry.",
-    "Konzistence jmen a dat napříč dokumenty šetí týdny.",
+    "Konzistence jmen a dat napříč dokumenty šetří týdny.",
     "Právní rámec: NOZ (úvěr § 2395+, zástav § 1309+), zákon 257/2016 Sb. (spotřebitel), zákon 256/2013 Sb. (katastr).",
   ],
 };

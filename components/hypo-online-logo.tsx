@@ -32,8 +32,8 @@ export function HypoOnlineLogo({
       <Image
         src="/brand/hypo-online-logo.png"
         alt={label}
-        width={720}
-        height={240}
+        width={1024}
+        height={682}
         priority
         sizes={sizes}
         className={`h-auto w-auto object-contain object-left ${className}`.trim()}
