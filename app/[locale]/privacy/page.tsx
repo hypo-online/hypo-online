@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/navigation";
+import { SiteLogoNav } from "@/components/site-logo-nav";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -45,12 +46,15 @@ export default async function PrivacyPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-lg px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
-      <Link
-        href="/"
-        className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
-      >
-        {t("back")}
-      </Link>
+      <div className="flex flex-wrap items-center gap-4">
+        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+        <Link
+          href="/"
+          className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+        >
+          {t("back")}
+        </Link>
+      </div>
       <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {t("title")}
       </h1>

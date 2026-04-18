@@ -105,6 +105,21 @@
       "title": "Jaká je odhadovaná cena nemovitosti?",
       "hint": "Orientační tržní hodnota v milionech Kč."
     },
+    "A3b": {
+      "title": "Je na této nemovitosti vedena jiná hypotéka (jiný závazek vázaný na nemovitost)?",
+      "hint": "Stávající zástavní právo snižuje prostor pro další úvěr; banka posuzuje pořadí zástav a LTV.",
+      "none": "Ne — jiná hypotéka na této nemovitosti není",
+      "yes": "Ano — je zde jiná hypotéka / zástavní právo banky",
+      "amount_label": "Orientační zbývající jistina tohoto úvěru (Kč)",
+      "amount_ph": "např. 2400000"
+    },
+    "A3c": {
+      "title": "Kolik plánujete u americké hypotéky čerpat?",
+      "hint": "Jen čerpání z této americké hypotéky — další splátkové závazky řešíme v dalších krocích dotazníku.",
+      "amount_label": "Plánované čerpání (mil. Kč)",
+      "amount_ph": "např. 1,5",
+      "max_note": "Orientační strop v tomto kroku: {max} mil. Kč (podle odhadnuté hodnoty nemovitosti)."
+    },
     "A4": {
       "title": "Kolik z ceny nemovitosti pokryjete vlastními prostředky?",
       "hint": "Orientační podíl z kupní ceny. Čím vyšší vlastní podíl, tím obvykle výhodnější podmínky; banky často preferují cca 20 % +.",

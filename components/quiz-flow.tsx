@@ -39,6 +39,8 @@ function mergeAnswers(
   const next = { ...prev, ...patch };
   if (patch["A1-type"] !== undefined && patch["A1-type"] !== "american-mortgage") {
     delete next["A1b-american-purpose"];
+    delete next["A3b-american-prior"];
+    delete next["A3c-american-draw"];
   }
   if (patch["B1-employment"] !== undefined) {
     return applyB1Branch(next, patch["B1-employment"]);

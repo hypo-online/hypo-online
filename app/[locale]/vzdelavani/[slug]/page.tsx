@@ -6,6 +6,7 @@ import { EducationLocaleGate } from "@/components/education-locale-gate";
 import { JsonLdScript } from "@/components/json-ld-script";
 import { educationArticleBreadcrumbJsonLd } from "@/lib/education/breadcrumb-jsonld";
 import { Link } from "@/navigation";
+import { SiteLogoNav } from "@/components/site-logo-nav";
 import {
   educationArticleSlugs,
   getEducationArticle,
@@ -49,12 +50,7 @@ export default async function VzdelavaniArticlePage({ params }: Props) {
         >
           ← Průvodce hypotékou
         </Link>
-        <Link
-          href="/"
-          className="text-sm text-muted underline-offset-4 hover:underline"
-        >
-          hypo.online
-        </Link>
+        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
       </header>
 
       <EducationLocaleGate locale={locale} csPath={`/vzdelavani/${slug}`} />

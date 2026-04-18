@@ -14,6 +14,16 @@ export function validateEnhancedAnswers(
   if (!a["A2-location"]) return "missing_A2";
   if (a["A3-price"] == null || Number.isNaN(a["A3-price"])) return "missing_A3";
   if (a["A3-price"] < 1 || a["A3-price"] > 100) return "bad_A3";
+  if (showAmericanPurpose(a)) {
+    const p = a["A3b-american-prior"];
+    if (!p?.hasPrior) return "missing_A3b";
+    if (p.hasPrior === "yes") {
+      if (p.outstandingCzk == null || p.outstandingCzk <= 0) return "bad_A3b";
+    }
+    const draw = a["A3c-american-draw"];
+    if (draw == null || Number.isNaN(draw) || draw < 0.1) return "missing_A3c";
+    if (draw > 100 || draw > a["A3-price"]! * 1.05) return "bad_A3c";
+  }
   if (!a["A4-downpayment"]) return "missing_A4";
   if (!a["A5-timeline"]) return "missing_A5";
   if (!a["B1-employment"]) return "missing_B1";

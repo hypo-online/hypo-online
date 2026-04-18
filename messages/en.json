@@ -105,6 +105,21 @@
       "title": "What is the estimated property price?",
       "hint": "Rough market value in millions of CZK."
     },
+    "A3b": {
+      "title": "Is there another mortgage loan secured on this property?",
+      "hint": "An existing senior lien reduces how much a bank will lend on a non-purpose (American) mortgage.",
+      "none": "No — no other mortgage on this property",
+      "yes": "Yes — another mortgage / bank lien exists",
+      "amount_label": "Approximate remaining principal of that loan (CZK)",
+      "amount_ph": "e.g. 2400000"
+    },
+    "A3c": {
+      "title": "How much do you plan to draw from the American mortgage?",
+      "hint": "Only the disbursement from this American mortgage — other debts are covered in later steps.",
+      "amount_label": "Planned draw (mil. CZK)",
+      "amount_ph": "e.g. 1.5",
+      "max_note": "Rough upper bound used in this step: {max} mil. CZK (from your estimated property value)."
+    },
     "A4": {
       "title": "Roughly what share of the property price will you cover with your own funds?",
       "hint": "Approximate share of the purchase price. A larger own-funds share generally improves loan terms; many banks prefer around 20%+.",

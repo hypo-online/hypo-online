@@ -68,6 +68,17 @@ export function calculateDti(answers: EnhancedQuizAnswers): DtiResult {
       monthlyObligations += c3.rentMonthly;
   }
 
+  const prior = answers["A3b-american-prior"];
+  if (
+    answers["A1-type"] === "american-mortgage" &&
+    prior?.hasPrior === "yes" &&
+    typeof prior.outstandingCzk === "number" &&
+    prior.outstandingCzk > 0
+  ) {
+    // Rough annuity proxy from remaining principal (~20y, mid-rate) for DTI only
+    monthlyObligations += Math.round(prior.outstandingCzk * 0.0045);
+  }
+
   const denom = monthlyIncome > 0 ? monthlyIncome : 1;
   const dtiRatio = monthlyObligations / denom;
 
@@ -192,6 +203,12 @@ function scoreRawSignal(answers: EnhancedQuizAnswers, dti: DtiResult): SignalRaw
     } else if (amPurpose === "home-renovation") {
       score += 2;
     }
+  }
+
+  const priorM = answers["A3b-american-prior"];
+  if (a1t === "american-mortgage" && priorM?.hasPrior === "yes") {
+    amberFlags.push("Existing mortgage on the pledged property");
+    score -= 8;
   }
 
   const residency = answers["C5-residency"];

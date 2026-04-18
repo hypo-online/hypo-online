@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HypoOnlineLogo } from "@/components/hypo-online-logo";
+import { SiteLogoNav } from "@/components/site-logo-nav";
 import { Link } from "@/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { HeroGraphic } from "@/components/hero-graphic";
@@ -85,9 +86,7 @@ export default async function HomePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="mb-5 flex items-center justify-between gap-4">
-        <Link href="/" className="block shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 rounded-md">
-          <HypoOnlineLogo className="h-8 w-auto sm:h-9" gradientId="hypoHeaderGrad" />
-        </Link>
+        <SiteLogoNav logoClassName="h-8 w-auto sm:h-9" />
         <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
           <LocaleSwitcher />
           <Link
@@ -202,7 +201,9 @@ export default async function HomePage({ params }: Props) {
             <thead>
               <tr className="border-b border-[var(--color-border)] text-muted">
                 <th className="py-2 pr-3">{copy.compareColFactor}</th>
-                <th className="py-2 pr-3">hypo.online</th>
+                <th className="py-2 pr-3 align-bottom">
+                  <HypoOnlineLogo className="h-5 max-h-5 w-auto" label="hypo.online" />
+                </th>
                 <th className="py-2 pr-3">{copy.compareColBank}</th>
                 <th className="py-2">{copy.compareColNoGuide}</th>
               </tr>

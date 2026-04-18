@@ -5,6 +5,7 @@ import { JsonLdScript } from "@/components/json-ld-script";
 import { educationHubBreadcrumbJsonLd } from "@/lib/education/breadcrumb-jsonld";
 import type { EducationArticle } from "@/lib/education/types";
 import { Link } from "@/navigation";
+import { SiteLogoNav } from "@/components/site-logo-nav";
 import { listEducationArticles } from "@/lib/education";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -53,12 +54,7 @@ export default async function VzdelavaniHubPage({ params }: Props) {
     <div className="mx-auto flex min-h-dvh max-w-[720px] flex-col px-4 pb-16 pt-8 sm:px-8">
       <JsonLdScript data={educationHubBreadcrumbJsonLd(locale)} />
       <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
-        >
-          ← hypo.online
-        </Link>
+        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
       </header>
 
       <EducationLocaleGate locale={locale} csPath="/vzdelavani" />

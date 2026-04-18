@@ -18,6 +18,22 @@ export function canAdvanceStep(
         a["A3-price"] >= 1 &&
         a["A3-price"] <= 100
       );
+    case "A3b-american-prior": {
+      const p = a["A3b-american-prior"];
+      if (!p?.hasPrior) return false;
+      if (p.hasPrior === "yes") {
+        const o = p.outstandingCzk;
+        return typeof o === "number" && o > 0;
+      }
+      return true;
+    }
+    case "A3c-american-draw": {
+      const d = a["A3c-american-draw"];
+      const price = a["A3-price"] ?? 0;
+      if (d == null || Number.isNaN(d) || d < 0.1) return false;
+      if (d > 100 || d > price * 1.05) return false;
+      return true;
+    }
     case "A4-downpayment":
       return !!a["A4-downpayment"];
     case "A5-timeline":

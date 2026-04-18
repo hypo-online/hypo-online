@@ -129,6 +129,95 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
       );
     }
 
+    case "A3b-american-prior": {
+      const raw = answers["A3b-american-prior"];
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("A3b.title")}
+          </h2>
+          <p className="text-sm text-body">{t("A3b.hint")}</p>
+          <OptionRow
+            selected={raw?.hasPrior === "none"}
+            onSelect={() =>
+              onPatch({ "A3b-american-prior": { hasPrior: "none" } })
+            }
+            label={t("A3b.none")}
+          />
+          <OptionRow
+            selected={raw?.hasPrior === "yes"}
+            onSelect={() =>
+              onPatch({
+                "A3b-american-prior": {
+                  hasPrior: "yes",
+                  outstandingCzk: raw?.outstandingCzk ?? 0,
+                },
+              })
+            }
+            label={t("A3b.yes")}
+          />
+          {raw?.hasPrior === "yes" && (
+            <label className="block text-sm font-medium text-[var(--color-brand-950)]">
+              {t("A3b.amount_label")}
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                className="mt-2 min-h-[44px] w-full max-w-xs rounded-lg border border-[var(--color-border)] px-3 py-2 text-[15px]"
+                placeholder={t("A3b.amount_ph")}
+                value={raw.outstandingCzk ?? ""}
+                onChange={(e) =>
+                  onPatch({
+                    "A3b-american-prior": {
+                      hasPrior: "yes",
+                      outstandingCzk:
+                        Number.parseInt(e.target.value, 10) || 0,
+                    },
+                  })
+                }
+              />
+            </label>
+          )}
+        </section>
+      );
+    }
+
+    case "A3c-american-draw": {
+      const priceMil = answers["A3-price"] ?? 5;
+      const maxDraw = Math.min(100, Math.max(0.1, priceMil * 1.05));
+      const v = answers["A3c-american-draw"];
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("A3c.title")}
+          </h2>
+          <p className="text-sm text-body">{t("A3c.hint")}</p>
+          <label className="block text-sm font-medium text-[var(--color-brand-950)]">
+            {t("A3c.amount_label")}
+            <input
+              type="number"
+              inputMode="decimal"
+              step="0.1"
+              min={0.1}
+              max={maxDraw}
+              className="mt-2 min-h-[44px] w-full max-w-xs rounded-lg border border-[var(--color-border)] px-3 py-2 text-[15px]"
+              placeholder={t("A3c.amount_ph")}
+              value={v ?? ""}
+              onChange={(e) => {
+                const n = Number.parseFloat(e.target.value);
+                onPatch({
+                  "A3c-american-draw": Number.isFinite(n) ? n : undefined,
+                });
+              }}
+            />
+          </label>
+          <p className="text-xs text-muted">
+            {t("A3c.max_note", { max: maxDraw.toFixed(1) })}
+          </p>
+        </section>
+      );
+    }
+
     case "A4-downpayment": {
       const opts: A4Downpayment[] = ["lt10", "10-15", "15-20", "gt20"];
       const equityStyle =

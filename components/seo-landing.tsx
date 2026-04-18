@@ -1,4 +1,5 @@
 import { Link } from "@/navigation";
+import { SiteLogoNav } from "@/components/site-logo-nav";
 
 type SeoLandingProps = {
   title: string;
@@ -10,12 +11,7 @@ type SeoLandingProps = {
 export function SeoLanding({ title, intro, bullets, ctaLabel }: SeoLandingProps) {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-8">
-      <Link
-        href="/"
-        className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
-      >
-        ← hypo.online
-      </Link>
+      <SiteLogoNav className="mb-2" logoClassName="h-7 w-auto sm:h-8" />
 
       <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {title}

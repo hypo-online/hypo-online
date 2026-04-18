@@ -1,10 +1,21 @@
 import { ImageResponse } from "next/og";
+import fs from "node:fs";
+import path from "node:path";
 
 export const alt = "hypo.online — hypotéky v ČR";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const filePath = path.join(
+    process.cwd(),
+    "public",
+    "brand",
+    "hypo-online-logo.png",
+  );
+  const buf = fs.readFileSync(filePath);
+  const src = `data:image/png;base64,${buf.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -23,41 +34,28 @@ export default function OpenGraphImage() {
         <div
           style={{
             display: "flex",
-            alignItems: "baseline",
-            fontSize: 96,
-            fontWeight: 800,
-            letterSpacing: "-0.04em",
-            lineHeight: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(255,255,255,0.97)",
+            borderRadius: 28,
+            padding: 32,
+            boxShadow: "0 24px 80px rgba(0,0,0,0.28)",
           }}
         >
-          <span
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, #faf5ff 0%, #e9d5ff 35%, #c4b5fd 70%, #a78bfa 100%)",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            hypo
-          </span>
-          <span style={{ color: "#f5f3ff" }}>.</span>
-          <span
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, #ede9fe 0%, #ddd6fe 40%, #c4b5fd 100%)",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            online
-          </span>
+          <img
+            src={src}
+            alt=""
+            width={620}
+            height={200}
+            style={{ objectFit: "contain", maxHeight: 220 }}
+          />
         </div>
         <div
           style={{
-            marginTop: 28,
+            marginTop: 32,
             fontSize: 30,
             fontWeight: 600,
-            color: "rgba(245, 243, 255, 0.92)",
+            color: "rgba(245, 243, 255, 0.94)",
             letterSpacing: "0.02em",
           }}
         >

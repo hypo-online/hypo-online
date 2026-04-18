@@ -24,6 +24,12 @@ export function visibleQuestionIds(answers: EnhancedQuizAnswers): QuestionId[] {
     if (id === "A1b-american-purpose" && !showAmericanPurpose(answers)) {
       return false;
     }
+    if (
+      (id === "A3b-american-prior" || id === "A3c-american-draw") &&
+      !showAmericanPurpose(answers)
+    ) {
+      return false;
+    }
     if (id === "C5-residency" && !showC5Residency(answers)) return false;
     if ((id === "B2-income" || id === "B3-duration") && !showIncomeAndDuration(answers)) {
       return false;

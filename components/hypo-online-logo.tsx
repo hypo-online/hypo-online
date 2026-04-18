@@ -1,58 +1,44 @@
+"use client";
+
+import Image from "next/image";
+
 type Props = {
   /** Accessible label (e.g. site name). */
   label?: string;
   className?: string;
-  /** Unique ID fragment for SVG gradient (avoid clashes if multiple instances). */
+  /** @deprecated Kept for call-site compatibility; PNG logo ignores gradients. */
   gradientId?: string;
-  /** "default" = dark dot on light UI; "onDark" = light dot on purple/dark backgrounds. */
+  /**
+   * default: light UI — subtle ring/shadow so the mark stays readable on tinted cards.
+   * onDark: padded light plate for purple/dark hero backgrounds.
+   */
   variant?: "default" | "onDark";
 };
 
 /**
- * Wordmark with light-violet → purple gradient. SVG for sharp scaling (header, social-style assets).
+ * Full hypo.online brand mark (PNG). Always wrapped for contrast on any background.
  */
 export function HypoOnlineLogo({
   label = "hypo.online",
   className = "",
-  gradientId = "hypoWordmarkGrad",
   variant = "default",
 }: Props) {
-  const dotFill = variant === "onDark" ? "#faf5ff" : "#4c1d95";
+  const shell =
+    variant === "onDark"
+      ? "inline-flex rounded-xl bg-white/95 p-2 shadow-lg ring-2 ring-white/50"
+      : "inline-flex rounded-lg bg-white/95 p-1 shadow-sm ring-1 ring-neutral-200/90 dark:bg-white/[0.98] dark:ring-white/15 dark:shadow-[0_2px_12px_rgba(0,0,0,0.35)]";
 
   return (
-    <svg
-      className={className}
-      viewBox="0 0 220 36"
-      role="img"
-      aria-label={label}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title>{label}</title>
-      <defs>
-        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#faf5ff" />
-          <stop offset="30%" stopColor="#e9d5ff" />
-          <stop offset="65%" stopColor="#c4b5fd" />
-          <stop offset="100%" stopColor="#7c3aed" />
-        </linearGradient>
-      </defs>
-      <text
-        x="0"
-        y="27"
-        fontFamily='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-        fontSize="26"
-        letterSpacing="-0.02em"
-      >
-        <tspan fontWeight="700" fill={`url(#${gradientId})`}>
-          hypo
-        </tspan>
-        <tspan fontWeight="700" fill={dotFill} opacity={variant === "onDark" ? 0.95 : 0.88}>
-          .
-        </tspan>
-        <tspan fontWeight="600" fill={`url(#${gradientId})`}>
-          online
-        </tspan>
-      </text>
-    </svg>
+    <span className={shell}>
+      <Image
+        src="/brand/hypo-online-logo.png"
+        alt={label}
+        width={720}
+        height={240}
+        priority
+        sizes="(max-width: 640px) 220px, 280px"
+        className={`h-auto w-auto object-contain object-left ${className}`.trim()}
+      />
+    </span>
   );
 }

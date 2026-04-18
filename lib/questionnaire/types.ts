@@ -7,6 +7,8 @@ export const QUESTION_ORDER = [
   "A1b-american-purpose",
   "A2-location",
   "A3-price",
+  "A3b-american-prior",
+  "A3c-american-draw",
   "A4-downpayment",
   "A5-timeline",
   "B1-employment",
@@ -32,6 +34,13 @@ export type A1bAmericanPurpose =
   | "business"
   | "personal-general"
   | "investment-liquidity";
+
+/** Existing mortgage on the same property (American mortgage flow). */
+export type AmericanPriorMortgage = {
+  hasPrior: "none" | "yes";
+  /** Approx. remaining principal (CZK) when hasPrior is "yes" */
+  outstandingCzk?: number;
+};
 
 export type A2Location =
   | "prague-center"
@@ -101,6 +110,10 @@ export type EnhancedQuizAnswers = {
   "A2-location"?: A2Location;
   /** Property price in millions of CZK */
   "A3-price"?: number;
+  /** Only for american-mortgage: other lien / mortgage on the property */
+  "A3b-american-prior"?: AmericanPriorMortgage;
+  /** Only for american-mortgage: planned draw in millions CZK */
+  "A3c-american-draw"?: number;
   "A4-downpayment"?: A4Downpayment;
   "A5-timeline"?: A5Timeline;
   "B1-employment"?: B1Employment;
