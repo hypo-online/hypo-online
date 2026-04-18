@@ -11,7 +11,7 @@ type SeoLandingProps = {
 export function SeoLanding({ title, intro, bullets, ctaLabel }: SeoLandingProps) {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-8">
-      <SiteLogoNav className="mb-2" logoClassName="h-7 w-auto sm:h-8" />
+      <SiteLogoNav className="mb-2" />
 
       <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {title}
@@ -26,7 +26,7 @@ export function SeoLanding({ title, intro, bullets, ctaLabel }: SeoLandingProps)
         </ul>
         <Link
           href="/quiz"
-          className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-[var(--color-brand-600)] px-6 text-base font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98] sm:w-auto"
+          className="btn-gradient-primary mt-6 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg px-6 text-base font-semibold transition active:scale-[0.98] sm:w-auto"
         >
           {ctaLabel}
         </Link>

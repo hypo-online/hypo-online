@@ -26,7 +26,7 @@ export default async function OpenGraphImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #1e1b4b 0%, #4c1d95 42%, #6d28d9 100%)",
+          background: "linear-gradient(135deg, #0f1226 0%, #3d19b0 38%, #5b2eff 72%, #3a8dff 100%)",
           fontFamily:
             'ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
         }}
@@ -55,7 +55,7 @@ export default async function OpenGraphImage() {
             marginTop: 32,
             fontSize: 30,
             fontWeight: 600,
-            color: "rgba(245, 243, 255, 0.94)",
+            color: "rgba(247, 248, 252, 0.95)",
             letterSpacing: "0.02em",
           }}
         >

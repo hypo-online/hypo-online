@@ -54,7 +54,7 @@ export default async function VzdelavaniHubPage({ params }: Props) {
     <div className="mx-auto flex min-h-dvh max-w-[720px] flex-col px-4 pb-16 pt-8 sm:px-8">
       <JsonLdScript data={educationHubBreadcrumbJsonLd(locale)} />
       <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+        <SiteLogoNav />
       </header>
 
       <EducationLocaleGate locale={locale} csPath="/vzdelavani" />
@@ -80,7 +80,7 @@ export default async function VzdelavaniHubPage({ params }: Props) {
                 <li key={a.slug}>
                   <Link
                     href={`/vzdelavani/${a.slug}`}
-                    className="block rounded-lg border border-[var(--color-border)] px-4 py-3 transition hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
+                    className="block rounded-lg border border-[var(--color-border)] px-4 py-3 transition hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:hover:bg-white/5"
                   >
                     <span className="mt-1 block text-sm font-semibold text-[var(--color-brand-950)]">
                       {a.title}

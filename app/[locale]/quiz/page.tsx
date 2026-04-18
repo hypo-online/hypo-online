@@ -18,7 +18,7 @@ export default async function QuizPage({ params }: Props) {
   return (
     <div className="mx-auto flex min-h-dvh max-w-[640px] flex-col px-4 pb-16 pt-8 sm:px-8">
       <div className="mb-6 flex items-center justify-between gap-4">
-        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+        <SiteLogoNav />
       </div>
       <QuizFlow locale={locale} />
     </div>

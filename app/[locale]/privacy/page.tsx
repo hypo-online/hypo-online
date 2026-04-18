@@ -47,7 +47,7 @@ export default async function PrivacyPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-lg px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
       <div className="flex flex-wrap items-center gap-4">
-        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+        <SiteLogoNav />
         <Link
           href="/"
           className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"

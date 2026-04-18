@@ -831,7 +831,7 @@ function OptionRow({
       className={`flex min-h-[48px] w-full rounded-lg border px-4 py-4 text-left text-[15px] font-medium transition ${
         selected
           ? "border-[var(--color-brand-600)] bg-[var(--color-brand-600)] text-white"
-          : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
+          : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:hover:bg-white/5"
       }`}
     >
       {label}

@@ -1,27 +1,33 @@
 @import "tailwindcss";
 
 /*
-  hypo.online — minimal design system (single accent blue, semantic signals, system fonts)
+  hypo.online — brand system (premium fintech + AI)
+  Primary #5B2EFF · gradient 135deg #6D3BFF → #3A8DFF · text #0B0F1A / secondary #6B7280
 */
 @theme {
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 
-  /* Primary / interaction — CTAs & links only */
-  --color-brand-950: #2c2c2a;
-  --color-brand-900: #052e4d;
-  --color-brand-800: #084478;
-  --color-brand-700: #0a4d8a;
-  --color-brand-600: #0c5ba3;
-  --color-brand-500: #0c5ba3;
+  /* Brand scale (purple; 950 = ink for headings on light) */
+  --color-brand-50: #f4f2ff;
+  --color-brand-100: #ebe7ff;
+  --color-brand-200: #d9d2ff;
+  --color-brand-300: #c4b8ff;
+  --color-brand-400: #9f8cff;
+  --color-brand-500: #6d3bff;
+  --color-brand-600: #5b2eff;
+  --color-brand-700: #4a1fd6;
+  --color-brand-800: #3d19b0;
+  --color-brand-900: #2f148a;
+  --color-brand-950: #0b0f1a;
 
-  /* Neutrals */
-  --color-border: #e8e7e3;
-  --color-body: #5f5e5a;
-  --color-muted: #8f8e8b;
-  --color-page: #fafaf9;
+  /* Surfaces & borders */
+  --color-border: #e5e7eb;
+  --color-body: #6b7280;
+  --color-muted: #9ca3af;
+  --color-page: #f7f8fc;
   --color-surface: #ffffff;
-  --color-surface-muted: #f5f4f1;
+  --color-surface-muted: #f0f2f8;
 
   /* Semantic signals */
   --color-signal-green: #27500a;
@@ -32,40 +38,53 @@
   --color-signal-red-bg: #fcebeb;
 }
 
-/* Light theme explicit tokens (used by arbitrary var() in components) */
+/* Core gradient + soft fills (not in @theme — used by custom utilities) */
 :root {
-  --color-text-primary: #2c2c2a;
-  --color-text-muted: #8f8e8b;
-  --color-text-body: #5f5e5a;
+  --color-brand-gradient-from: #6d3bff;
+  --color-brand-gradient-to: #3a8dff;
+  --color-brand-soft: color-mix(in srgb, var(--color-brand-600) 9%, var(--color-page));
+  --color-brand-soft-strong: color-mix(in srgb, var(--color-brand-600) 14%, var(--color-page));
+  --color-text-primary: var(--color-brand-950);
+  --color-text-muted: var(--color-muted);
+  --color-text-body: var(--color-body);
   --color-focus-ring: var(--color-brand-600);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-brand-950: #efefef;
-    --color-brand-900: #cfe8ff;
-    --color-brand-800: #7ec8ff;
-    --color-brand-700: #4fa3e8;
-    --color-brand-600: #4fa3e8;
-    --color-brand-500: #4fa3e8;
-    --color-border: #3c3c3a;
-    --color-body: #a8a7a4;
-    --color-muted: #8a8986;
-    --color-page: #1a1a19;
-    --color-surface: #262625;
-    --color-surface-muted: #2e2e2c;
+    --color-brand-50: #151829;
+    --color-brand-100: #1c2033;
+    --color-brand-200: #262b42;
+    --color-brand-300: #343a55;
+    --color-brand-400: #7b74ff;
+    --color-brand-500: #705bff;
+    --color-brand-600: #6d5cff;
+    --color-brand-700: #5a4be8;
+    --color-brand-800: #4a3ad4;
+    --color-brand-900: #b5a9ff;
+    --color-brand-950: #f7f8fc;
+
+    --color-border: #262b40;
+    --color-body: #9ca3af;
+    --color-muted: #6b7280;
+    --color-page: #0f1226;
+    --color-surface: #151829;
+    --color-surface-muted: #1a1e33;
+
     --color-signal-green: #9ccc7a;
     --color-signal-green-bg: #1f2e18;
-    /* Brighter gold on deeper panel — stronger contrast for notice strips */
     --color-signal-amber: #f2dc9e;
     --color-signal-amber-bg: #2a2315;
     --color-signal-red: #e57373;
     --color-signal-red-bg: #2e1c1c;
-    --color-text-primary: #efefef;
-    --color-text-muted: #a8a7a4;
-    --color-text-body: #c4c3c0;
-    /* Keyboard focus ring in dark UI */
-    --color-focus-ring: #7ec8ff;
+
+    --color-brand-soft: color-mix(in srgb, var(--color-brand-600) 14%, var(--color-surface));
+    --color-brand-soft-strong: color-mix(in srgb, var(--color-brand-600) 22%, var(--color-surface));
+
+    --color-text-primary: var(--color-brand-950);
+    --color-text-muted: var(--color-muted);
+    --color-text-body: var(--color-body);
+    --color-focus-ring: #9aa8ff;
   }
 }
 
@@ -77,10 +96,50 @@ body {
   line-height: 1.6;
 }
 
-/*
-  Keyboard focus — :focus-visible only (mouse clicks stay clean).
-  Components using outline-none still get this unless they add focus-visible:ring-*.
-*/
+/* Primary CTA — gradient, subtle glow */
+.btn-gradient-primary {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-gradient-from),
+    var(--color-brand-gradient-to)
+  );
+  color: #ffffff;
+  box-shadow: 0 4px 22px color-mix(in srgb, var(--color-brand-600) 32%, transparent);
+}
+
+.btn-gradient-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 6px 28px color-mix(in srgb, var(--color-brand-600) 42%, transparent);
+}
+
+.btn-gradient-primary:active {
+  filter: brightness(0.98);
+}
+
+/* Hero panel behind main CTA — very subtle tint, no loud violet frame */
+.hero-cta-panel {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-brand-gradient-from) 7%, var(--color-surface)) 0%,
+    var(--color-surface) 45%,
+    color-mix(in srgb, var(--color-brand-gradient-to) 6%, var(--color-surface)) 100%
+  );
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 28px rgba(15, 18, 38, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-cta-panel {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-brand-600) 12%, var(--color-surface)) 0%,
+      var(--color-surface) 50%,
+      color-mix(in srgb, var(--color-brand-gradient-to) 10%, var(--color-surface)) 100%
+    );
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
 :where(a, button, input, select, textarea):focus {
   outline: none;
 }
@@ -90,7 +149,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Text fields: use component border + inset shadow (see quiz) to avoid double ring */
 :where(select):focus-visible {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
@@ -102,7 +160,6 @@ input[type="radio"]:focus-visible {
   outline-offset: 2px;
 }
 
-/* Today / notice strip — clearer edge in dark mode */
 .today-notice {
   border-color: color-mix(in srgb, var(--color-signal-amber) 42%, transparent);
 }
@@ -114,14 +171,12 @@ input[type="radio"]:focus-visible {
   }
 }
 
-/* CTA strip — flat primary (replaces heavy gradient) */
 .finance-panel {
   background-color: var(--color-brand-600);
   color: #f8fafc;
-  border: 0.5px solid color-mix(in srgb, var(--color-brand-600) 88%, #000 12%);
+  border: 0.5px solid color-mix(in srgb, var(--color-brand-700) 85%, #000 15%);
 }
 
-/* Subtle card surface — no drop shadow (flat) */
 .card-surface {
   background-color: var(--color-surface);
   border: 0.5px solid var(--color-border);

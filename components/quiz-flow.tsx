@@ -438,7 +438,7 @@ export function QuizFlow({ locale }: { locale: string }) {
                 type="button"
                 onClick={requestDeletion}
                 disabled={loading || deleteDone}
-                className="min-h-[44px] rounded-lg border border-[var(--color-brand-600)] bg-transparent px-4 text-xs font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] disabled:opacity-60 dark:hover:bg-white/5"
+                className="min-h-[44px] rounded-lg border border-[var(--color-brand-600)] bg-transparent px-4 text-xs font-semibold text-[var(--color-brand-600)] transition hover:bg-[var(--color-brand-soft)] disabled:opacity-60 dark:hover:bg-white/5"
               >
                 {deleteDone
                   ? c.deleteSent
@@ -939,7 +939,7 @@ function NavRow({
         <button
           type="button"
           onClick={onBack}
-          className="h-12 min-h-[48px] flex-1 rounded-lg border border-[var(--color-brand-600)] bg-transparent text-sm font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] dark:hover:bg-white/5"
+          className="h-12 min-h-[48px] flex-1 rounded-lg border border-[var(--color-brand-600)] bg-transparent text-sm font-semibold text-[var(--color-brand-600)] transition hover:bg-[var(--color-brand-soft)] dark:hover:bg-white/5"
         >
           {backLabel}
         </button>

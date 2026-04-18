@@ -80,14 +80,14 @@ export default async function HomePage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
+    <div className="mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-16 pt-7 sm:max-w-2xl sm:px-8 sm:pt-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <header className="mb-5 flex items-center justify-between gap-4">
-        <SiteLogoNav logoClassName="h-8 w-auto sm:h-9" />
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
+      <header className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <SiteLogoNav className="-ml-0.5 -mt-0.5 self-start sm:ml-0 sm:mt-0" />
+        <div className="flex min-w-0 w-full flex-1 items-center justify-end gap-3 sm:w-auto">
           <LocaleSwitcher />
           <Link
             href="/privacy"
@@ -99,16 +99,16 @@ export default async function HomePage({ params }: Props) {
       </header>
 
       <section
-        className="card-surface mb-8 border-2 border-[#c4b5fd]/80 bg-gradient-to-br from-[#faf5ff] via-white to-[#f5f3ff] p-4 shadow-md shadow-violet-900/10 sm:p-5 dark:border-violet-400/25 dark:from-[#2e1064]/40 dark:via-[var(--color-surface)] dark:to-[#1e1b4b]/35"
+        className="hero-cta-panel mb-8 rounded-xl p-4 sm:p-5"
         aria-label={copy.heroCta}
       >
         <Link
           href="/quiz"
-          className="inline-flex w-full min-h-[52px] items-center justify-center rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#6d28d9] to-[#5b21b6] px-5 text-base font-bold tracking-tight text-white shadow-lg shadow-violet-600/35 transition hover:brightness-110 active:scale-[0.99] sm:min-h-[56px] sm:text-lg"
+          className="btn-gradient-primary inline-flex w-full min-h-[52px] items-center justify-center rounded-xl px-5 text-base font-bold tracking-tight transition active:scale-[0.99] sm:min-h-[56px] sm:text-lg"
         >
           {copy.heroCta}
         </Link>
-        <p className="mt-2 text-center text-xs leading-relaxed text-[var(--color-brand-900)] sm:text-sm dark:text-violet-100/90">
+        <p className="mt-2 text-center text-xs leading-relaxed text-[var(--color-brand-800)] sm:text-sm dark:text-[var(--color-brand-900)]">
           {copy.heroMicro}
         </p>
         <div className="mt-3 flex justify-center">
@@ -133,7 +133,7 @@ export default async function HomePage({ params }: Props) {
       <div className="mt-6">
         <Link
           href="/kolik-dostanu-hypoteku"
-          className="inline-flex w-full min-h-[48px] items-center justify-center rounded-xl border-2 border-[var(--color-brand-600)] bg-[var(--color-surface)] px-5 text-base font-semibold text-[var(--color-brand-600)] shadow-sm transition hover:bg-[#F5F9FF] active:scale-[0.99] dark:hover:bg-white/5"
+          className="inline-flex w-full min-h-[48px] items-center justify-center rounded-xl border-2 border-[var(--color-brand-600)] bg-[var(--color-surface)] px-5 text-base font-semibold text-[var(--color-brand-600)] shadow-sm transition hover:bg-[var(--color-brand-soft)] active:scale-[0.99] dark:hover:bg-white/5"
         >
           {copy.borrowCta}
         </Link>
@@ -202,7 +202,11 @@ export default async function HomePage({ params }: Props) {
               <tr className="border-b border-[var(--color-border)] text-muted">
                 <th className="py-2 pr-3">{copy.compareColFactor}</th>
                 <th className="py-2 pr-3 align-bottom">
-                  <HypoOnlineLogo className="h-5 max-h-5 w-auto" label="hypo.online" />
+                  <HypoOnlineLogo
+                    density="compact"
+                    className="h-5 max-h-5 w-auto"
+                    label="hypo.online"
+                  />
                 </th>
                 <th className="py-2 pr-3">{copy.compareColBank}</th>
                 <th className="py-2">{copy.compareColNoGuide}</th>
@@ -264,7 +268,7 @@ export default async function HomePage({ params }: Props) {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-brand-600)] transition hover:border-[var(--color-brand-600)] hover:bg-[#F5F9FF] dark:hover:bg-white/5"
+              className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-brand-600)] transition hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:hover:bg-white/5"
             >
               {item.label}
             </Link>

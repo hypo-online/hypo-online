@@ -12,7 +12,8 @@ type Props = {
 export function SiteLogoNav({
   href = "/",
   className = "",
-  logoClassName = "h-7 w-auto sm:h-8",
+  /** Smaller plate + height on phones; clearly larger from tablet up (avoids crowding the locale control). */
+  logoClassName = "h-6 w-auto min-[420px]:h-7 sm:h-10 md:h-11 lg:h-12",
   variant = "default",
 }: Props) {
   return (

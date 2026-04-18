@@ -50,7 +50,7 @@ export default async function VzdelavaniArticlePage({ params }: Props) {
         >
           ← Průvodce hypotékou
         </Link>
-        <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+        <SiteLogoNav />
       </header>
 
       <EducationLocaleGate locale={locale} csPath={`/vzdelavani/${slug}`} />

@@ -19,7 +19,7 @@ export default async function HypotekaKalkulackaPage({ params }: Props) {
   const copy = calcCopy(locale);
   return (
     <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-8">
-      <SiteLogoNav logoClassName="h-7 w-auto sm:h-8" />
+      <SiteLogoNav />
 
       <h1 className="mt-8 text-[2rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)]">
         {copy.h1}
