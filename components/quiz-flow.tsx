@@ -6,7 +6,6 @@ import type { ScoreFactor, Signal } from "@/lib/evaluation";
 import { EnhancedQuizPanel } from "@/components/enhanced-quiz-panel";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Semaphore } from "@/components/semaphore";
-import { trackEvent } from "@/lib/analytics";
 import { deriveCoarseFromEnhanced } from "@/lib/questionnaire/derive-coarse";
 import {
   clampActiveId,
@@ -84,7 +83,6 @@ export function QuizFlow({ locale }: { locale: string }) {
   const [deleteDone, setDeleteDone] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const [brokerConsent, setBrokerConsent] = useState(false);
-  const [analyticsConsent, setAnalyticsConsent] = useState<boolean | null>(null);
 
   const leadCoarse = useMemo(() => deriveCoarseFromEnhanced(answers), [answers]);
 
@@ -105,17 +103,6 @@ export function QuizFlow({ locale }: { locale: string }) {
 
   function patchAnswer(patch: Partial<EnhancedQuizAnswers>) {
     setAnswers((prev) => mergeAnswers(prev, patch));
-  }
-
-  useEffect(() => {
-    if (analyticsConsent === true) {
-      trackEvent("quiz_started", { locale });
-    }
-  }, [analyticsConsent, locale]);
-
-  function emitEvent(name: string, props?: Record<string, string | number>) {
-    if (analyticsConsent !== true) return;
-    trackEvent(name, props);
   }
 
   function goNext() {
@@ -164,15 +151,6 @@ export function QuizFlow({ locale }: { locale: string }) {
       setFactors(data.factors);
       setSimulatedImprovement(data.simulatedImprovement);
       setPhase("result");
-      emitEvent("quiz_completed", {
-        locale,
-        probability: data.probability,
-        signal: data.signal,
-      });
-      emitEvent("step3_complete", {
-        probability: data.probability,
-        signal: data.signal,
-      });
     } catch {
       setError(c.requestFailed);
     } finally {
@@ -217,13 +195,11 @@ export function QuizFlow({ locale }: { locale: string }) {
           timeline: leadCoarse.timeline,
           consents: {
             brokerContact: brokerConsent,
-            analytics: analyticsConsent === true,
           },
         }),
       });
       if (!res.ok) throw new Error("lead failed");
       setLeadDone(true);
-      emitEvent("lead_submit", { signal, probability });
     } catch {
       setError(c.requestFailed);
     } finally {
@@ -246,7 +222,6 @@ export function QuizFlow({ locale }: { locale: string }) {
       });
       if (!res.ok) throw new Error("delete failed");
       setDeleteDone(true);
-      emitEvent("data_delete_requested", { locale });
     } catch {
       setError(c.requestFailed);
     } finally {
@@ -274,33 +249,6 @@ export function QuizFlow({ locale }: { locale: string }) {
 
   return (
     <div className="flex flex-1 flex-col">
-      {analyticsConsent === null && (
-        <section className="card-surface mb-6 p-4 text-sm text-body">
-          <p className="font-semibold text-[var(--color-brand-950)]">
-            {c.analyticsTitle}
-          </p>
-          <p className="mt-1 text-xs text-muted">
-            {c.analyticsText}
-          </p>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => setAnalyticsConsent(true)}
-              className="h-11 min-h-[44px] rounded-lg bg-[var(--color-brand-600)] px-3 text-xs font-semibold text-white transition hover:bg-[var(--color-brand-800)] active:scale-[0.98]"
-            >
-              {c.allow}
-            </button>
-            <button
-              type="button"
-              onClick={() => setAnalyticsConsent(false)}
-              className="h-11 min-h-[44px] rounded-lg border border-[var(--color-brand-600)] bg-transparent px-3 text-xs font-semibold text-[var(--color-brand-600)] transition hover:bg-[#F5F9FF] dark:hover:bg-white/5"
-            >
-              {c.withoutAnalytics}
-            </button>
-          </div>
-        </section>
-      )}
-
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-medium text-body">
           {t("progress", { current: progressStep, total: totalSteps })}
@@ -457,17 +405,6 @@ export function QuizFlow({ locale }: { locale: string }) {
                     {c.brokerConsentText}
                   </span>
                 </label>
-                <label className="flex items-start gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2.5 text-xs text-body">
-                  <input
-                    type="checkbox"
-                    checked={analyticsConsent === true}
-                    onChange={(e) => setAnalyticsConsent(e.target.checked)}
-                    className="mt-0.5"
-                  />
-                  <span>
-                    {c.analyticsConsentText}
-                  </span>
-                </label>
               </div>
               <button
                 type="button"
@@ -557,9 +494,8 @@ type QuizCopy = {
   errFillContact: string; errInvalidEmail: string; errNeedBrokerConsent: string; errDeleteEmail: string;
   requestFailed: string;
   tipsGreen: string[]; tipsYellow: string[]; tipsRed: string[];
-  analyticsTitle: string; analyticsText: string; allow: string; withoutAnalytics: string;
   whyScore: string; improveTitle: string; nextTitle: string; nextSla: string; next1: string; next2: string; next3: string;
-  brokerConsentText: string; analyticsConsentText: string; retentionHelp: string; assignedDesk: string; assignedDeskText: string; deleteSent: string; deleteRequest: string;
+  brokerConsentText: string; retentionHelp: string; assignedDesk: string; assignedDeskText: string; deleteSent: string; deleteRequest: string;
   factorLabels: Record<ScoreFactor["key"], string>; statusGood: string; statusConcern: string; statusBlocker: string;
   improveDelta: (delta: number, prob: number) => string;
 };
@@ -574,10 +510,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Prepare proof of income for the latest period.", "Confirm own-funds reserve for side costs and fees."],
     tipsYellow: ["Document income stability (longer employment/business history).", "Reduce existing monthly debt obligations before submission.", "Prepare residency documents if you are a foreign applicant."],
     tipsRed: ["Ask a broker for alternative structuring (lower LTV, co-applicant).", "Stabilize income and liabilities first, then re-run the check.", "Individual review matters — red cases can still be turned around."],
-    analyticsTitle: "Anonymous analytics consent",
-    analyticsText: "Helps improve the questionnaire flow. No personal data is sent.",
-    allow: "Allow",
-    withoutAnalytics: "Use without analytics",
     whyScore: "Why your score looks like this",
     improveTitle: "How to improve approval odds",
     nextTitle: "What happens after submit",
@@ -586,7 +518,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Step 2: document checklist",
     next3: "Step 3: realistic financing path",
     brokerConsentText: "I agree that my contact details may be shared with a mortgage broker for follow-up.",
-    analyticsConsentText: "I consent to anonymous analytics for service improvement.",
     retentionHelp: "Contacts are retained only as needed for lead handling. You can request deletion below.",
     assignedDesk: "Assigned desk",
     assignedDeskText: "CZ/SK multilingual mortgage desk • SLA: contact within 24h (Mon–Fri)",
@@ -603,10 +534,6 @@ function quizCopy(locale: string): QuizCopy {
     errNeedBrokerConsent: "Pro předání makléři je potřeba souhlas se zpracováním kontaktu.",
     errDeleteEmail: "Pro výmaz zadejte platný e-mail.",
     requestFailed: "Požadavek se nepodařilo dokončit. Zkuste to prosím znovu.",
-    analyticsTitle: "Souhlas s anonymní analytikou",
-    analyticsText: "Pomáhá nám zlepšovat kroky dotazníku. Neodesíláme osobní údaje.",
-    allow: "Souhlasím",
-    withoutAnalytics: "Použít bez analytiky",
     whyScore: "Proč vyšlo právě toto skóre",
     improveTitle: "Jak zvýšit šanci na schválení",
     nextTitle: "Co bude následovat po odeslání",
@@ -615,7 +542,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Krok 2: seznam požadovaných dokumentů",
     next3: "Krok 3: návrh realistického postupu",
     brokerConsentText: "Souhlasím, aby moje kontaktní údaje byly předány hypotečnímu makléři za účelem kontaktování.",
-    analyticsConsentText: "Souhlasím s anonymní analytikou pro zlepšování služby.",
     retentionHelp: "Kontakty držíme jen po nezbytnou dobu pro zpracování leadu. Žádost o výmaz můžete poslat níže.",
     assignedDesk: "Přiřazený tým",
     assignedDeskText: "CZ/SK multilingual mortgage desk • SLA: kontakt do 24h (Po–Pá)",
@@ -635,10 +561,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Einkommensnachweise für den letzten Zeitraum vorbereiten.", "Eigenmittel für Nebenkosten und Gebühren prüfen."],
     tipsYellow: ["Einkommensstabilität dokumentieren (längere Anstellung/Selbstständigkeit).", "Bestehende monatliche Verpflichtungen vor Antrag senken.", "Aufenthaltsdokumente bei ausländischen Antragstellern vorbereiten."],
     tipsRed: ["Makler nach alternativer Struktur fragen (niedrigeres LTV, Mitantragsteller).", "Einkommen und Verbindlichkeiten stabilisieren, dann erneut prüfen.", "Einzelfall zählt — auch „rote“ Fälle lassen sich oft verbessern."],
-    analyticsTitle: "Einwilligung für anonyme Analytik",
-    analyticsText: "Hilft uns, den Ablauf zu verbessern. Es werden keine personenbezogenen Daten gesendet.",
-    allow: "Zustimmen",
-    withoutAnalytics: "Ohne Analytik fortfahren",
     whyScore: "Warum Ihr Ergebnis so ausfällt",
     improveTitle: "Wie Sie die Genehmigungschance verbessern",
     nextTitle: "Was nach dem Absenden passiert",
@@ -647,7 +569,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Schritt 2: Dokumenten-Checkliste",
     next3: "Schritt 3: realistischer Finanzierungsweg",
     brokerConsentText: "Ich stimme zu, dass meine Kontaktdaten zur Kontaktaufnahme mit einem Hypothekenmakler weitergegeben werden dürfen.",
-    analyticsConsentText: "Ich stimme anonymen Analysen zur Verbesserung des Services zu.",
     retentionHelp: "Kontakte werden nur so lange gespeichert wie für die Lead-Bearbeitung nötig. Löschung unten anfragen.",
     assignedDesk: "Zugewiesenes Team",
     assignedDeskText: "Mehrsprachiger Hypotheken-Desk CZ/SK • Kontakt innerhalb von 24h (Mo–Fr)",
@@ -669,10 +590,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Przygotuj potwierdzenie dochodów z ostatniego okresu.", "Sprawdź rezerwę własnych środków na koszty dodatkowe i opłaty."],
     tipsYellow: ["Udokumentuj stabilność dochodów (dłuższa historia pracy lub działalności).", "Zmniejsz bieżące miesięczne zobowiązania przed złożeniem wniosku.", "Przygotuj dokumenty pobytowe, jeśli jesteś obcokrajowcem."],
     tipsRed: ["Poproś brokera o alternatywną strukturę finansowania (niższe LTV, współkredytobiorca).", "Najpierw ustabilizuj dochody i zobowiązania, potem ponów weryfikację.", "Ocena indywidualna ma znaczenie — nawet „czerwone” przypadki da się poprawić."],
-    analyticsTitle: "Zgoda na anonimową analitykę",
-    analyticsText: "Pomaga nam ulepszać przebieg ankiety. Nie wysyłamy danych osobowych.",
-    allow: "Zgadzam się",
-    withoutAnalytics: "Kontynuuj bez analityki",
     whyScore: "Dlaczego Twój wynik wygląda tak",
     improveTitle: "Jak zwiększyć szansę akceptacji",
     nextTitle: "Co dzieje się po wysłaniu",
@@ -681,7 +598,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Krok 2: lista wymaganych dokumentów",
     next3: "Krok 3: realistyczna ścieżka finansowania",
     brokerConsentText: "Wyrażam zgodę na przekazanie moich danych kontaktowych brokerowi hipotecznemu w celu kontaktu.",
-    analyticsConsentText: "Wyrażam zgodę na anonimową analitykę w celu ulepszania usługi.",
     retentionHelp: "Dane kontaktowe przechowujemy tylko przez czas potrzebny do obsługi zgłoszenia. Poniżej możesz poprosić o usunięcie.",
     assignedDesk: "Przydzielony zespół",
     assignedDeskText: "Wielojęzyczny zespół hipoteczny CZ/SK • kontakt w 24 h (pn–pt)",
@@ -703,10 +619,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Pripravte potvrdenie príjmu za posledné obdobie.", "Overte vlastnú rezervu na vedľajšie náklady a poplatky."],
     tipsYellow: ["Dokumentujte stabilitu príjmu (dlhšia história zamestnania/podnikania).", "Pred podaním znížte mesačné záväzky.", "Pri cudzincoch pripravte pobytové dokumenty."],
     tipsRed: ["Opýtajte sa makléra na alternatívnu štruktúru (nižšie LTV, spolužiadateľ).", "Najprv stabilizujte príjem a záväzky, potom znova spustite kontrolu.", "Individuálne posúdenie rozhoduje — aj „červené“ prípady sa dajú zlepšiť."],
-    analyticsTitle: "Súhlas s anonymnou analytikou",
-    analyticsText: "Pomáha nám zlepšovať kroky dotazníka. Neodosielame osobné údaje.",
-    allow: "Súhlasím",
-    withoutAnalytics: "Použiť bez analytiky",
     whyScore: "Prečo vyšlo toto skóre",
     improveTitle: "Ako zvýšiť šancu schválenia",
     nextTitle: "Čo nasleduje po odoslaní",
@@ -715,7 +627,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Krok 2: zoznam dokumentov",
     next3: "Krok 3: realistický postup financovania",
     brokerConsentText: "Súhlasím s odovzdaním kontaktných údajov maklérovi na hypotekárne spojenie.",
-    analyticsConsentText: "Súhlasím s anonymnou analytikou na zlepšenie služby.",
     retentionHelp: "Kontakty držíme len po dobu potrebnú na spracovanie. O výmaz môžete požiadať nižšie.",
     assignedDesk: "Priradený tím",
     assignedDeskText: "CZ/SK viacjazyčný hypotekárny desk • kontakt do 24h (Po–Pi)",
@@ -737,10 +648,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Підготуйте підтвердження доходу за останній період.", "Перевірте власні кошти на додаткові витрати та комісії."],
     tipsYellow: ["Задокументуйте стабільність доходу (довша історія роботи/бізнесу).", "Зменшіть щомісячні зобов'язання перед поданням.", "Для іноземців підготуйте документи про перебування."],
     tipsRed: ["Попросіть брокера про альтернативну структуру (нижчий LTV, співпозичальник).", "Спочатку стабілізуйте дохід і зобов'язання, потім повторіть перевірку.", "Індивідуальний розгляд вирішує — «червоні» кейси можна покращити."],
-    analyticsTitle: "Згода на анонімну аналітику",
-    analyticsText: "Допомагає покращувати анкету. Персональні дані не надсилаються.",
-    allow: "Дозволити",
-    withoutAnalytics: "Продовжити без аналітики",
     whyScore: "Чому ваш результат саме такий",
     improveTitle: "Як підвищити шанси схвалення",
     nextTitle: "Що буде після надсилання",
@@ -749,7 +656,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Крок 2: перелік документів",
     next3: "Крок 3: реалістичний шлях фінансування",
     brokerConsentText: "Я погоджуюся на передачу контактних даних іпотечному брокеру для зв'язку.",
-    analyticsConsentText: "Я погоджуюся на анонімну аналітику для покращення сервісу.",
     retentionHelp: "Контакти зберігаються лише на час обробки заявки. Видалення можна запросити нижче.",
     assignedDesk: "Призначена команда",
     assignedDeskText: "Багатомовний іпотечний деск CZ/SK • зв'язок протягом 24 год (пн–пт)",
@@ -771,10 +677,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Подготовьте подтверждение дохода за последний период.", "Проверьте собственные средства на доп. расходы и комиссии."],
     tipsYellow: ["Задокументируйте стабильность дохода (длиннее стаж/бизнес).", "Снизьте ежемесячные обязательства перед подачей.", "Для иностранцев подготовьте документы о пребывании."],
     tipsRed: ["Попросите брокера об альтернативной структуре (ниже LTV, созаемщик).", "Сначала стабилизируйте доход и обязательства, затем повторите проверку.", "Индивидуальный разбор важен — «красные» кейсы можно улучшить."],
-    analyticsTitle: "Согласие на анонимную аналитику",
-    analyticsText: "Помогает улучшать анкету. Персональные данные не отправляются.",
-    allow: "Разрешить",
-    withoutAnalytics: "Продолжить без аналитики",
     whyScore: "Почему получился такой результат",
     improveTitle: "Как повысить шансы одобрения",
     nextTitle: "Что будет после отправки",
@@ -783,7 +685,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Шаг 2: список документов",
     next3: "Шаг 3: реалистичный путь финансирования",
     brokerConsentText: "Я согласен на передачу контактных данных ипотечному брокеру для связи.",
-    analyticsConsentText: "Я согласен на анонимную аналитику для улучшения сервиса.",
     retentionHelp: "Контакты хранятся только на время обработки заявки. Удаление можно запросить ниже.",
     assignedDesk: "Назначенная команда",
     assignedDeskText: "Многоязычный ипотечный деск CZ/SK • связь в течение 24 ч (пн–пт)",
@@ -805,10 +706,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Chuẩn bị chứng minh thu nhập kỳ gần nhất.", "Kiểm tra quỹ tự có cho chi phí phát sinh và phí."],
     tipsYellow: ["Chứng minh thu nhập ổn định (làm lâu hơn/kinh doanh lâu hơn).", "Giảm nghĩa vụ hàng tháng trước khi nộp.", "Người nước ngoài chuẩn bị giấy tờ cư trú."],
     tipsRed: ["Hỏi môi giới cấu trúc thay thế (LTV thấp hơn, đồng vay).", "Ổn định thu nhập và nợ trước, rồi kiểm tra lại.", "Từng trường hợp khác nhau — trường hợp „đỏ“ vẫn có thể cải thiện."],
-    analyticsTitle: "Đồng ý phân tích ẩn danh",
-    analyticsText: "Giúp cải thiện luồng khảo sát. Không gửi dữ liệu cá nhân.",
-    allow: "Đồng ý",
-    withoutAnalytics: "Tiếp tục không phân tích",
     whyScore: "Vì sao điểm của bạn như vậy",
     improveTitle: "Cách tăng khả năng được duyệt",
     nextTitle: "Điều gì xảy ra sau khi gửi",
@@ -817,7 +714,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Bước 2: danh sách giấy tờ",
     next3: "Bước 3: lộ trình tài chính thực tế",
     brokerConsentText: "Tôi đồng ý chia sẻ thông tin liên hệ với môi giới thế chấp để được liên lạc.",
-    analyticsConsentText: "Tôi đồng ý phân tích ẩn danh để cải thiện dịch vụ.",
     retentionHelp: "Liên hệ chỉ lưu trong thời gian xử lý. Có thể yêu cầu xóa bên dưới.",
     assignedDesk: "Nhóm phụ trách",
     assignedDeskText: "Bàn thế chấp đa ngôn ngữ CZ/SK • liên hệ trong 24h (T2–T6)",
@@ -839,10 +735,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Pregătiți dovada venitului pentru ultima perioadă.", "Verificați fondurile proprii pentru costuri și comisioane."],
     tipsYellow: ["Documentați stabilitatea venitului (vechime mai mare).", "Reduceți obligațiile lunare înainte de depunere.", "Pentru străini, pregătiți documentele de ședere."],
     tipsRed: ["Cereți brokerului o structură alternativă (LTV mai mic, co-debitor).", "Stabilizați veniturile și datoriile, apoi reluați verificarea.", "Evaluarea individuală contează — și cazurile „roșii” se pot îmbunătăți."],
-    analyticsTitle: "Consimțământ pentru analiză anonimă",
-    analyticsText: "Ne ajută să îmbunătățim fluxul. Nu trimitem date personale.",
-    allow: "Permite",
-    withoutAnalytics: "Continuă fără analiză",
     whyScore: "De ce arată scorul așa",
     improveTitle: "Cum crești șansele de aprobare",
     nextTitle: "Ce urmează după trimitere",
@@ -851,7 +743,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Pasul 2: lista documentelor",
     next3: "Pasul 3: traseu de finanțare realist",
     brokerConsentText: "Sunt de acord ca datele mele de contact să fie transmise unui broker ipotecar pentru urmărire.",
-    analyticsConsentText: "Sunt de acord cu analiza anonimă pentru îmbunătățirea serviciului.",
     retentionHelp: "Contactele se păstrează doar pentru procesarea leadului. Poți solicita ștergerea mai jos.",
     assignedDesk: "Echipa alocată",
     assignedDeskText: "Desk ipotecar multilingv CZ/SK • contact în 24h (Lun–Vin)",
@@ -873,10 +764,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Prepara justificantes de ingresos del último periodo.", "Confirma fondos propios para gastos y comisiones."],
     tipsYellow: ["Documenta estabilidad de ingresos (antigüedad laboral/autónomo).", "Reduce deudas mensuales antes de presentar.", "Si eres extranjero, prepara documentación de residencia."],
     tipsRed: ["Pide al broker una estructura alternativa (LTV más bajo, cotitular).", "Estabiliza ingresos y deudas primero y vuelve a comprobar.", "La valoración individual importa — los casos „rojos“ pueden mejorar."],
-    analyticsTitle: "Consentimiento para analítica anónima",
-    analyticsText: "Ayuda a mejorar el cuestionario. No enviamos datos personales.",
-    allow: "Permitir",
-    withoutAnalytics: "Continuar sin analítica",
     whyScore: "Por qué tu puntuación es así",
     improveTitle: "Cómo mejorar la probabilidad de aprobación",
     nextTitle: "Qué pasa después del envío",
@@ -885,7 +772,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Paso 2: lista de documentos",
     next3: "Paso 3: camino de financiación realista",
     brokerConsentText: "Acepto que mis datos de contacto se compartan con un broker hipotecario para el seguimiento.",
-    analyticsConsentText: "Acepto analítica anónima para mejorar el servicio.",
     retentionHelp: "Los contactos se conservan solo el tiempo necesario para el lead. Puedes pedir borrado abajo.",
     assignedDesk: "Equipo asignado",
     assignedDeskText: "Mesa hipotecaria multilingüe CZ/SK • contacto en 24h (lun–vie)",
@@ -907,10 +793,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Préparez les justificatifs de revenus de la dernière période.", "Vérifiez vos fonds propres pour frais et honoraires."],
     tipsYellow: ["Documentez la stabilité des revenus (ancienneté).", "Réduisez les charges mensuelles avant dépôt.", "Pour les non-résidents, préparez les documents de séjour."],
     tipsRed: ["Demandez au courtier une structure alternative (LTV plus bas, co-emprunteur).", "Stabilisez revenus et dettes puis refaites le test.", "L'étude au cas par cas compte — les dossiers « rouges » peuvent s'améliorer."],
-    analyticsTitle: "Consentement à l'analyse anonyme",
-    analyticsText: "Nous aide à améliorer le questionnaire. Aucune donnée personnelle n'est envoyée.",
-    allow: "Autoriser",
-    withoutAnalytics: "Continuer sans analyse",
     whyScore: "Pourquoi votre score est ainsi",
     improveTitle: "Comment augmenter vos chances d'approbation",
     nextTitle: "Ce qui se passe après l'envoi",
@@ -919,7 +801,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Étape 2 : liste des documents",
     next3: "Étape 3 : parcours de financement réaliste",
     brokerConsentText: "J'accepte que mes coordonnées soient transmises à un courtier hypothécaire pour le suivi.",
-    analyticsConsentText: "J'accepte l'analyse anonyme pour améliorer le service.",
     retentionHelp: "Les contacts sont conservés le temps nécessaire au traitement du lead. Demandez la suppression ci-dessous.",
     assignedDesk: "Équipe assignée",
     assignedDeskText: "Desk hypothécaire multilingue CZ/SK • contact sous 24 h (lun–ven)",
@@ -941,10 +822,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Prepara una prova di reddito dell'ultimo periodo.", "Verifica la riserva di fondi propri per costi accessori e commissioni."],
     tipsYellow: ["Documenta la stabilità del reddito (storia lavorativa o attività più lunga).", "Riduci gli impegni mensili esistenti prima della domanda.", "Prepara i documenti di residenza se sei un richiedente straniero."],
     tipsRed: ["Chiedi al broker una struttura alternativa (LTV più basso, co-intestatario).", "Stabilizza prima reddito e passività, poi ripeti la verifica.", "La valutazione individuale conta: anche i casi „rossi“ possono migliorare."],
-    analyticsTitle: "Consenso per analisi anonima",
-    analyticsText: "Ci aiuta a migliorare il flusso del questionario. Nessun dato personale viene inviato.",
-    allow: "Consenti",
-    withoutAnalytics: "Continua senza analisi",
     whyScore: "Perché il tuo punteggio è così",
     improveTitle: "Come aumentare le probabilità di approvazione",
     nextTitle: "Cosa succede dopo l'invio",
@@ -953,7 +830,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Passo 2: checklist dei documenti",
     next3: "Passo 3: percorso di finanziamento realistico",
     brokerConsentText: "Acconsento alla condivisione dei miei dati di contatto con un broker mutui per il follow-up.",
-    analyticsConsentText: "Acconsento all'analisi anonima per migliorare il servizio.",
     retentionHelp: "I contatti sono conservati solo per il tempo necessario alla gestione della richiesta. Puoi chiedere la cancellazione qui sotto.",
     assignedDesk: "Team assegnato",
     assignedDeskText: "Desk mutui multilingue CZ/SK • contatto entro 24 h (lun–ven)",
@@ -975,10 +851,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["Son döneme ait gelir belgelerini hazırlayın.", "Yan masraflar ve ücretler için öz kaynağınızı kontrol edin."],
     tipsYellow: ["Gelir istikrarını belgeleyin (daha uzun iş/şirket geçmişi).", "Başvurudan önce aylık yükümlülükleri azaltın.", "Yabancı başvurular için oturum belgelerini hazırlayın."],
     tipsRed: ["Brokere alternatif yapı sorun (düşük LTV, ortak başvuran).", "Önce gelir ve borçları stabilize edin, sonra tekrar kontrol edin.", "Bireysel değerlendirme önemlidir — „kırmızı“ vakalar da iyileşebilir."],
-    analyticsTitle: "Anonim analiz izni",
-    analyticsText: "Anketi iyileştirmemize yardımcı olur. Kişisel veri gönderilmez.",
-    allow: "İzin ver",
-    withoutAnalytics: "Analiz olmadan devam et",
     whyScore: "Skorunuz neden böyle",
     improveTitle: "Onay olasılığını nasıl artırırsınız",
     nextTitle: "Gönderimden sonra ne olur",
@@ -987,7 +859,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "Adım 2: belge listesi",
     next3: "Adım 3: gerçekçi finansman yolu",
     brokerConsentText: "İletişim bilgilerimin ipotek brokerına iletilmesini kabul ediyorum.",
-    analyticsConsentText: "Hizmeti geliştirmek için anonim analize izin veriyorum.",
     retentionHelp: "İletişim bilgileri yalnızca lead işleme süresince saklanır. Aşağıdan silme talep edebilirsiniz.",
     assignedDesk: "Atanan ekip",
     assignedDeskText: "Çok dilli ipotek masası CZ/SK • 24 saat içinde iletişim (Pt–Cu)",
@@ -1009,10 +880,6 @@ function quizCopy(locale: string): QuizCopy {
     tipsGreen: ["准备最近一个周期的收入证明。", "确认自有资金可覆盖杂费与手续费。"],
     tipsYellow: ["用材料体现收入稳定性（更长工龄/经营年限）。", "提交前尽量降低月供负担。", "外籍申请人准备居留类文件。"],
     tipsRed: ["向经纪人询问替代结构（更低LTV、共同借款人）。", "先稳定收入与负债，再重新评估。", "个案评估很重要——“红灯”案例也能改善。"],
-    analyticsTitle: "同意匿名分析",
-    analyticsText: "用于改进问卷流程，不发送个人数据。",
-    allow: "允许",
-    withoutAnalytics: "不使用分析继续",
     whyScore: "为何得到这个分数",
     improveTitle: "如何提高获批概率",
     nextTitle: "提交后会发生什么",
@@ -1021,7 +888,6 @@ function quizCopy(locale: string): QuizCopy {
     next2: "第2步：材料清单",
     next3: "第3步：可行的融资路径",
     brokerConsentText: "我同意将联系方式提供给按揭经纪人以便跟进。",
-    analyticsConsentText: "我同意匿名分析以改进服务。",
     retentionHelp: "联系方式仅在处理线索所需期间保留，可在下方申请删除。",
     assignedDesk: "已分配团队",
     assignedDeskText: "CZ/SK 多语言按揭服务台 • 24小时内联系（周一至周五）",

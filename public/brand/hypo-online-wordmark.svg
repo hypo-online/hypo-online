@@ -7,7 +7,7 @@
       <stop offset="100%" stop-color="#7c3aed"/>
     </linearGradient>
   </defs>
-  <text x="0" y="27" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700" fill="url(#w)" letter-spacing="-0.02em">hypo</text>
-  <text x="76" y="27" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="700" fill="#4c1d95" letter-spacing="-0.02em" opacity="0.88">.</text>
-  <text x="86" y="27" font-family="Segoe UI, system-ui, sans-serif" font-size="26" font-weight="600" fill="url(#w)" letter-spacing="-0.02em">online</text>
+  <text x="0" y="27" font-family="Segoe UI, system-ui, sans-serif" font-size="26" letter-spacing="-0.02em">
+    <tspan font-weight="700" fill="url(#w)">hypo</tspan><tspan font-weight="700" fill="#4c1d95" opacity="0.88">.</tspan><tspan font-weight="600" fill="url(#w)">online</tspan>
+  </text>
 </svg>

@@ -41,34 +41,17 @@ export function HypoOnlineLogo({
         y="27"
         fontFamily='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
         fontSize="26"
-        fontWeight="700"
-        fill={`url(#${gradientId})`}
         letterSpacing="-0.02em"
       >
-        hypo
-      </text>
-      <text
-        x="76"
-        y="27"
-        fontFamily='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-        fontSize="26"
-        fontWeight="700"
-        fill={dotFill}
-        letterSpacing="-0.02em"
-        opacity={variant === "onDark" ? 0.95 : 0.88}
-      >
-        .
-      </text>
-      <text
-        x="86"
-        y="27"
-        fontFamily='ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
-        fontSize="26"
-        fontWeight="600"
-        fill={`url(#${gradientId})`}
-        letterSpacing="-0.02em"
-      >
-        online
+        <tspan fontWeight="700" fill={`url(#${gradientId})`}>
+          hypo
+        </tspan>
+        <tspan fontWeight="700" fill={dotFill} opacity={variant === "onDark" ? 0.95 : 0.88}>
+          .
+        </tspan>
+        <tspan fontWeight="600" fill={`url(#${gradientId})`}>
+          online
+        </tspan>
       </text>
     </svg>
   );

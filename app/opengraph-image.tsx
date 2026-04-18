@@ -40,7 +40,7 @@ export default function OpenGraphImage() {
           >
             hypo
           </span>
-          <span style={{ color: "#f5f3ff", marginLeft: 4, marginRight: 4 }}>.</span>
+          <span style={{ color: "#f5f3ff" }}>.</span>
           <span
             style={{
               backgroundImage:

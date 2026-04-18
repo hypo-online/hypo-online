@@ -222,7 +222,7 @@
     "controller_title": "Data controller",
     "controller_body": "The controller of personal data processed in connection with the hypo.online website and related services is mareke solutions s.r.o., Company ID (IČO): 29415675, with its registered office at Korunní 2569/108B, Vinohrady, 101 00 Prague, Czech Republic.\n\nWe do not publish a dedicated phone line or a named privacy contact person on this page. For exercising your rights or privacy questions, use the email address hello@hypo.online.",
     "purposes_title": "Purposes and scope of processing",
-    "purposes_body": "• Operating the website and the indicative mortgage check (typically without long-term storage of questionnaire answers used only for the immediate calculation).\n• Optional processing of contact details you voluntarily submit so a partner mortgage broker can contact you.\n• Measuring basic traffic or product usage where you have given consent (e.g. analytics cookies).\n• Compliance with legal obligations applicable to the controller (accounting, tax, responses to regulators or courts where relevant).",
+    "purposes_body": "• Operating the website and the indicative mortgage check (typically without long-term storage of questionnaire answers used only for the immediate calculation).\n• Optional processing of contact details you voluntarily submit so a partner mortgage broker can contact you.\n• Compliance with legal obligations applicable to the controller (accounting, tax, responses to regulators or courts where relevant).",
     "legal_title": "Legal bases (GDPR)",
     "legal_body": "Depending on the situation, we rely on: performance of a contract or pre-contractual steps at your request (Article 6(1)(b) GDPR); compliance with a legal obligation (Article 6(1)(c)); legitimate interests such as fraud prevention, IT security, or improving the service, where not overridden by your interests (Article 6(1)(f)); and consent where required, e.g. for non-essential cookies or certain marketing analytics (Article 6(1)(a)).",
     "retention_title": "Retention",
@@ -240,7 +240,7 @@
     "dataflow_title": "How data flows in hypo.online (summary)",
     "dataflow_b1": "Questionnaire data for the quick check: used for the evaluation only; not stored as a long-term profile after the calculation.",
     "dataflow_b2": "Contact data (name, e-mail, phone if provided): used to pass your request to a partner mortgage broker and for related follow-up.",
-    "dataflow_b3": "Analytics: only anonymous or pseudonymous events if you have given consent.",
+    "dataflow_b3": "Analytics: the questionnaire flow does not ask for or record analytics consent.",
     "dataflow_b4": "Deletion: where the product allows, you may request deletion from the result view after submitting contact details; you can always contact hello@hypo.online."
   }
 }

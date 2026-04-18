@@ -222,7 +222,7 @@
     "controller_title": "Správce osobních údajů",
     "controller_body": "Správcem osobních údajů zpracovávaných v souvislosti s webem hypo.online a souvisejícími službami je společnost mareke solutions s.r.o., IČO: 29415675, se sídlem Korunní 2569/108B, Vinohrady, 101 00 Praha, Česká republika.\n\nNa této stránce zatím neuvádíme samostatnou telefonní linku ani jméno pověřence pro ochranu osobních údajů. Pro výkon vašich práv nebo dotazy ohledně ochrany údajů použijte e-mail hello@hypo.online.",
     "purposes_title": "Účely a rozsah zpracování",
-    "purposes_body": "• Provoz webu a orientační kontrola hypotéky (odpovědi z dotazníku použité jen pro okamžitý výpočet obvykle neukládáme jako dlouhodobý profil).\n• Zpracování kontaktních údajů, které nám dobrovolně odešlete, za účelem předání poptávky partnerskému hypotečnímu makléři a navazující komunikace.\n• Měření návštěvnosti nebo používání produktu tam, kde k tomu dáte souhlas (např. analytické cookies).\n• Plnění zákonných povinností správce (účetnictví, daňové povinnosti, odpovědi státním orgánům nebo soudům, pokud to právo vyžaduje).",
+    "purposes_body": "• Provoz webu a orientační kontrola hypotéky (odpovědi z dotazníku použité jen pro okamžitý výpočet obvykle neukládáme jako dlouhodobý profil).\n• Zpracování kontaktních údajů, které nám dobrovolně odešlete, za účelem předání poptávky partnerskému hypotečnímu makléři a navazující komunikace.\n• Plnění zákonných povinností správce (účetnictví, daňové povinnosti, odpovědi státním orgánům nebo soudům, pokud to právo vyžaduje).",
     "legal_title": "Právní základy zpracování (GDPR)",
     "legal_body": "Podle konkrétní situace se můžeme opírat o: plnění smlouvy nebo provedení opatření před uzavřením smlouvy na vaši žádost (čl. 6 odst. 1 písm. b) GDPR); plnění právní povinnosti (čl. 6 odst. 1 písm. c) GDPR); oprávněný zájem, zejména prevenci zneužití, zabezpečení IT a zlepšování služby, pokud nad ním nepřevažují vaše zájmy (čl. 6 odst. 1 písm. f) GDPR); nebo váš souhlas tam, kde je vyžadován — např. u nepodstatných cookies nebo některých marketingových měření (čl. 6 odst. 1 písm. a) GDPR).",
     "retention_title": "Doba uchovávání",
@@ -234,13 +234,13 @@
     "rights_title": "Vaše práva",
     "rights_body": "Podle GDPR a zákona č. 110/2019 Sb. máte mimo jiné právo na: přístup ke svým údajům; opravu nepřesných údajů; výmaz („právo být zapomenut“), jsou-li splněny podmínky; omezení zpracování; přenositelnost údajů tam, kde je zpracování založeno na souhlasu nebo smlouvě a probíhá automatizovaně; námitku proti zpracování založenému na oprávněném zájmu; odvolání souhlasu, pokud je zpracování na souhlasu založeno (bez vlivu na zákonnost zpracování před jeho odvoláním).\n\nKde to produkt umožňuje, můžete využít i samoobslužné smazání po odeslání kontaktu; vždy můžete napsat na hello@hypo.online.",
     "cookies_title": "Cookies a obdobné technologie",
-    "cookies_body": "Mohou být použity nezbytné cookies pro chod webu. Volitelné analytické nebo marketingové cookies používáme jen s vaším souhlasem (banner / nastavení, pokud je k dispozici). V prohlížeči můžete cookies blokovat — některé funkce tím mohou být omezeny.",
+    "cookies_body": "Mohou být použity nezbytné cookies pro chod webu. V prohlížeči můžete cookies blokovat — některé funkce tím mohou být omezeny.",
     "complaint_title": "Právo podat stížnost",
     "complaint_body": "Pokud se domníváte, že zpracováním údajů je porušován zákon, máte právo podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, www.uoou.cz.",
     "dataflow_title": "Jak data v hypo.online typicky tečou (shrnutí)",
     "dataflow_b1": "Data z dotazníku pro rychlou kontrolu: použijí se jen pro vyhodnocení; neukládáme z nich dlouhodobý profil po výpočtu.",
     "dataflow_b2": "Kontaktní údaje (jméno, e-mail, telefon pokud ho vyplníte): předání partnerskému hypotečnímu makléři a navazující kontakt.",
-    "dataflow_b3": "Analytika: jen anonymní nebo pseudonymizované události při uděleném souhlasu.",
+    "dataflow_b3": "Analytika: tento dotazníkový tok nevyžaduje ani neukládá souhlas s analytikou.",
     "dataflow_b4": "Výmaz: kde to produkt umožňuje, můžete požádat o výmaz z obrazovky výsledku po odeslání kontaktu; vždy můžete napsat na hello@hypo.online."
   }
 }
