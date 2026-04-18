@@ -86,7 +86,7 @@ export default async function HomePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <SiteLogoNav className="-ml-0.5 -mt-0.5 self-start sm:ml-0 sm:mt-0" />
+        <SiteLogoNav className="self-start" />
         <div className="flex min-w-0 w-full flex-1 items-center justify-end gap-3 sm:w-auto">
           <LocaleSwitcher />
           <Link

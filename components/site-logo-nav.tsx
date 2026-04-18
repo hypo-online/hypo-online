@@ -19,7 +19,7 @@ export function SiteLogoNav({
   return (
     <Link
       href={href}
-      className={`inline-flex shrink-0 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 ${className}`.trim()}
+      className={`inline-flex shrink-0 items-center rounded-md -ml-1.5 -mt-2 sm:-ml-1 sm:-mt-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)] ${className}`.trim()}
     >
       <HypoOnlineLogo className={logoClassName} variant={variant} />
     </Link>
