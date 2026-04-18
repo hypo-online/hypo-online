@@ -6,6 +6,7 @@ import { Link } from "@/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { HeroGraphic } from "@/components/hero-graphic";
 import { AiFlowGraphic } from "@/components/ai-flow-graphic";
+import { PrivacyDocument } from "@/components/privacy-document";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -90,10 +91,10 @@ export default async function HomePage({ params }: Props) {
         <div className="flex min-w-0 w-full flex-1 items-center justify-end gap-3 sm:w-auto">
           <LocaleSwitcher />
           <Link
-            href="/privacy"
+            href="/vzdelavani"
             className="shrink-0 text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
           >
-            {t("nav.privacy")}
+            {t("nav.guide")}
           </Link>
         </div>
       </header>
@@ -130,6 +131,18 @@ export default async function HomePage({ params }: Props) {
       <p className="mt-4 text-pretty text-[15px] leading-relaxed text-body sm:text-lg">
         {copy.heroSub}
       </p>
+      <aside
+        className="mt-4 rounded-xl border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-brand-600)] bg-[var(--color-brand-soft)] px-4 py-3 sm:px-5"
+        aria-labelledby="data-callout-title"
+      >
+        <p
+          id="data-callout-title"
+          className="text-sm font-semibold text-[var(--color-brand-950)]"
+        >
+          {t("home.dataCalloutTitle")}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-body">{t("home.dataCalloutBody")}</p>
+      </aside>
       <div className="mt-6">
         <Link
           href="/kolik-dostanu-hypoteku"
@@ -275,6 +288,13 @@ export default async function HomePage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <section
+        className="mt-14 border-t border-[var(--color-border)] pt-10"
+        aria-labelledby="privacy-policy-heading"
+      >
+        <PrivacyDocument titleLevel="h2" />
+      </section>
     </div>
   );
 }
@@ -295,12 +315,12 @@ type HomeCopy = {
 function homeCopy(locale: string): HomeCopy {
   const en: HomeCopy = {
     heroHeadline: "See in 2 minutes if your mortgage case is realistically approvable.",
-    heroSub: "No running between banks. Automated scoring plus a human broker for the next step.",
+    heroSub: "No running between banks. One-off automated scoring routes you to the right licensed broker for your case — questionnaire answers are not stored.",
     borrowCta: "Check how much I can borrow",
     heroCta: "Run the 2-minute mortgage check",
-    heroMicro: "No commitment, indicative in about 2 minutes.",
+    heroMicro: "No commitment, ~2 minutes. Answers stay only for this live check and broker matching; we do not keep them afterwards.",
     coverageTitle: "Coverage", coverageText: "We work with mortgage specialists across CZ/SK market coverage. Bank choice depends on your profile.",
-    aiTitle: "What AI does for you", aiBullet1: "Instant pre-scoring of your case.", aiBullet2: "Profile-based suitability comparison.", aiBullet3: "Surfacing weak points before submission.",
+    aiTitle: "What AI does for you", aiBullet1: "One-off scoring from your answers — nothing is kept as a long-term dossier.", aiBullet2: "Suggests the best-matching broker by language, financing goal, and case complexity (e.g. foreign income, enforcement, non‑EU).", aiBullet3: "Surfaces weak points before you talk to a human broker.",
     brokerFlowTitle: "How broker collaboration works", brokerFlow1: "After result, send contact (optional).", brokerFlow2: "Broker calls and confirms document needs.", brokerFlow3: "You get a realistic path and next action.",
     compareTitle: "Mortgage path comparison", compareColFactor: "Factor", compareColBank: "Bank branch", compareColNoGuide: "No guidance",
     compareRow1a: "Speed to orientation", compareRow1b: "2-min check", compareRow1c: "Longer consultation", compareRow1d: "Unclear",
@@ -309,16 +329,16 @@ function homeCopy(locale: string): HomeCopy {
     seoSectionTitle: "SEO entry points for faster decisions", seoSectionText: "Practical pages for top mortgage questions. Each page leads into the quick check and broker handoff.",
     seoLinkCalculator: "Mortgage calculator", seoLinkBorrow: "How much can I borrow", seoLinkLtv: "LTV calculation", seoLinkIncome: "Mortgage and income",
     faqQ1: "Is this a binding bank approval?", faqA1: "No. It is an indicative probability estimate and next-step guidance with a broker.",
-    faqQ2: "Do you store questionnaire answers?", faqA2: "No. Answers are used only for immediate result computation.",
+    faqQ2: "Do you store questionnaire answers?", faqA2: "No. They are used only for the live calculation and to propose the most suitable licensed mortgage broker for your specifics (language, product, life situation). After that run we do not retain them as a profile.",
   };
   const cs: HomeCopy = {
     heroHeadline: "Zjistěte během 2 minut, jestli má hypotéka reálnou šanci.",
-    heroSub: "Bez běhání po bankách. Automatický scoring + lidský makléř pro další krok.",
+    heroSub: "Bez běhání po bankách. Jednorázový automatický výpočet vás navede k nejvhodnějšímu licencovanému makléři pro váš případ — odpovědi z dotazníku neukládáme.",
     borrowCta: "Zjistit, kolik si mohu půjčit",
     heroCta: "Spustit 2minutový hypoteční check",
-    heroMicro: "Bez závazku, orientačně do 2 minut.",
+    heroMicro: "Bez závazku, cca 2 minuty. Odpovědi slouží jen této živé kontrole a párování s makléřem; poté je neuchováváme.",
     coverageTitle: "Spolupráce", coverageText: "Spolupracujeme s hypotečními specialisty napříč CZ/SK trhem. Konkrétní banka záleží na vašem profilu.",
-    aiTitle: "Co dělá AI za vás", aiBullet1: "Okamžitý předběžný scoring případu.", aiBullet2: "Porovnání vhodnosti podle profilu.", aiBullet3: "Odhalení slabých míst před podáním.",
+    aiTitle: "Co dělá AI za vás", aiBullet1: "Jednorázový scoring z odpovědí — z dotazníku neukládáme dlouhodobý spis.", aiBullet2: "Navrhne nejvhodnějšího makléře podle jazyka, cíle financování a složitosti (např. příjem ze zahraničí, exekuce, mimo EU).", aiBullet3: "Odhalí slabá místa dřív, než jedete k makléři osobně.",
     brokerFlowTitle: "Jak probíhá spolupráce s makléřem", brokerFlow1: "Po výsledku odešlete kontakt (volitelné).", brokerFlow2: "Makléř se ozve a upřesní dokumenty.", brokerFlow3: "Dostanete realistický postup a další krok.",
     compareTitle: "Srovnání cesty k hypotéce", compareColFactor: "Faktor", compareColBank: "Banka (pobočka)", compareColNoGuide: "Bez vedení",
     compareRow1a: "Rychlost orientace", compareRow1b: "Kontrola za 2 min", compareRow1c: "Delší konzultace", compareRow1d: "Nejasná",
@@ -327,7 +347,7 @@ function homeCopy(locale: string): HomeCopy {
     seoSectionTitle: "SEO vstupy pro rychlé rozhodnutí", seoSectionText: "Praktické stránky pro nejčastější dotazy. Každá navazuje na rychlý check a předání na makléře.",
     seoLinkCalculator: "Hypotéka kalkulačka", seoLinkBorrow: "Kolik dostanu hypotéku", seoLinkLtv: "LTV výpočet", seoLinkIncome: "Hypotéka a příjem",
     faqQ1: "Je výsledek závazné schválení bankou?", faqA1: "Ne. Jde o orientační odhad pravděpodobnosti a další krok s makléřem.",
-    faqQ2: "Ukládáte odpovědi z dotazníku?", faqA2: "Ne. Odpovědi používáme jen pro okamžitý výpočet výsledku.",
+    faqQ2: "Ukládáte odpovědi z dotazníku?", faqA2: "Ne. Použijeme je jen pro živý výpočet a návrh nejvhodnějšího licencovaného makléře podle specifik (jazyk, produkt, životní situace). Po dokončení běhu je neuchováváme jako profil.",
   };
   const de: HomeCopy = {
     heroHeadline: "In 2 Minuten sehen, ob Ihr Hypothekenfall realistisch genehmigungsfähig ist.",

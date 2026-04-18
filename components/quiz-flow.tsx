@@ -267,6 +267,10 @@ export function QuizFlow({ locale }: { locale: string }) {
         />
       </div>
 
+      <p className="mb-6 rounded-xl border border-[var(--color-border)] border-l-[3px] border-l-[var(--color-brand-600)] bg-[var(--color-brand-soft)] px-3 py-2.5 text-xs leading-relaxed text-body sm:text-sm">
+        {t("dataPrinciplesIntro")}
+      </p>
+
       {phase === "quiz" && (
         <div className="flex flex-1 flex-col">
           <EnhancedQuizPanel
