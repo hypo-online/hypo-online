@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type {
+  A1bAmericanPurpose,
   A2Location,
   A4Downpayment,
   A5Timeline,
@@ -42,8 +43,39 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
             onSelect={() => onPatch({ "A1-type": "refinance" })}
             label={t("A1.refinance")}
           />
+          <OptionRow
+            selected={answers["A1-type"] === "american-mortgage"}
+            onSelect={() => onPatch({ "A1-type": "american-mortgage" })}
+            label={t("A1.american_mortgage")}
+          />
         </section>
       );
+
+    case "A1b-american-purpose": {
+      const opts: A1bAmericanPurpose[] = [
+        "debt-consolidation",
+        "home-renovation",
+        "business",
+        "personal-general",
+        "investment-liquidity",
+      ];
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("A1b.title")}
+          </h2>
+          <p className="text-sm text-body">{t("A1b.hint")}</p>
+          {opts.map((k) => (
+            <OptionRow
+              key={k}
+              selected={answers["A1b-american-purpose"] === k}
+              onSelect={() => onPatch({ "A1b-american-purpose": k })}
+              label={t(`A1b.${k}` as "A1b.debt-consolidation")}
+            />
+          ))}
+        </section>
+      );
+    }
 
     case "A2-location": {
       const opts: A2Location[] = [
@@ -99,20 +131,24 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
 
     case "A4-downpayment": {
       const opts: A4Downpayment[] = ["lt10", "10-15", "15-20", "gt20"];
-      const refi = answers["A1-type"] === "refinance";
+      const equityStyle =
+        answers["A1-type"] === "refinance" ||
+        answers["A1-type"] === "american-mortgage";
       return (
         <section className="flex flex-1 flex-col gap-4">
           <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
-            {t(refi ? "A4.refi_title" : "A4.title")}
+            {t(equityStyle ? "A4.refi_title" : "A4.title")}
           </h2>
-          <p className="text-sm text-body">{t(refi ? "A4.refi_hint" : "A4.hint")}</p>
+          <p className="text-sm text-body">
+            {t(equityStyle ? "A4.refi_hint" : "A4.hint")}
+          </p>
           {opts.map((k) => (
             <OptionRow
               key={k}
               selected={answers["A4-downpayment"] === k}
               onSelect={() => onPatch({ "A4-downpayment": k })}
               label={t(
-                (refi
+                (equityStyle
                   ? (`A4.refi_${k}` as const)
                   : (`A4.${k}` as const)) as "A4.lt10",
               )}

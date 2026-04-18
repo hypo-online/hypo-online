@@ -131,8 +131,13 @@ export default async function HomePage({ params }: Props) {
       <p className="mt-4 text-pretty text-[15px] leading-relaxed text-body sm:text-lg">
         {copy.heroSub}
       </p>
-      <div className="today-notice mt-6 rounded-lg border bg-[var(--color-signal-amber-bg)] px-4 py-3 text-sm text-[var(--color-signal-amber)]">
-        <strong>{copy.todayLabel}</strong> {copy.todayText}
+      <div className="mt-6">
+        <Link
+          href="/kolik-dostanu-hypoteku"
+          className="inline-flex w-full min-h-[48px] items-center justify-center rounded-xl border-2 border-[var(--color-brand-600)] bg-[var(--color-surface)] px-5 text-base font-semibold text-[var(--color-brand-600)] shadow-sm transition hover:bg-[#F5F9FF] active:scale-[0.99] dark:hover:bg-white/5"
+        >
+          {copy.borrowCta}
+        </Link>
       </div>
 
       <div className="mt-6">
@@ -270,7 +275,7 @@ export default async function HomePage({ params }: Props) {
 }
 
 type HomeCopy = {
-  heroHeadline: string; heroSub: string; todayLabel: string; todayText: string; heroCta: string; heroMicro: string;
+  heroHeadline: string; heroSub: string; borrowCta: string; heroCta: string; heroMicro: string;
   coverageTitle: string; coverageText: string; aiTitle: string; aiBullet1: string; aiBullet2: string; aiBullet3: string;
   brokerFlowTitle: string; brokerFlow1: string; brokerFlow2: string; brokerFlow3: string;
   compareTitle: string; compareColFactor: string; compareColBank: string; compareColNoGuide: string;
@@ -286,8 +291,9 @@ function homeCopy(locale: string): HomeCopy {
   const en: HomeCopy = {
     heroHeadline: "See in 2 minutes if your mortgage case is realistically approvable.",
     heroSub: "No running between banks. Automated scoring plus a human broker for the next step.",
-    todayLabel: "Today:", todayText: "bank rules and rates move often. Treat the result as rapid orientation.",
-    heroCta: "Check how much I can borrow", heroMicro: "No commitment, indicative in about 2 minutes.",
+    borrowCta: "Check how much I can borrow",
+    heroCta: "Run the 2-minute mortgage check",
+    heroMicro: "No commitment, indicative in about 2 minutes.",
     coverageTitle: "Coverage", coverageText: "We work with mortgage specialists across CZ/SK market coverage. Bank choice depends on your profile.",
     aiTitle: "What AI does for you", aiBullet1: "Instant pre-scoring of your case.", aiBullet2: "Profile-based suitability comparison.", aiBullet3: "Surfacing weak points before submission.",
     brokerFlowTitle: "How broker collaboration works", brokerFlow1: "After result, send contact (optional).", brokerFlow2: "Broker calls and confirms document needs.", brokerFlow3: "You get a realistic path and next action.",
@@ -303,8 +309,9 @@ function homeCopy(locale: string): HomeCopy {
   const cs: HomeCopy = {
     heroHeadline: "Zjistěte během 2 minut, jestli má hypotéka reálnou šanci.",
     heroSub: "Bez běhání po bankách. Automatický scoring + lidský makléř pro další krok.",
-    todayLabel: "Dnes:", todayText: "bankovní pravidla i sazby se mění. Výsledek berte jako rychlou orientaci.",
-    heroCta: "Zjistit, kolik si mohu půjčit", heroMicro: "Bez závazku, orientačně do 2 minut.",
+    borrowCta: "Zjistit, kolik si mohu půjčit",
+    heroCta: "Spustit 2minutový hypoteční check",
+    heroMicro: "Bez závazku, orientačně do 2 minut.",
     coverageTitle: "Spolupráce", coverageText: "Spolupracujeme s hypotečními specialisty napříč CZ/SK trhem. Konkrétní banka záleží na vašem profilu.",
     aiTitle: "Co dělá AI za vás", aiBullet1: "Okamžitý předběžný scoring případu.", aiBullet2: "Porovnání vhodnosti podle profilu.", aiBullet3: "Odhalení slabých míst před podáním.",
     brokerFlowTitle: "Jak probíhá spolupráce s makléřem", brokerFlow1: "Po výsledku odešlete kontakt (volitelné).", brokerFlow2: "Makléř se ozve a upřesní dokumenty.", brokerFlow3: "Dostanete realistický postup a další krok.",
@@ -320,9 +327,8 @@ function homeCopy(locale: string): HomeCopy {
   const de: HomeCopy = {
     heroHeadline: "In 2 Minuten sehen, ob Ihr Hypothekenfall realistisch genehmigungsfähig ist.",
     heroSub: "Ohne Filial-Marathon. Automatisches Scoring plus Makler für den nächsten Schritt.",
-    todayLabel: "Heute:",
-    todayText: "Bankregeln und Zinsen ändern sich oft. Das Ergebnis ist eine schnelle Orientierung.",
-    heroCta: "Prüfen, wie viel ich aufnehmen kann",
+    borrowCta: "Prüfen, wie viel ich aufnehmen kann",
+    heroCta: "2-Minuten-Hypotheken-Check starten",
     heroMicro: "Unverbindlich, in etwa 2 Minuten.",
     coverageTitle: "Abdeckung",
     coverageText: "Wir arbeiten mit Hypothekenspezialisten im CZ/SK-Markt. Die Bankauswahl hängt von Ihrem Profil ab.",
@@ -364,9 +370,8 @@ function homeCopy(locale: string): HomeCopy {
   const pl: HomeCopy = {
     heroHeadline: "W 2 minuty sprawdzisz, czy Twoja sprawa hipoteczna ma realną szansę na akceptację.",
     heroSub: "Bez biegania po bankach. Automatyczny scoring i broker do kolejnego kroku.",
-    todayLabel: "Dzisiaj:",
-    todayText: "zasady bankowe i stopy zmieniają się szybko. Traktuj wynik jako szybką orientację.",
-    heroCta: "Sprawdź, ile mogę pożyczyć",
+    borrowCta: "Sprawdź, ile mogę pożyczyć",
+    heroCta: "Uruchom 2-minutowy check hipoteczny",
     heroMicro: "Bez zobowiązań, wynik orientacyjny w około 2 minuty.",
     coverageTitle: "Zakres",
     coverageText: "Współpracujemy ze specjalistami hipotecznymi na rynku CZ/SK. Wybór banku zależy od Twojego profilu.",
@@ -408,9 +413,8 @@ function homeCopy(locale: string): HomeCopy {
   const sk: HomeCopy = {
     heroHeadline: "Za 2 minúty zistíte, či má váš hypotékový profil reálnu šancu.",
     heroSub: "Bez behania po bankách. Automatické skórovanie + maklér pre ďalší krok.",
-    todayLabel: "Dnes:",
-    todayText: "Bankové pravidlá a úroky sa menia. Výsledok berte ako rýchlu orientáciu.",
-    heroCta: "Zistiť, koľko si môžem požičať",
+    borrowCta: "Zistiť, koľko si môžem požičať",
+    heroCta: "Spustiť 2-minútový hypotekárny check",
     heroMicro: "Bez záväzku, orientačne do 2 minút.",
     coverageTitle: "Pokrytie",
     coverageText: "Spolupracujeme s hypotekárnymi špecialistami na trhu CZ/SK. Výber banky závisí od vášho profilu.",
@@ -452,9 +456,8 @@ function homeCopy(locale: string): HomeCopy {
   const uk: HomeCopy = {
     heroHeadline: "За 2 хвилини дізнайтесь, чи ваш іпотечний кейс реально може бути схвалений.",
     heroSub: "Без походів по банках. Автоскоринг + брокер для наступного кроку.",
-    todayLabel: "Сьогодні:",
-    todayText: "Банківські правила й ставки часто змінюються. Результат — це швидка орієнтація.",
-    heroCta: "Перевірити, скільки можу позичити",
+    borrowCta: "Перевірити, скільки можу позичити",
+    heroCta: "Запустити 2-хвилинну перевірку",
     heroMicro: "Без зобов’язань, орієнтовно за 2 хвилини.",
     coverageTitle: "Покриття",
     coverageText: "Ми працюємо з іпотечними спеціалістами на ринку CZ/SK. Вибір банку залежить від вашого профілю.",
@@ -496,9 +499,8 @@ function homeCopy(locale: string): HomeCopy {
   const ru: HomeCopy = {
     heroHeadline: "За 2 минуты узнайте, насколько реалистично одобрение вашей ипотеки.",
     heroSub: "Без походов по банкам. Автоскоринг + брокер для следующего шага.",
-    todayLabel: "Сегодня:",
-    todayText: "Банковские правила и ставки часто меняются. Результат — быстрая ориентация.",
-    heroCta: "Проверить, сколько могу получить",
+    borrowCta: "Проверить, сколько могу получить",
+    heroCta: "Запустить 2-минутную проверку",
     heroMicro: "Без обязательств, ориентировочно за 2 минуты.",
     coverageTitle: "Покрытие",
     coverageText: "Мы работаем с ипотечными специалистами на рынке CZ/SK. Выбор банка зависит от вашего профиля.",
@@ -540,9 +542,8 @@ function homeCopy(locale: string): HomeCopy {
   const vi: HomeCopy = {
     heroHeadline: "Trong 2 phút, biết ngay hồ sơ vay thế chấp của bạn có khả năng được duyệt hay không.",
     heroSub: "Không cần chạy từng ngân hàng. Chấm điểm tự động + môi giới cho bước tiếp theo.",
-    todayLabel: "Hôm nay:",
-    todayText: "Quy định và lãi suất ngân hàng thay đổi thường xuyên. Hãy xem kết quả là định hướng nhanh.",
-    heroCta: "Kiểm tra tôi có thể vay bao nhiêu",
+    borrowCta: "Kiểm tra tôi có thể vay bao nhiêu",
+    heroCta: "Chạy kiểm tra 2 phút",
     heroMicro: "Không ràng buộc, khoảng 2 phút là có kết quả tham khảo.",
     coverageTitle: "Phạm vi",
     coverageText: "Chúng tôi hợp tác với chuyên gia thế chấp trên thị trường CZ/SK. Ngân hàng phù hợp phụ thuộc hồ sơ của bạn.",
@@ -584,9 +585,8 @@ function homeCopy(locale: string): HomeCopy {
   const ro: HomeCopy = {
     heroHeadline: "Află în 2 minute dacă profilul tău ipotecar are șanse reale de aprobare.",
     heroSub: "Fără drumuri între bănci. Scor automat + broker pentru pasul următor.",
-    todayLabel: "Astăzi:",
-    todayText: "Regulile bancare și dobânzile se schimbă des. Tratează rezultatul ca pe o orientare rapidă.",
-    heroCta: "Verifică suma pe care o pot împrumuta",
+    borrowCta: "Verifică suma pe care o pot împrumuta",
+    heroCta: "Pornește verificarea de 2 minute",
     heroMicro: "Fără angajament, orientativ în circa 2 minute.",
     coverageTitle: "Acoperire",
     coverageText: "Colaborăm cu specialiști ipotecari pe piața CZ/SK. Alegerea băncii depinde de profilul tău.",
@@ -628,9 +628,8 @@ function homeCopy(locale: string): HomeCopy {
   const es: HomeCopy = {
     heroHeadline: "En 2 minutos, comprueba si tu caso hipotecario tiene opciones reales de aprobación.",
     heroSub: "Sin ir de banco en banco. Scoring automático + broker para el siguiente paso.",
-    todayLabel: "Hoy:",
-    todayText: "Las reglas y tipos cambian a menudo. El resultado es una orientación rápida.",
-    heroCta: "Comprobar cuánto puedo pedir",
+    borrowCta: "Comprobar cuánto puedo pedir",
+    heroCta: "Iniciar la comprobación de 2 minutos",
     heroMicro: "Sin compromiso, orientativo en unos 2 minutos.",
     coverageTitle: "Cobertura",
     coverageText: "Trabajamos con especialistas hipotecarios del mercado CZ/SK. El banco adecuado depende de tu perfil.",
@@ -672,9 +671,8 @@ function homeCopy(locale: string): HomeCopy {
   const fr: HomeCopy = {
     heroHeadline: "En 2 minutes, voyez si votre dossier hypothécaire a une chance réelle d'être accepté.",
     heroSub: "Sans courir entre les banques. Scoring auto + courtier pour l'étape suivante.",
-    todayLabel: "Aujourd'hui :",
-    todayText: "Les règles et les taux bougent souvent. Le résultat est une orientation rapide.",
-    heroCta: "Vérifier combien je peux emprunter",
+    borrowCta: "Vérifier combien je peux emprunter",
+    heroCta: "Lancer le contrôle de 2 minutes",
     heroMicro: "Sans engagement, indicatif en environ 2 minutes.",
     coverageTitle: "Couverture",
     coverageText: "Nous travaillons avec des spécialistes hypothécaires sur le marché CZ/SK. Le choix de la banque dépend de votre profil.",
@@ -716,9 +714,8 @@ function homeCopy(locale: string): HomeCopy {
   const it: HomeCopy = {
     heroHeadline: "In 2 minuti capisci se il tuo profilo mutuo ha una reale possibilità di approvazione.",
     heroSub: "Senza girare tra banche. Scoring automatico e broker per il passo successivo.",
-    todayLabel: "Oggi:",
-    todayText: "regole bancarie e tassi cambiano spesso. Considera il risultato come orientamento rapido.",
-    heroCta: "Verifica quanto posso ottenere",
+    borrowCta: "Verifica quanto posso ottenere",
+    heroCta: "Avvia il check di 2 minuti",
     heroMicro: "Nessun impegno, risultato indicativo in circa 2 minuti.",
     coverageTitle: "Copertura",
     coverageText: "Collaboriamo con specialisti mutui sul mercato CZ/SK. La scelta della banca dipende dal tuo profilo.",
@@ -760,9 +757,8 @@ function homeCopy(locale: string): HomeCopy {
   const tr: HomeCopy = {
     heroHeadline: "2 dakikada ipoteğinizin gerçekten onaylanma ihtimalini görün.",
     heroSub: "Bankadan bankaya koşmadan. Otomatik skor + sonraki adım için broker.",
-    todayLabel: "Bugün:",
-    todayText: "Banka kuralları ve faizler sık değişir. Sonucu hızlı bir yönlendirme olarak görün.",
-    heroCta: "Ne kadar kredi alabileceğimi kontrol et",
+    borrowCta: "Ne kadar kredi alabileceğimi kontrol et",
+    heroCta: "2 dakikalık kontrolü başlat",
     heroMicro: "Taahhüt yok, yaklaşık 2 dakikada gösterge sonuç.",
     coverageTitle: "Kapsam",
     coverageText: "CZ/SK pazarında ipotek uzmanlarıyla çalışıyoruz. Banka seçimi profilinize bağlıdır.",
@@ -804,9 +800,8 @@ function homeCopy(locale: string): HomeCopy {
   const zh: HomeCopy = {
     heroHeadline: "2分钟内判断你的按揭申请是否有现实获批机会。",
     heroSub: "无需跑多家银行。自动评分 + 经纪人协助下一步。",
-    todayLabel: "今日：",
-    todayText: "银行规则与利率经常变化。请把结果视为快速参考。",
-    heroCta: "查看我大概能贷多少",
+    borrowCta: "查看我大概能贷多少",
+    heroCta: "开始2分钟快速评估",
     heroMicro: "无承诺，约2分钟给出参考结果。",
     coverageTitle: "覆盖范围",
     coverageText: "我们与CZ/SK市场的按揭顾问合作，具体银行取决于你的资料。",

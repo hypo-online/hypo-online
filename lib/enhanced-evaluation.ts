@@ -176,6 +176,24 @@ function scoreRawSignal(answers: EnhancedQuizAnswers, dti: DtiResult): SignalRaw
     score -= 20;
   }
 
+  const a1t = answers["A1-type"];
+  const amPurpose = answers["A1b-american-purpose"];
+  if (a1t === "american-mortgage" && amPurpose) {
+    amberFlags.push("Non-purpose mortgage (LTV often capped ~70–80%)");
+    score -= 6;
+    if (amPurpose === "debt-consolidation") {
+      amberFlags.push("Consolidation purpose — banks verify underlying debts");
+      score -= 8;
+    } else if (amPurpose === "business") {
+      amberFlags.push("Business use — extra documentation typical");
+      score -= 10;
+    } else if (amPurpose === "personal-general") {
+      score -= 4;
+    } else if (amPurpose === "home-renovation") {
+      score += 2;
+    }
+  }
+
   const residency = answers["C5-residency"];
   if (residency) {
     if (residency === "longterm") {
@@ -259,7 +277,8 @@ function buildFactors(
   incomeStrength = Math.min(10, Math.max(1, Math.round(incomeStrength)));
 
   const a1 = answers["A1-type"];
-  let profileStability = a1 === "purchase" ? 7 : 8;
+  let profileStability =
+    a1 === "purchase" ? 7 : a1 === "american-mortgage" ? 6 : 8;
   const a2 = answers["A2-location"];
   if (a2 === "prague-center" || a2 === "prague-outskirts") profileStability += 1;
   if (a2 === "abroad") profileStability -= 2;

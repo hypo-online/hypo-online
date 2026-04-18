@@ -4,6 +4,7 @@
 
 export const QUESTION_ORDER = [
   "A1-type",
+  "A1b-american-purpose",
   "A2-location",
   "A3-price",
   "A4-downpayment",
@@ -22,7 +23,15 @@ export const QUESTION_ORDER = [
 
 export type QuestionId = (typeof QUESTION_ORDER)[number];
 
-export type A1Type = "purchase" | "refinance";
+export type A1Type = "purchase" | "refinance" | "american-mortgage";
+
+/** Main intended use of funds — Czech "American" (non-purpose) mortgage. */
+export type A1bAmericanPurpose =
+  | "debt-consolidation"
+  | "home-renovation"
+  | "business"
+  | "personal-general"
+  | "investment-liquidity";
 
 export type A2Location =
   | "prague-center"
@@ -87,6 +96,8 @@ export type OtherLiabilities = {
  */
 export type EnhancedQuizAnswers = {
   "A1-type"?: A1Type;
+  /** Shown only when A1-type is american-mortgage */
+  "A1b-american-purpose"?: A1bAmericanPurpose;
   "A2-location"?: A2Location;
   /** Property price in millions of CZK */
   "A3-price"?: number;

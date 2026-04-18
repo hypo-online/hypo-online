@@ -15,8 +15,15 @@ export function showIncomeAndDuration(answers: EnhancedQuizAnswers): boolean {
   return answers["B1-employment"] !== "no-income";
 }
 
+export function showAmericanPurpose(answers: EnhancedQuizAnswers): boolean {
+  return answers["A1-type"] === "american-mortgage";
+}
+
 export function visibleQuestionIds(answers: EnhancedQuizAnswers): QuestionId[] {
   return QUESTION_ORDER.filter((id) => {
+    if (id === "A1b-american-purpose" && !showAmericanPurpose(answers)) {
+      return false;
+    }
     if (id === "C5-residency" && !showC5Residency(answers)) return false;
     if ((id === "B2-income" || id === "B3-duration") && !showIncomeAndDuration(answers)) {
       return false;

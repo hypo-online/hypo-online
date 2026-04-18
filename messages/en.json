@@ -77,10 +77,20 @@
     "unit_kc_mo": "CZK / month",
     "currency_ph": "e.g. EUR",
     "A1": {
-      "title": "Are you planning a property purchase or a refinance?",
-      "hint": "Purchase = new mortgage on a property. Refinance = moving an existing mortgage to another lender.",
-      "purchase": "Property purchase (new loan)",
-      "refinance": "Refinance (transfer mortgage)"
+      "title": "What kind of mortgage are you planning?",
+      "hint": "Purchase finances a property buy. Refinance moves an existing housing loan to another bank. American mortgage (CZ) is a non-purpose loan secured on property — banks often cap LTV around 70–80% and scrutinise how you will use the money.",
+      "purchase": "Property purchase (new housing loan)",
+      "refinance": "Refinance (transfer housing mortgage)",
+      "american_mortgage": "American mortgage (non-purpose, secured on property)"
+    },
+    "A1b": {
+      "title": "What is the main purpose of the funds?",
+      "hint": "Czech banks document the use case for non-purpose mortgages; consolidation and business uses usually need more paperwork.",
+      "debt-consolidation": "Pay off / consolidate other loans or cards",
+      "home-renovation": "Renovation or construction tied to the pledged property",
+      "business": "Business or self-employed needs",
+      "personal-general": "Personal use (car, travel, other)",
+      "investment-liquidity": "Liquidity / investment buffer (not tied to the buy)"
     },
     "A2": {
       "title": "Where is / will the property be located?",

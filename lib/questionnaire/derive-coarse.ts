@@ -7,7 +7,13 @@ import type { EnhancedQuizAnswers } from "./types";
 export function deriveCoarseFromEnhanced(a: EnhancedQuizAnswers): QuizPayload {
   const a1 = a["A1-type"];
   const intent: QuizPayload["intent"] =
-    a1 === "refinance" ? "refinance" : a1 === "purchase" ? "purchase" : "explore";
+    a1 === "refinance"
+      ? "refinance"
+      : a1 === "american-mortgage"
+        ? "american"
+        : a1 === "purchase"
+          ? "purchase"
+          : "explore";
 
   const b1 = a["B1-employment"];
   let income: QuizPayload["income"] = "employed";

@@ -37,6 +37,9 @@ function mergeAnswers(
   patch: Partial<EnhancedQuizAnswers>,
 ): EnhancedQuizAnswers {
   const next = { ...prev, ...patch };
+  if (patch["A1-type"] !== undefined && patch["A1-type"] !== "american-mortgage") {
+    delete next["A1b-american-purpose"];
+  }
   if (patch["B1-employment"] !== undefined) {
     return applyB1Branch(next, patch["B1-employment"]);
   }

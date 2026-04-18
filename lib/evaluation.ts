@@ -1,5 +1,5 @@
 export type QuizPayload = {
-  intent: "purchase" | "refinance" | "explore";
+  intent: "purchase" | "refinance" | "american" | "explore";
   income: "employed" | "self" | "abroad";
   timeline: "soon" | "mid" | "unknown";
 };
@@ -105,7 +105,13 @@ function buildFactors(input: QuizPayload): ScoreFactor[] {
   const incomeStrength =
     input.income === "employed" ? 8 : input.income === "self" ? 6 : 3;
   const profileStability =
-    input.intent === "purchase" ? 7 : input.intent === "refinance" ? 8 : 4;
+    input.intent === "purchase"
+      ? 7
+      : input.intent === "refinance"
+        ? 8
+        : input.intent === "american"
+          ? 6
+          : 4;
   const documentationReadiness =
     input.income === "abroad" ? 4 : input.income === "self" ? 6 : 7;
   const timelineReadiness =

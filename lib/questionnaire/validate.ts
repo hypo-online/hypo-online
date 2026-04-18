@@ -1,10 +1,16 @@
 import type { EnhancedQuizAnswers } from "./types";
-import { showC5Residency, showIncomeAndDuration } from "./visibility";
+import {
+  showAmericanPurpose,
+  showC5Residency,
+  showIncomeAndDuration,
+} from "./visibility";
 
 export function validateEnhancedAnswers(
   a: EnhancedQuizAnswers,
 ): string | null {
   if (!a["A1-type"]) return "missing_A1";
+  if (showAmericanPurpose(a) && !a["A1b-american-purpose"])
+    return "missing_A1b";
   if (!a["A2-location"]) return "missing_A2";
   if (a["A3-price"] == null || Number.isNaN(a["A3-price"])) return "missing_A3";
   if (a["A3-price"] < 1 || a["A3-price"] > 100) return "bad_A3";

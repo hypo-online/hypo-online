@@ -64,7 +64,12 @@ function isQuizPayload(value: unknown): value is QuizPayload {
 }
 
 function isIntent(v: unknown): v is QuizPayload["intent"] {
-  return v === "purchase" || v === "refinance" || v === "explore";
+  return (
+    v === "purchase" ||
+    v === "refinance" ||
+    v === "american" ||
+    v === "explore"
+  );
 }
 
 function isIncome(v: unknown): v is QuizPayload["income"] {

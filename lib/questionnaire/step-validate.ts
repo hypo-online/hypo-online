@@ -8,6 +8,8 @@ export function canAdvanceStep(
   switch (activeId) {
     case "A1-type":
       return !!a["A1-type"];
+    case "A1b-american-purpose":
+      return !!a["A1b-american-purpose"];
     case "A2-location":
       return !!a["A2-location"];
     case "A3-price":

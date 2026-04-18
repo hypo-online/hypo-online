@@ -7,7 +7,7 @@ type LeadBody = {
   locale: string;
   probability: number;
   signal: "green" | "yellow" | "red";
-  intent: "purchase" | "refinance" | "explore";
+  intent: "purchase" | "refinance" | "american" | "explore";
   income: "employed" | "self" | "abroad";
   timeline: "soon" | "mid" | "unknown";
   consents: {
@@ -54,7 +54,10 @@ function isLeadBody(value: unknown): value is LeadBody {
     typeof v.probability === "number" &&
     Number.isFinite(v.probability) &&
     (v.signal === "green" || v.signal === "yellow" || v.signal === "red") &&
-    (v.intent === "purchase" || v.intent === "refinance" || v.intent === "explore") &&
+    (v.intent === "purchase" ||
+      v.intent === "refinance" ||
+      v.intent === "american" ||
+      v.intent === "explore") &&
     (v.income === "employed" || v.income === "self" || v.income === "abroad") &&
     (v.timeline === "soon" || v.timeline === "mid" || v.timeline === "unknown") &&
     typeof v.consents === "object" &&

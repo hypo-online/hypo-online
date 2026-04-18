@@ -77,10 +77,20 @@
     "unit_kc_mo": "Kč / měsíc",
     "currency_ph": "např. EUR",
     "A1": {
-      "title": "Máte v plánu koupi nemovitosti nebo refinancování?",
-      "hint": "Koupi = první hypotéka na nový majetek. Refinancování = převedení stávající hypotéky na jinou banku.",
-      "purchase": "Koupi nemovitosti (nový úvěr)",
-      "refinance": "Refinancování (převod hypotéky)"
+      "title": "Jaký typ hypotéky řešíte?",
+      "hint": "Koupě = úvěr na pořízení nemovitosti. Refinancování = převod stávající účelové hypotéky. Americká hypotéka = neúčelový úvěr se zástavou nemovitosti; banky často omezují LTV cca 70–80 % a řeší, na co peníze půjdou.",
+      "purchase": "Koupě nemovitosti (účelová hypotéka)",
+      "refinance": "Refinancování (převod hypotéky)",
+      "american_mortgage": "Americká hypotéka (neúčelová se zástavou)"
+    },
+    "A1b": {
+      "title": "Jaký je hlavní účel čerpání?",
+      "hint": "U neúčelových hypoték banky účel doložují; konsolidace a podnikání obvykle vyžadují více dokumentace.",
+      "debt-consolidation": "Splacení / konsolidace jiných úvěrů nebo karet",
+      "home-renovation": "Rekonstrukce nebo stavba vázaná na zastavenou nemovitost",
+      "business": "Podnikání nebo potřeby OSVČ",
+      "personal-general": "Osobní spotřeba (auto, dovolená, jiné)",
+      "investment-liquidity": "Rezerva / investice (likvidita)"
     },
     "A2": {
       "title": "Kde se nachází / bude nacházet nemovitost?",
