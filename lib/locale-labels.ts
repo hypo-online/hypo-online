@@ -15,3 +15,21 @@ export const LOCALE_LABELS: Record<string, string> = {
   tr: "Türkçe",
   zh: "简体中文",
 };
+
+/** Narrow-toolbar codes (ISO-style); `uk` → UA to avoid confusion with “UK”. */
+export const LOCALE_SHORT: Record<string, string> = {
+  cs: "CS",
+  en: "EN",
+  uk: "UA",
+  ru: "RU",
+  de: "DE",
+  vi: "VI",
+  pl: "PL",
+  sk: "SK",
+  ro: "RO",
+  es: "ES",
+  fr: "FR",
+  it: "IT",
+  tr: "TR",
+  zh: "ZH",
+};

@@ -58,16 +58,19 @@ export default async function HomePage({ params }: Props) {
       />
 
       <header className="home-top-bar mb-6 flex h-12 items-stretch justify-between gap-2 sm:mb-8 sm:h-[3.25rem] sm:gap-3">
-        <SiteLogoNav logoLayout="inline" className="min-w-0 flex-1 basis-0" />
-        <div className="flex min-w-0 shrink-0 items-stretch justify-end gap-2 sm:gap-2.5">
+        <SiteLogoNav
+          logoLayout="inline"
+          className="min-w-0 flex-1 basis-0 overflow-hidden pr-1 sm:pr-2"
+        />
+        <div className="flex w-[min(12.5rem,calc(100%-9rem))] shrink-0 items-stretch justify-end gap-1.5 sm:w-auto sm:gap-2.5">
           <LocaleSwitcher
             gradientFrame
-            className="w-[min(10.5rem,34vw)] min-w-0 sm:w-[12.5rem]"
+            className="h-full w-[4.75rem] shrink-0 sm:w-[12.5rem]"
           />
           <Link
             href="/vzdelavani"
             title={t("nav.guide")}
-            className="home-toolbar-guide inline-flex h-full max-w-[min(11.5rem,42vw)] items-center justify-center whitespace-normal rounded-lg bg-gradient-to-br from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] px-2.5 text-center text-[11px] font-bold leading-snug text-white shadow-[0_3px_16px_color-mix(in_srgb,var(--color-brand-600)_38%,transparent)] transition hover:brightness-[1.06] active:brightness-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] sm:max-w-[15rem] sm:rounded-xl sm:px-3 sm:text-sm sm:leading-snug md:max-w-[17rem]"
+            className="home-toolbar-guide inline-flex h-full min-w-0 max-w-[min(100%,7.25rem)] shrink items-center justify-center rounded-lg bg-gradient-to-br from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] px-2 text-center text-[10px] font-bold leading-tight text-white shadow-[0_3px_16px_color-mix(in_srgb,var(--color-brand-600)_38%,transparent)] transition hover:brightness-[1.06] active:brightness-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] max-sm:truncate sm:max-w-[15rem] sm:whitespace-normal sm:rounded-xl sm:px-3 sm:text-sm sm:leading-snug md:max-w-[17rem]"
           >
             {t("nav.guide")}
           </Link>
