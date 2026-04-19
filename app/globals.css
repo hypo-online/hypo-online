@@ -198,9 +198,9 @@ input[type="radio"]:focus-visible {
   border-radius: 12px;
 }
 
-/* Homepage hero illustration — stock art blues/reds nudged toward brand purple–sky */
+/* Homepage hero illustration — asset uses brand blues/purples; light polish only */
 .home-hero-illustration {
-  filter: saturate(1.08) hue-rotate(14deg) contrast(1.02);
+  filter: saturate(1.05) contrast(1.02);
 }
 
 .home-hero-illustration-tint {
@@ -220,7 +220,7 @@ input[type="radio"]:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   .home-hero-illustration {
-    filter: brightness(0.93) saturate(1.12) hue-rotate(8deg) contrast(1.04);
+    filter: brightness(0.94) saturate(1.08) contrast(1.03);
   }
 
   .home-hero-illustration-tint {
