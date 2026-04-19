@@ -57,7 +57,7 @@ export function LocaleSwitcher({
 
   const selectBase = gradientFrame
     ? cn(
-        "h-full min-h-0 max-h-full min-w-0 max-w-full flex-1 cursor-pointer rounded-[8px] border-0 bg-[var(--color-surface)] px-3 py-2.5 text-center text-sm font-semibold leading-snug text-[var(--color-brand-950)] shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-600)] focus-visible:ring-inset sm:rounded-[10px] sm:px-3.5 sm:py-3 sm:text-left sm:text-base sm:leading-normal",
+        "box-border min-h-0 w-full min-w-0 max-w-full flex-1 cursor-pointer rounded-[8px] border-0 bg-[var(--color-surface)] px-3 py-2 text-center text-sm font-semibold leading-none text-[var(--color-brand-950)] shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-600)] focus-visible:ring-inset sm:rounded-[10px] sm:px-3.5 sm:py-2.5 sm:text-left sm:text-base sm:leading-none",
         useShortOptionLabels ? "tabular-nums tracking-wide" : "text-pretty",
       )
     : cn(
@@ -95,14 +95,14 @@ export function LocaleSwitcher({
     <label
       className={cn(
         gradientFrame
-          ? "flex h-full min-h-0 w-full min-w-0 flex-col gap-0 text-body"
+          ? "flex min-h-11 w-full min-w-0 flex-col items-stretch justify-center gap-0 text-body sm:min-h-[3.25rem]"
           : "flex items-center gap-2 text-xs font-semibold text-body",
         className,
       )}
     >
       <span className="sr-only">{t("language")}</span>
       {gradientFrame ? (
-        <span className="home-toolbar-gradient-frame flex h-full min-h-0 min-w-0 w-full flex-col rounded-lg p-[2px] sm:rounded-xl">
+        <span className="home-toolbar-gradient-frame flex min-h-0 min-w-0 w-full flex-1 items-center rounded-lg p-px sm:rounded-xl">
           {selectEl}
         </span>
       ) : (

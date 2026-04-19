@@ -23,7 +23,7 @@ export function SiteLogoNav({
   return (
     <Link
       href={href}
-      className={`inline-flex shrink-0 items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)] ${logoLayout === "inline" ? "h-full min-w-0 max-w-full items-center" : ""} ${className}`.trim()}
+      className={`inline-flex shrink-0 items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-page)] ${logoLayout === "inline" ? "min-h-0 min-w-0 max-w-full items-center self-center" : ""} ${className}`.trim()}
     >
       {logoLayout === "inline" ? (
         <HypoOnlineLogoInline className="min-w-0 max-w-full px-0.5" />

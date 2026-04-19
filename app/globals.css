@@ -183,6 +183,54 @@ input[type="radio"]:focus-visible {
   border-radius: 12px;
 }
 
+/* Homepage hero illustration — stock art blues/reds nudged toward brand purple–sky */
+.home-hero-illustration {
+  filter: saturate(1.08) hue-rotate(14deg) contrast(1.02);
+}
+
+.home-hero-illustration-tint {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  mix-blend-mode: soft-light;
+  opacity: 0.14;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-brand-gradient-from) 78%, transparent),
+    color-mix(in srgb, var(--color-brand-gradient-to) 72%, transparent)
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-hero-illustration {
+    filter: brightness(0.93) saturate(1.12) hue-rotate(8deg) contrast(1.04);
+  }
+
+  .home-hero-illustration-tint {
+    opacity: 0.2;
+  }
+}
+
+/* Homepage toolbar — logo + locale (same rail height → wordmark & select text share one midline) */
+.home-top-bar-logo {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .home-top-bar-logo {
+    min-height: 3.25rem;
+  }
+}
+
+.home-top-bar-locale-shell {
+  display: flex;
+  align-items: center;
+}
+
 /* Homepage toolbar — logo + locale */
 .home-top-bar {
   border-radius: 14px;

@@ -14,10 +14,10 @@ export function HypoOnlineLogoInline({
 
   return (
     <span
-      className={`inline-flex h-full min-h-0 max-w-full items-center gap-2 sm:gap-2.5 ${className}`.trim()}
+      className={`inline-flex max-w-full items-center gap-2 sm:gap-2.5 ${className}`.trim()}
     >
       <svg
-        className="h-[1.65rem] w-[1.65rem] shrink-0 sm:h-8 sm:w-8"
+        className="h-[1.5rem] w-[1.5rem] shrink-0 sm:h-7 sm:w-7"
         viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ export function HypoOnlineLogoInline({
           fill="none"
         />
       </svg>
-      <span className="hypo-inline-wordmark min-w-0 truncate text-left text-[0.95rem] font-bold leading-none tracking-tight sm:text-lg sm:leading-none">
+      <span className="hypo-inline-wordmark min-w-0 truncate text-left text-sm font-semibold leading-none tracking-tight sm:text-base">
         <span className="text-[var(--color-brand-800)] dark:text-[var(--color-brand-200)]">Hypo</span>
         <span className="text-[var(--color-brand-600)]">.</span>
         <span className="hypo-inline-online bg-gradient-to-r from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] bg-clip-text text-transparent">
