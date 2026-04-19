@@ -124,15 +124,6 @@ export default async function HomePage({ params }: Props) {
               ·
             </span>
             <Link
-              href="/kolik-dostanu-hypoteku"
-              className="text-center font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline sm:text-left"
-            >
-              {t("home.linkBorrowShort")}
-            </Link>
-            <span className="hidden text-muted sm:inline" aria-hidden>
-              ·
-            </span>
-            <Link
               href="/vzdelavani"
               className="text-center font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline sm:text-left"
             >
@@ -241,18 +232,6 @@ export default async function HomePage({ params }: Props) {
             {t("home.moreToolsTitle")}
           </h2>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            <Link
-              href="/hypoteka-kalkulacka"
-              className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-page)] px-4 text-sm font-semibold text-[var(--color-brand-700)] transition hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:text-[var(--color-brand-200)]"
-            >
-              {t("home.moreLinkCalculator")}
-            </Link>
-            <Link
-              href="/kolik-dostanu-hypoteku"
-              className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-page)] px-4 text-sm font-semibold text-[var(--color-brand-700)] transition hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:text-[var(--color-brand-200)]"
-            >
-              {t("home.moreLinkBorrow")}
-            </Link>
             <Link
               href="/vzdelavani"
               className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-page)] px-4 text-sm font-semibold text-[var(--color-brand-700)] transition hover:border-[var(--color-brand-600)] hover:bg-[var(--color-brand-soft)] dark:text-[var(--color-brand-200)]"
