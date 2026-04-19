@@ -64,11 +64,11 @@ export default async function HomePage({ params }: Props) {
         </p>
         <h1
           id="home-hero-heading"
-          className="text-balance text-[1.85rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)] sm:text-4xl"
+          className="text-balance text-[1.85rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)] sm:text-4xl lg:[text-wrap:wrap]"
         >
           {t("home.headline")}
         </h1>
-        <p className="mt-3 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg">
+        <p className="mt-3 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:[text-wrap:wrap]">
           {t("home.sub")}
         </p>
 
@@ -88,7 +88,7 @@ export default async function HomePage({ params }: Props) {
           >
             {t("home.cta")}
           </Link>
-          <p className="mt-2 text-center text-xs leading-relaxed text-[var(--color-brand-800)] sm:text-sm dark:text-[var(--color-brand-300)]">
+          <p className="mt-2 text-center text-xs leading-relaxed text-[var(--color-brand-800)] sm:text-sm lg:max-w-prose lg:text-left dark:text-[var(--color-brand-300)]">
             {t("home.heroMicroShort")}
           </p>
           <nav

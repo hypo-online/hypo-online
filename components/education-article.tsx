@@ -20,10 +20,10 @@ export function EducationArticleView({
           </span>
         ) : null}
       </p>
-      <h1 className="mt-2 text-balance text-2xl font-semibold leading-tight text-[var(--color-brand-950)] sm:text-3xl">
+      <h1 className="mt-2 text-balance text-2xl font-semibold leading-tight text-[var(--color-brand-950)] sm:text-3xl lg:[text-wrap:wrap]">
         {article.title}
       </h1>
-      <p className="mt-4 text-pretty text-sm leading-relaxed text-body sm:text-base">
+      <p className="mt-4 text-pretty text-sm leading-relaxed text-body sm:text-base lg:[text-wrap:wrap]">
         {article.description}
       </p>
 

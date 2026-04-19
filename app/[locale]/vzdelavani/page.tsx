@@ -63,11 +63,11 @@ export default async function VzdelavaniHubPage({ params }: Props) {
       >
         <h1
           id="education-hub-heading"
-          className="text-balance text-[1.85rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)] sm:text-4xl"
+          className="text-balance text-[1.85rem] font-semibold leading-tight tracking-tight text-[var(--color-brand-950)] sm:text-4xl lg:[text-wrap:wrap]"
         >
           Průvodce hypotékou v České republice
         </h1>
-        <p className="mt-4 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg">
+        <p className="mt-4 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:[text-wrap:wrap]">
           Tyto stránky vysvětlují, jak u českých bank probíhá financování bydlení, jaké existují typy hypoték a jaké
           ukazatele banky používají v kontextu doporučení České národní banky. Texty jsou určené hlavně lidem, kteří v
           ČR nově žijí nebo tady plánují koupit nemovitost.
