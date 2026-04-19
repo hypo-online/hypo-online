@@ -1,20 +1,50 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type {
-  A1bAmericanPurpose,
-  A2Location,
-  A4Downpayment,
-  A5Timeline,
-  B1Employment,
-  B3Duration,
-  C4PaymentHistory,
-  C5Residency,
-  EnhancedQuizAnswers,
-  LoanKind,
-  QuestionId,
-  SecondaryIncome,
+import { isRefinanceLike } from "@/lib/questionnaire/a1-refinance";
+import {
+  BROKER_LANGUAGE_OPTIONS,
+  D1_AGE_BANDS,
+  D2_NATIONALITIES,
+  D4_CONTACT_CHANNELS,
+  type A1bAmericanPurpose,
+  type A2Location,
+  type A4Downpayment,
+  type A5Timeline,
+  type B1Employment,
+  type B3Duration,
+  type C4PaymentHistory,
+  type C5Residency,
+  type D1AgeBand,
+  type D2Nationality,
+  type D3BrokerLanguage,
+  type D4ContactChannel,
+  type EnhancedQuizAnswers,
+  type LoanKind,
+  type QuestionId,
+  type SecondaryIncome,
 } from "@/lib/questionnaire/types";
+
+const D1_BAND_MSG: Record<D1AgeBand, "D1.band_18_22" | "D1.band_23_27" | "D1.band_28_32" | "D1.band_33_37" | "D1.band_38_42" | "D1.band_43_47" | "D1.band_48_52" | "D1.band_53_57" | "D1.band_58_62" | "D1.band_63_67" | "D1.band_68plus"> = {
+  "18-22": "D1.band_18_22",
+  "23-27": "D1.band_23_27",
+  "28-32": "D1.band_28_32",
+  "33-37": "D1.band_33_37",
+  "38-42": "D1.band_38_42",
+  "43-47": "D1.band_43_47",
+  "48-52": "D1.band_48_52",
+  "53-57": "D1.band_53_57",
+  "58-62": "D1.band_58_62",
+  "63-67": "D1.band_63_67",
+  "68+": "D1.band_68plus",
+};
+
+const D2_NAT_MSG: Record<D2Nationality, "D2.czech" | "D2.slovak" | "D2.eu" | "D2.non_eu"> = {
+  czech: "D2.czech",
+  slovak: "D2.slovak",
+  eu: "D2.eu",
+  "non-eu": "D2.non_eu",
+};
 
 type Props = {
   activeId: QuestionId;
@@ -32,7 +62,6 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
           <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
             {t("A1.title")}
           </h2>
-          <p className="text-sm text-body">{t("A1.hint")}</p>
           <OptionRow
             selected={answers["A1-type"] === "purchase"}
             onSelect={() => onPatch({ "A1-type": "purchase" })}
@@ -42,6 +71,16 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
             selected={answers["A1-type"] === "refinance"}
             onSelect={() => onPatch({ "A1-type": "refinance" })}
             label={t("A1.refinance")}
+          />
+          <OptionRow
+            selected={answers["A1-type"] === "refinance-topup-purpose"}
+            onSelect={() => onPatch({ "A1-type": "refinance-topup-purpose" })}
+            label={t("A1.refinance_topup_purpose")}
+          />
+          <OptionRow
+            selected={answers["A1-type"] === "refinance-topup-nonpurpose"}
+            onSelect={() => onPatch({ "A1-type": "refinance-topup-nonpurpose" })}
+            label={t("A1.refinance_topup_nonpurpose")}
           />
           <OptionRow
             selected={answers["A1-type"] === "american-mortgage"}
@@ -221,7 +260,7 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
     case "A4-downpayment": {
       const opts: A4Downpayment[] = ["lt10", "10-15", "15-20", "gt20"];
       const equityStyle =
-        answers["A1-type"] === "refinance" ||
+        isRefinanceLike(answers["A1-type"]) ||
         answers["A1-type"] === "american-mortgage";
       return (
         <section className="flex flex-1 flex-col gap-4">
@@ -804,6 +843,111 @@ export function EnhancedQuizPanel({ activeId, answers, onPatch }: Props) {
               selected={answers["C5-residency"] === k}
               onSelect={() => onPatch({ "C5-residency": k })}
               label={t(`C5.${k}` as "C5.czech-citizen")}
+            />
+          ))}
+        </section>
+      );
+    }
+
+    case "D1-age-band": {
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("D1.title")}
+          </h2>
+          <p className="text-sm text-body">{t("D1.hint")}</p>
+          {D1_AGE_BANDS.map((b) => (
+            <OptionRow
+              key={b}
+              selected={answers["D1-age-band"] === b}
+              onSelect={() => onPatch({ "D1-age-band": b })}
+              label={t(D1_BAND_MSG[b])}
+            />
+          ))}
+        </section>
+      );
+    }
+
+    case "D2-nationality": {
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("D2.title")}
+          </h2>
+          <p className="text-sm text-body">{t("D2.hint")}</p>
+          {D2_NATIONALITIES.map((n) => (
+            <OptionRow
+              key={n}
+              selected={answers["D2-nationality"] === n}
+              onSelect={() => onPatch({ "D2-nationality": n })}
+              label={t(D2_NAT_MSG[n])}
+            />
+          ))}
+        </section>
+      );
+    }
+
+    case "D3-broker-language": {
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("D3.title")}
+          </h2>
+          <p className="text-sm text-body">{t("D3.hint")}</p>
+          {BROKER_LANGUAGE_OPTIONS.map((code) => (
+            <OptionRow
+              key={code}
+              selected={answers["D3-broker-language"] === code}
+              onSelect={() =>
+                onPatch(
+                  code === "other"
+                    ? { "D3-broker-language": "other" as D3BrokerLanguage }
+                    : {
+                        "D3-broker-language": code,
+                        "D3-broker-language-custom": undefined,
+                      },
+                )
+              }
+              label={
+                code === "other"
+                  ? t("D3.other")
+                  : t(`D3.lang_${code}` as "D3.lang_cs")
+              }
+            />
+          ))}
+          {answers["D3-broker-language"] === "other" ? (
+            <label className="block text-sm font-medium text-[var(--color-brand-950)]">
+              {t("D3.custom_label")}
+              <input
+                type="text"
+                className="mt-2 min-h-[44px] w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 text-[15px]"
+                placeholder={t("D3.custom_placeholder")}
+                value={answers["D3-broker-language-custom"] ?? ""}
+                onChange={(e) =>
+                  onPatch({
+                    "D3-broker-language-custom": e.target.value,
+                  })
+                }
+              />
+            </label>
+          ) : null}
+        </section>
+      );
+    }
+
+    case "D4-contact-channel": {
+      return (
+        <section className="flex flex-1 flex-col gap-4">
+          <h2 className="text-lg font-semibold leading-snug text-[var(--color-brand-950)] sm:text-xl">
+            {t("D4.title")}
+          </h2>
+          <p className="text-sm text-body">{t("D4.hint")}</p>
+          {D4_CONTACT_CHANNELS.map((ch) => (
+            <OptionRow
+              key={ch}
+              selected={answers["D4-contact-channel"] === ch}
+              onSelect={() => onPatch({ "D4-contact-channel": ch as D4ContactChannel })}
+              label={t(ch === "email" ? "D4.email" : "D4.phone")}
             />
           ))}
         </section>

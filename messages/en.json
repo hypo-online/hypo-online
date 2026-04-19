@@ -134,9 +134,10 @@
     "currency_ph": "e.g. EUR",
     "A1": {
       "title": "What kind of mortgage are you planning?",
-      "hint": "Purchase finances a property buy. Refinance moves an existing housing loan to another bank. American mortgage (CZ) is a non-purpose loan secured on property — banks often cap LTV around 70–80% and scrutinise how you will use the money.",
       "purchase": "Property purchase (new housing loan)",
-      "refinance": "Refinance (transfer housing mortgage)",
+      "refinance": "Refinancing (lower payment / rate)",
+      "refinance_topup_purpose": "Refinancing (loan top-up — purpose-bound)",
+      "refinance_topup_nonpurpose": "Refinancing (loan top-up — non-purpose)",
       "american_mortgage": "American mortgage (non-purpose, secured on property)"
     },
     "A1b": {
@@ -300,6 +301,56 @@
       "temporary": "Short-term stay (<3 months)",
       "eu-unregistered": "EU citizen without registration",
       "illegal": "Third-country national without permission"
+    },
+    "D1": {
+      "title": "Which age band are you in?",
+      "hint": "Five-year bands — helps brokers with demographic context.",
+      "band_18_22": "18–22",
+      "band_23_27": "23–27",
+      "band_28_32": "28–32",
+      "band_33_37": "33–37",
+      "band_38_42": "38–42",
+      "band_43_47": "43–47",
+      "band_48_52": "48–52",
+      "band_53_57": "53–57",
+      "band_58_62": "58–62",
+      "band_63_67": "63–67",
+      "band_68plus": "68+"
+    },
+    "D2": {
+      "title": "Nationality / legal grouping",
+      "hint": "Choose the option that best matches your situation for mortgage paperwork.",
+      "czech": "Czech",
+      "slovak": "Slovak",
+      "eu": "Other EU (not CZ/SK)",
+      "non_eu": "Outside the EU"
+    },
+    "D3": {
+      "title": "Preferred language for broker / bank communication",
+      "hint": "We pass this to the partner team when you request contact.",
+      "other": "Other — please specify",
+      "custom_label": "Which language?",
+      "custom_placeholder": "e.g. Portuguese, Hindi",
+      "lang_cs": "Czech",
+      "lang_en": "English",
+      "lang_uk": "Ukrainian",
+      "lang_ru": "Russian",
+      "lang_de": "German",
+      "lang_vi": "Vietnamese",
+      "lang_pl": "Polish",
+      "lang_sk": "Slovak",
+      "lang_ro": "Romanian",
+      "lang_es": "Spanish",
+      "lang_fr": "French",
+      "lang_it": "Italian",
+      "lang_tr": "Turkish",
+      "lang_zh": "Chinese"
+    },
+    "D4": {
+      "title": "Preferred contact method",
+      "hint": "How should the broker try to reach you first?",
+      "email": "Email",
+      "phone": "Phone"
     }
   },
   "privacy": {

@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { ScoreFactor, Signal } from "@/lib/evaluation";
 import { EnhancedQuizPanel } from "@/components/enhanced-quiz-panel";
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Semaphore } from "@/components/semaphore";
+import { routing } from "@/i18n/routing";
 import { deriveCoarseFromEnhanced } from "@/lib/questionnaire/derive-coarse";
 import {
   clampActiveId,
@@ -16,19 +16,27 @@ import {
 import { canAdvanceStep } from "@/lib/questionnaire/step-validate";
 import type {
   B1Employment,
+  D3BrokerLanguage,
   EnhancedQuizAnswers,
   QuestionId,
 } from "@/lib/questionnaire/types";
 import { validateEnhancedAnswers } from "@/lib/questionnaire/validate";
 import { visibleQuestionIds } from "@/lib/questionnaire/visibility";
 
-function initialAnswers(): EnhancedQuizAnswers {
+function initialAnswers(locale: string): EnhancedQuizAnswers {
+  const defaultLang: D3BrokerLanguage = routing.locales.includes(
+    locale as (typeof routing.locales)[number],
+  )
+    ? (locale as D3BrokerLanguage)
+    : "en";
+
   return {
     "C1-loans": { has: "none", loans: [] },
     "C3-other": { selected: [] },
     "B4-secondary": {},
     "B5-confidence": 50,
     "A3-price": 5,
+    "D3-broker-language": defaultLang,
   };
 }
 
@@ -67,7 +75,9 @@ export function QuizFlow({ locale }: { locale: string }) {
   const t2 = useTranslations("quizV2");
   const c = quizCopy(locale);
 
-  const [answers, setAnswers] = useState<EnhancedQuizAnswers>(initialAnswers);
+  const [answers, setAnswers] = useState<EnhancedQuizAnswers>(() =>
+    initialAnswers(locale),
+  );
   const [activeId, setActiveId] = useState<QuestionId>("A1-type");
   const [phase, setPhase] = useState<"quiz" | "result">("quiz");
 
@@ -198,6 +208,14 @@ export function QuizFlow({ locale }: { locale: string }) {
           intent: leadCoarse.intent,
           income: leadCoarse.income,
           timeline: leadCoarse.timeline,
+          applicantAgeBand: answers["D1-age-band"]!,
+          applicantNationality: answers["D2-nationality"]!,
+          applicantPreferredLanguage: answers["D3-broker-language"]!,
+          applicantPreferredLanguageCustom:
+            answers["D3-broker-language"] === "other"
+              ? answers["D3-broker-language-custom"]?.trim() ?? ""
+              : undefined,
+          applicantContactChannel: answers["D4-contact-channel"]!,
           consents: {
             brokerContact: brokerConsent,
           },
@@ -258,7 +276,6 @@ export function QuizFlow({ locale }: { locale: string }) {
         <p className="text-sm font-medium text-body">
           {t("progress", { current: progressStep, total: totalSteps })}
         </p>
-        <LocaleSwitcher />
       </div>
       <div className="mb-8 h-2 w-full overflow-hidden rounded-full bg-[var(--color-border)]">
         <div

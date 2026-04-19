@@ -87,6 +87,20 @@ export function canAdvanceStep(
       return !!a["C4-credit"];
     case "C5-residency":
       return !!a["C5-residency"];
+    case "D1-age-band":
+      return !!a["D1-age-band"];
+    case "D2-nationality":
+      return !!a["D2-nationality"];
+    case "D3-broker-language": {
+      const d = a["D3-broker-language"];
+      if (!d) return false;
+      if (d === "other") {
+        return (a["D3-broker-language-custom"]?.trim().length ?? 0) >= 2;
+      }
+      return true;
+    }
+    case "D4-contact-channel":
+      return !!a["D4-contact-channel"];
     default:
       return true;
   }

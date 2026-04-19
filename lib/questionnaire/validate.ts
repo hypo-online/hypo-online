@@ -1,5 +1,10 @@
 import type { EnhancedQuizAnswers } from "./types";
 import {
+  D1_AGE_BANDS,
+  D2_NATIONALITIES,
+  D4_CONTACT_CHANNELS,
+} from "./types";
+import {
   showAmericanPurpose,
   showC5Residency,
   showIncomeAndDuration,
@@ -40,6 +45,18 @@ export function validateEnhancedAnswers(
   }
 
   if (showC5Residency(a) && !a["C5-residency"]) return "missing_C5";
+
+  const band = a["D1-age-band"];
+  if (!band || !(D1_AGE_BANDS as readonly string[]).includes(band)) return "bad_D1";
+  const nat = a["D2-nationality"];
+  if (!nat || !(D2_NATIONALITIES as readonly string[]).includes(nat)) return "bad_D2";
+  if (!a["D3-broker-language"]) return "missing_D3";
+  if (a["D3-broker-language"] === "other") {
+    const custom = a["D3-broker-language-custom"]?.trim();
+    if (!custom || custom.length < 2) return "bad_D3_custom";
+  }
+  const ch = a["D4-contact-channel"];
+  if (!ch || !(D4_CONTACT_CHANNELS as readonly string[]).includes(ch)) return "bad_D4";
 
   if (a["C1-loans"].has === "yes") {
     const rows = a["C1-loans"].loans ?? [];

@@ -1,4 +1,5 @@
 import type { QuizPayload } from "@/lib/evaluation";
+import { isRefinanceLike } from "./a1-refinance";
 import type { EnhancedQuizAnswers } from "./types";
 
 /**
@@ -7,7 +8,7 @@ import type { EnhancedQuizAnswers } from "./types";
 export function deriveCoarseFromEnhanced(a: EnhancedQuizAnswers): QuizPayload {
   const a1 = a["A1-type"];
   const intent: QuizPayload["intent"] =
-    a1 === "refinance"
+    isRefinanceLike(a1)
       ? "refinance"
       : a1 === "american-mortgage"
         ? "american"

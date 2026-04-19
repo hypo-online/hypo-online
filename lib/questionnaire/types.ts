@@ -21,11 +21,67 @@ export const QUESTION_ORDER = [
   "C3-other",
   "C4-credit",
   "C5-residency",
+  "D1-age-band",
+  "D2-nationality",
+  "D3-broker-language",
+  "D4-contact-channel",
 ] as const;
+
+/** Five-year age bands (last step block before contact preferences). */
+export const D1_AGE_BANDS = [
+  "18-22",
+  "23-27",
+  "28-32",
+  "33-37",
+  "38-42",
+  "43-47",
+  "48-52",
+  "53-57",
+  "58-62",
+  "63-67",
+  "68+",
+] as const;
+
+export type D1AgeBand = (typeof D1_AGE_BANDS)[number];
+
+export const D2_NATIONALITIES = ["czech", "slovak", "eu", "non-eu"] as const;
+
+export type D2Nationality = (typeof D2_NATIONALITIES)[number];
+
+/** Preferred first contact channel with broker. */
+export const D4_CONTACT_CHANNELS = ["email", "phone"] as const;
+
+export type D4ContactChannel = (typeof D4_CONTACT_CHANNELS)[number];
+
+/** Languages offered for broker/bank communication preference (UI locale list + other). */
+export const BROKER_LANGUAGE_OPTIONS = [
+  "cs",
+  "en",
+  "uk",
+  "ru",
+  "de",
+  "vi",
+  "pl",
+  "sk",
+  "ro",
+  "es",
+  "fr",
+  "it",
+  "tr",
+  "zh",
+  "other",
+] as const;
+
+export type D3BrokerLanguage = (typeof BROKER_LANGUAGE_OPTIONS)[number];
 
 export type QuestionId = (typeof QUESTION_ORDER)[number];
 
-export type A1Type = "purchase" | "refinance" | "american-mortgage";
+export type A1Type =
+  | "purchase"
+  | "refinance"
+  | "refinance-topup-purpose"
+  | "refinance-topup-nonpurpose"
+  | "american-mortgage";
 
 /** Main intended use of funds — Czech "American" (non-purpose) mortgage. */
 export type A1bAmericanPurpose =
@@ -134,4 +190,10 @@ export type EnhancedQuizAnswers = {
   "C3-other"?: OtherLiabilities;
   "C4-credit"?: C4PaymentHistory;
   "C5-residency"?: C5Residency;
+  "D1-age-band"?: D1AgeBand;
+  "D2-nationality"?: D2Nationality;
+  "D3-broker-language"?: D3BrokerLanguage;
+  /** When D3 is "other", applicant specifies language here. */
+  "D3-broker-language-custom"?: string;
+  "D4-contact-channel"?: D4ContactChannel;
 };

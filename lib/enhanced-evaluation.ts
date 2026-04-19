@@ -188,6 +188,14 @@ function scoreRawSignal(answers: EnhancedQuizAnswers, dti: DtiResult): SignalRaw
   }
 
   const a1t = answers["A1-type"];
+  if (a1t === "refinance-topup-nonpurpose") {
+    amberFlags.push("Non-purpose top-up — tighter LTV / underwriting typical");
+    score -= 5;
+  } else if (a1t === "refinance-topup-purpose") {
+    amberFlags.push("Purpose-bound top-up — use-of-funds documentation");
+    score -= 3;
+  }
+
   const amPurpose = answers["A1b-american-purpose"];
   if (a1t === "american-mortgage" && amPurpose) {
     amberFlags.push("Non-purpose mortgage (LTV often capped ~70–80%)");
@@ -294,8 +302,11 @@ function buildFactors(
   incomeStrength = Math.min(10, Math.max(1, Math.round(incomeStrength)));
 
   const a1 = answers["A1-type"];
-  let profileStability =
-    a1 === "purchase" ? 7 : a1 === "american-mortgage" ? 6 : 8;
+  let profileStability = 8;
+  if (a1 === "purchase") profileStability = 7;
+  else if (a1 === "american-mortgage" || a1 === "refinance-topup-nonpurpose")
+    profileStability = 6;
+  else if (a1 === "refinance-topup-purpose") profileStability = 7;
   const a2 = answers["A2-location"];
   if (a2 === "prague-center" || a2 === "prague-outskirts") profileStability += 1;
   if (a2 === "abroad") profileStability -= 2;

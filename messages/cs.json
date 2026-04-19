@@ -134,9 +134,10 @@
     "currency_ph": "např. EUR",
     "A1": {
       "title": "Jaký typ hypotéky řešíte?",
-      "hint": "Koupě = úvěr na pořízení nemovitosti. Refinancování = převod stávající účelové hypotéky. Americká hypotéka = neúčelový úvěr se zástavou nemovitosti; banky často omezují LTV cca 70–80 % a řeší, na co peníze půjdou.",
       "purchase": "Koupě nemovitosti (účelová hypotéka)",
-      "refinance": "Refinancování (převod hypotéky)",
+      "refinance": "Refinancování (snížení splátky)",
+      "refinance_topup_purpose": "Refinancování (navýšení úvěru — účelové)",
+      "refinance_topup_nonpurpose": "Refinancování (navýšení úvěru — neúčelové)",
       "american_mortgage": "Americká hypotéka (neúčelová se zástavou)"
     },
     "A1b": {
@@ -300,6 +301,56 @@
       "temporary": "Krátkodobý pobyt (<3 měsíce)",
       "eu-unregistered": "Občan EU bez registrace",
       "illegal": "Občan třetí země bez povolení"
+    },
+    "D1": {
+      "title": "Do kterého věkového pásma patříte?",
+      "hint": "Pětileté stupně — orientace pro makléře (např. horizont do důchodu).",
+      "band_18_22": "18–22",
+      "band_23_27": "23–27",
+      "band_28_32": "28–32",
+      "band_33_37": "33–37",
+      "band_38_42": "38–42",
+      "band_43_47": "43–47",
+      "band_48_52": "48–52",
+      "band_53_57": "53–57",
+      "band_58_62": "58–62",
+      "band_63_67": "63–67",
+      "band_68plus": "68+"
+    },
+    "D2": {
+      "title": "Státní příslušnost / skupina",
+      "hint": "Vyberte variantu, která nejlíp sedí na vaši situaci u hypotéky.",
+      "czech": "Česká",
+      "slovak": "Slovenská",
+      "eu": "EU (jiná než CZ/SK)",
+      "non_eu": "Mimo EU"
+    },
+    "D3": {
+      "title": "Jakým jazykem chcete komunikovat s makléřem nebo bankou?",
+      "hint": "Předáme to partnerskému týmu, pokud požádáte o kontakt.",
+      "other": "Jiný jazyk — uveďte níže",
+      "custom_label": "Který jazyk?",
+      "custom_placeholder": "např. portugalština, hindština",
+      "lang_cs": "Čeština",
+      "lang_en": "Angličtina",
+      "lang_uk": "Ukrajinština",
+      "lang_ru": "Ruština",
+      "lang_de": "Němčina",
+      "lang_vi": "Vietnamština",
+      "lang_pl": "Polština",
+      "lang_sk": "Slovenština",
+      "lang_ro": "Rumunština",
+      "lang_es": "Španělština",
+      "lang_fr": "Francouzština",
+      "lang_it": "Italština",
+      "lang_tr": "Turečtina",
+      "lang_zh": "Čínština"
+    },
+    "D4": {
+      "title": "Preferovaný způsob komunikace",
+      "hint": "Jak vás má makléř nejdřív kontaktovat?",
+      "email": "E-mail",
+      "phone": "Telefon"
     }
   },
   "privacy": {

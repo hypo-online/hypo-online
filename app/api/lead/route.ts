@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server";
+import {
+  BROKER_LANGUAGE_OPTIONS,
+  D1_AGE_BANDS,
+  D2_NATIONALITIES,
+  D4_CONTACT_CHANNELS,
+} from "@/lib/questionnaire/types";
 
 type LeadBody = {
   name: string;
@@ -10,6 +16,11 @@ type LeadBody = {
   intent: "purchase" | "refinance" | "american" | "explore";
   income: "employed" | "self" | "abroad";
   timeline: "soon" | "mid" | "unknown";
+  applicantAgeBand: string;
+  applicantNationality: string;
+  applicantPreferredLanguage: string;
+  applicantPreferredLanguageCustom?: string;
+  applicantContactChannel: string;
   consents: {
     brokerContact: boolean;
   };
@@ -43,9 +54,40 @@ export async function POST(request: Request) {
   return NextResponse.json({ ok: true });
 }
 
+function isBrokerLang(s: unknown): s is string {
+  return typeof s === "string" && (BROKER_LANGUAGE_OPTIONS as readonly string[]).includes(s);
+}
+
 function isLeadBody(value: unknown): value is LeadBody {
   if (!value || typeof value !== "object") return false;
   const v = value as Record<string, unknown>;
+  const band = v.applicantAgeBand;
+  const nat = v.applicantNationality;
+  const lang = v.applicantPreferredLanguage;
+  const langCustom =
+    typeof v.applicantPreferredLanguageCustom === "string"
+      ? v.applicantPreferredLanguageCustom.trim()
+      : "";
+  const channel = v.applicantContactChannel;
+
+  if (
+    typeof band !== "string" ||
+    !(D1_AGE_BANDS as readonly string[]).includes(band) ||
+    typeof nat !== "string" ||
+    !(D2_NATIONALITIES as readonly string[]).includes(nat) ||
+    typeof channel !== "string" ||
+    !(D4_CONTACT_CHANNELS as readonly string[]).includes(channel) ||
+    !isBrokerLang(lang)
+  ) {
+    return false;
+  }
+
+  if (lang === "other") {
+    if (langCustom.length < 2) return false;
+  } else if (langCustom.length > 0) {
+    return false;
+  }
+
   return (
     typeof v.name === "string" &&
     typeof v.email === "string" &&
@@ -87,6 +129,14 @@ async function sendBrokerEmail(to: string, lead: LeadBody) {
         `E-mail: ${lead.email}`,
         `Telefon: ${lead.phone}`,
         `Locale: ${lead.locale}`,
+        `Věkové pásmo: ${lead.applicantAgeBand}`,
+        `Státní příslušnost / region: ${lead.applicantNationality}`,
+        `Preferovaný jazyk (makléř/banka): ${lead.applicantPreferredLanguage}${
+          lead.applicantPreferredLanguage === "other" && lead.applicantPreferredLanguageCustom
+            ? ` — ${lead.applicantPreferredLanguageCustom}`
+            : ""
+        }`,
+        `Preferovaný kontakt: ${lead.applicantContactChannel}`,
         `Pravděpodobnost (model): ${lead.probability}%`,
         `Semafor: ${lead.signal}`,
         `Typ záměru: ${lead.intent}`,

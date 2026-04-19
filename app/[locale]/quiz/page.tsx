@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { SiteLogoNav } from "@/components/site-logo-nav";
+import { SiteToolbarHeader } from "@/components/site-toolbar-header";
 import { QuizFlow } from "@/components/quiz-flow";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -16,11 +16,11 @@ export default async function QuizPage({ params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-[640px] flex-col px-4 pb-16 pt-8 sm:px-8">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <SiteLogoNav />
+    <div className="site-shell">
+      <SiteToolbarHeader />
+      <div className="mx-auto w-full max-w-[640px] flex-1 pb-16">
+        <QuizFlow locale={locale} />
       </div>
-      <QuizFlow locale={locale} />
     </div>
   );
 }
