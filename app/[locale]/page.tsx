@@ -114,19 +114,23 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      <section id="how-flow" className="mb-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:mb-10 sm:p-7">
+        <p className="text-sm leading-relaxed text-body">{t("home.howIntro")}</p>
+        <div className="mt-5">
+          <HomeHowAccordion
+            steps={[...steps]}
+            expandLabel={t("home.howAccordionExpand")}
+            collapseLabel={t("home.howAccordionCollapse")}
+            footNote={t("home.how_lead_note")}
+          />
+        </div>
+      </section>
+
       <div className="home-tint-band mb-10">
         <HeroGraphic />
       </div>
 
       <div className="space-y-8 sm:space-y-10">
-        <HomeDataAccordion
-          title={t("home.dataAccordionTitle")}
-          summary={t("home.dataAccordionSummary")}
-          details={t("home.dataAccordionDetails")}
-          expandAria={t("home.dataExpand")}
-          collapseAria={t("home.dataCollapse")}
-        />
-
         <section
           className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-7"
           aria-labelledby="home-value-title"
@@ -196,17 +200,13 @@ export default async function HomePage({ params }: Props) {
           </div>
         </section>
 
-        <section id="how-flow" className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-7">
-          <p className="text-sm leading-relaxed text-body">{t("home.howIntro")}</p>
-          <div className="mt-5">
-            <HomeHowAccordion
-              steps={[...steps]}
-              expandLabel={t("home.howAccordionExpand")}
-              collapseLabel={t("home.howAccordionCollapse")}
-              footNote={t("home.how_lead_note")}
-            />
-          </div>
-        </section>
+        <HomeDataAccordion
+          title={t("home.dataAccordionTitle")}
+          summary={t("home.dataAccordionSummary")}
+          details={t("home.dataAccordionDetails")}
+          expandAria={t("home.dataExpand")}
+          collapseAria={t("home.dataCollapse")}
+        />
 
         <section className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-7">
           <h2 className="text-lg font-semibold tracking-tight text-[var(--color-brand-950)] sm:text-xl">
