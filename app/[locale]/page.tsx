@@ -50,7 +50,7 @@ export default async function HomePage({ params }: Props) {
   };
 
   return (
-    <div className="relative mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-28 pt-7 sm:max-w-2xl sm:px-8 sm:pb-16 sm:pt-10 md:pb-16">
+    <div className="site-shell">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

@@ -96,6 +96,21 @@ body {
   line-height: 1.6;
 }
 
+@layer components {
+  /**
+   * Primary page column: phone stays full-bleed; sm–md keeps the original ~42rem cap;
+   * lg+ opens up for a conventional desktop content width.
+   */
+  .site-shell {
+    @apply relative mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-28 pt-7 sm:max-w-2xl sm:px-8 sm:pb-16 sm:pt-10 md:pb-16 lg:max-w-6xl xl:max-w-7xl;
+  }
+
+  /** Simple centered pages (SEO landings, calculators) — same width scale, no flex shell. */
+  .site-shell-inner {
+    @apply mx-auto w-full max-w-full px-4 pb-16 pt-10 sm:px-8 sm:max-w-2xl lg:max-w-6xl xl:max-w-7xl;
+  }
+}
+
 /* Primary CTA — gradient, subtle glow */
 .btn-gradient-primary {
   background-image: linear-gradient(

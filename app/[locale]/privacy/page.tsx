@@ -18,17 +18,19 @@ export default async function PrivacyPage({ params }: Props) {
   const t = await getTranslations("privacy");
 
   return (
-    <div className="mx-auto max-w-lg px-4 pb-16 pt-10 sm:max-w-2xl sm:px-8">
-      <div className="flex flex-wrap items-center gap-4">
-        <SiteLogoNav />
-        <Link
-          href="/"
-          className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
-        >
-          {t("back")}
-        </Link>
+    <div className="site-shell-inner">
+      <div className="mx-auto w-full max-w-lg sm:max-w-none">
+        <div className="flex flex-wrap items-center gap-4">
+          <SiteLogoNav />
+          <Link
+            href="/"
+            className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+          >
+            {t("back")}
+          </Link>
+        </div>
+        <PrivacyDocument titleLevel="h1" />
       </div>
-      <PrivacyDocument titleLevel="h1" />
     </div>
   );
 }
