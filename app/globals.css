@@ -182,3 +182,40 @@ input[type="radio"]:focus-visible {
   border: 0.5px solid var(--color-border);
   border-radius: 12px;
 }
+
+/* Homepage toolbar — aligns logo, locale, guide CTA */
+.home-top-bar {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-brand-600) 14%, var(--color-border));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-brand-600) 5%, var(--color-surface)) 0%,
+    var(--color-surface) 100%
+  );
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 55%, transparent),
+    0 10px 36px color-mix(in srgb, var(--color-brand-600) 10%, transparent);
+  padding: 0.55rem 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .home-top-bar {
+    padding: 0.65rem 0.85rem;
+    border-radius: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-top-bar {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-brand-600) 10%, var(--color-surface)) 0%,
+      var(--color-surface) 100%
+    );
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.home-toolbar-select:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-600) 22%, transparent);
+}

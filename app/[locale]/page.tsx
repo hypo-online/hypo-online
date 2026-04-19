@@ -86,13 +86,20 @@ export default async function HomePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <header className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <SiteLogoNav className="self-start" />
-        <div className="flex min-w-0 w-full flex-1 items-center justify-end gap-3 sm:w-auto">
-          <LocaleSwitcher />
+      <header className="home-top-bar mb-5 flex items-center justify-between gap-2 sm:mb-6 sm:gap-4">
+        <SiteLogoNav
+          className="min-w-0 shrink"
+          logoClassName="h-[2.85rem] w-auto max-h-[3.25rem] sm:h-[3.35rem] sm:max-h-none md:h-16"
+        />
+        <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-3">
+          <LocaleSwitcher
+            className="shrink-0"
+            selectClassName="home-toolbar-select max-w-[min(11rem,32vw)] min-h-10 border-[color-mix(in_srgb,var(--color-brand-600)_28%,var(--color-border))] bg-[var(--color-surface)] px-2.5 text-[11px] sm:min-h-11 sm:max-w-[13rem] sm:px-3 sm:text-xs"
+          />
           <Link
             href="/vzdelavani"
-            className="shrink-0 text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+            title={t("nav.guide")}
+            className="home-toolbar-guide inline-flex min-h-10 max-w-[min(11.5rem,40vw)] shrink-0 items-center justify-center whitespace-normal rounded-lg bg-gradient-to-br from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] px-2.5 py-1.5 text-center text-[11px] font-bold leading-snug text-white shadow-[0_3px_16px_color-mix(in_srgb,var(--color-brand-600)_38%,transparent)] transition hover:brightness-[1.06] active:brightness-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] sm:min-h-11 sm:max-w-[13.5rem] sm:px-3 sm:text-xs sm:leading-snug md:max-w-[17rem] md:text-sm"
           >
             {t("nav.guide")}
           </Link>
