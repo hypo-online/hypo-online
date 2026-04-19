@@ -67,7 +67,7 @@ export default async function VzdelavaniHubPage({ params }: Props) {
         >
           Průvodce hypotékou v České republice
         </h1>
-        <p className="mt-4 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:[text-wrap:wrap]">
+        <p className="mt-4 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:max-w-none lg:[text-wrap:wrap]">
           Tyto stránky vysvětlují, jak u českých bank probíhá financování bydlení, jaké existují typy hypoték a jaké
           ukazatele banky používají v kontextu doporučení České národní banky. Texty jsou určené hlavně lidem, kteří v
           ČR nově žijí nebo tady plánují koupit nemovitost.

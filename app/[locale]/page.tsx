@@ -68,7 +68,7 @@ export default async function HomePage({ params }: Props) {
         >
           {t("home.headline")}
         </h1>
-        <p className="mt-3 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:[text-wrap:wrap]">
+        <p className="mt-3 max-w-prose text-pretty text-[15px] leading-relaxed text-body sm:text-lg lg:max-w-none lg:[text-wrap:wrap]">
           {t("home.sub")}
         </p>
 
@@ -141,7 +141,7 @@ export default async function HomePage({ params }: Props) {
           >
             {t("home.valueTitle")}
           </h2>
-          <p className="mt-2 max-w-prose text-sm leading-relaxed text-body sm:text-[15px]">
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-body sm:text-[15px] lg:max-w-none">
             {t("home.valueLead")}
           </p>
           <div className="home-value-grid mt-6">
