@@ -86,20 +86,17 @@ export default async function HomePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <header className="home-top-bar mb-5 flex items-center justify-between gap-1.5 sm:mb-6 sm:gap-4">
-        <SiteLogoNav
-          className="min-w-0 shrink-0"
-          logoClassName="h-[4.25rem] w-auto min-[400px]:h-[5rem] sm:h-28 md:h-32 lg:h-36"
-        />
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-1.5 sm:gap-3">
+      <header className="home-top-bar mb-5 flex h-12 items-stretch justify-between gap-2 sm:mb-6 sm:h-[3.25rem] sm:gap-3">
+        <SiteLogoNav logoLayout="inline" className="min-w-0 flex-1 basis-0" />
+        <div className="flex min-w-0 shrink-0 items-stretch justify-end gap-2 sm:gap-2.5">
           <LocaleSwitcher
-            className="shrink-0"
-            selectClassName="home-toolbar-select max-w-[min(9rem,28vw)] min-h-11 border-[color-mix(in_srgb,var(--color-brand-600)_28%,var(--color-border))] bg-[var(--color-surface)] px-2.5 text-xs font-semibold sm:min-h-12 sm:max-w-[13rem] sm:px-3 sm:text-sm"
+            gradientFrame
+            className="w-[min(10.5rem,34vw)] min-w-0 sm:w-[12.5rem]"
           />
           <Link
             href="/vzdelavani"
             title={t("nav.guide")}
-            className="home-toolbar-guide inline-flex min-h-11 max-w-[min(9.5rem,30vw)] shrink-0 items-center justify-center whitespace-normal rounded-lg bg-gradient-to-br from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] px-2.5 py-2 text-center text-xs font-bold leading-snug text-white shadow-[0_3px_16px_color-mix(in_srgb,var(--color-brand-600)_38%,transparent)] transition hover:brightness-[1.06] active:brightness-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] sm:min-h-12 sm:max-w-[13.5rem] sm:px-3.5 sm:text-sm sm:leading-snug md:max-w-[17rem] md:text-[0.9375rem]"
+            className="home-toolbar-guide inline-flex h-full max-w-[min(11.5rem,42vw)] items-center justify-center whitespace-normal rounded-lg bg-gradient-to-br from-[var(--color-brand-gradient-from)] to-[var(--color-brand-gradient-to)] px-2.5 text-center text-[11px] font-bold leading-snug text-white shadow-[0_3px_16px_color-mix(in_srgb,var(--color-brand-600)_38%,transparent)] transition hover:brightness-[1.06] active:brightness-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)] sm:max-w-[15rem] sm:rounded-xl sm:px-3 sm:text-sm sm:leading-snug md:max-w-[17rem]"
           >
             {t("nav.guide")}
           </Link>

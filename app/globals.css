@@ -216,6 +216,18 @@ input[type="radio"]:focus-visible {
   }
 }
 
-.home-toolbar-select:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-600) 22%, transparent);
+/* Gradient border shell — matches primary CTA (used around locale `<select>`). */
+.home-toolbar-gradient-frame {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-brand-gradient-from),
+    var(--color-brand-gradient-to)
+  );
+  box-shadow: 0 2px 14px color-mix(in srgb, var(--color-brand-600) 24%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-toolbar-gradient-frame {
+    box-shadow: 0 2px 18px color-mix(in srgb, var(--color-brand-600) 35%, transparent);
+  }
 }
