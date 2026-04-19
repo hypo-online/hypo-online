@@ -57,11 +57,11 @@ export function LocaleSwitcher({
 
   const selectBase = gradientFrame
     ? cn(
-        "h-full min-h-0 max-h-full min-w-0 max-w-full flex-1 cursor-pointer rounded-[8px] border-0 bg-[var(--color-surface)] px-2 py-1.5 text-center text-xs font-semibold text-[var(--color-brand-950)] shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-600)] focus-visible:ring-inset sm:rounded-[10px] sm:px-3 sm:py-2 sm:text-left sm:text-sm",
+        "h-full min-h-0 max-h-full min-w-0 max-w-full flex-1 cursor-pointer rounded-[8px] border-0 bg-[var(--color-surface)] px-3 py-2.5 text-center text-sm font-semibold leading-snug text-[var(--color-brand-950)] shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand-600)] focus-visible:ring-inset sm:rounded-[10px] sm:px-3.5 sm:py-3 sm:text-left sm:text-base sm:leading-normal",
         useShortOptionLabels ? "tabular-nums tracking-wide" : "text-pretty",
       )
     : cn(
-        "min-h-[44px] min-w-0 max-w-[11rem] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-xs font-semibold text-[var(--color-brand-950)] shadow-sm focus-visible:border-[var(--color-brand-600)] sm:max-w-xs",
+        "min-h-[48px] min-w-0 max-w-[12rem] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5 text-sm font-semibold leading-snug text-[var(--color-brand-950)] shadow-sm focus-visible:border-[var(--color-brand-600)] sm:max-w-xs sm:text-base",
         useShortOptionLabels
           ? "text-center tabular-nums tracking-wide"
           : "truncate text-left",

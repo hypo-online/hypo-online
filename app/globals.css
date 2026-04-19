@@ -183,7 +183,7 @@ input[type="radio"]:focus-visible {
   border-radius: 12px;
 }
 
-/* Homepage toolbar — aligns logo, locale, guide CTA */
+/* Homepage toolbar — logo + locale */
 .home-top-bar {
   border-radius: 14px;
   border: 1px solid color-mix(in srgb, var(--color-brand-600) 14%, var(--color-border));
