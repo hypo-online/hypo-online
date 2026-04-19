@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { EducationArticleView } from "@/components/education-article";
 import { EducationLocaleGate } from "@/components/education-locale-gate";
 import { JsonLdScript } from "@/components/json-ld-script";
+import { SiteToolbarHeader } from "@/components/site-toolbar-header";
 import { educationArticleBreadcrumbJsonLd } from "@/lib/education/breadcrumb-jsonld";
 import { Link } from "@/navigation";
-import { SiteLogoNav } from "@/components/site-logo-nav";
 import {
   educationArticleSlugs,
   getEducationArticle,
@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VzdelavaniArticlePage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations();
   const article = getEducationArticle(slug);
   if (!article) notFound();
 
@@ -41,35 +42,38 @@ export default async function VzdelavaniArticlePage({ params }: Props) {
     }) ?? [];
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-[720px] flex-col px-4 pb-16 pt-8 sm:px-8">
+    <div className="relative mx-auto flex min-h-dvh max-w-full flex-col px-4 pb-28 pt-7 sm:max-w-2xl sm:px-8 sm:pb-16 sm:pt-10 md:pb-16">
       <JsonLdScript data={educationArticleBreadcrumbJsonLd(locale, article)} />
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <SiteToolbarHeader />
+
+      <nav className="mb-6" aria-label={t("nav.guide")}>
         <Link
           href="/vzdelavani"
-          className="text-sm font-medium text-[var(--color-brand-600)] underline-offset-4 hover:underline"
+          className="text-sm font-semibold text-[var(--color-brand-600)] underline-offset-4 hover:underline sm:text-[15px]"
         >
-          ← Průvodce hypotékou
+          {t("nav.backToEducation")}
         </Link>
-        <SiteLogoNav />
-      </header>
+      </nav>
 
       <EducationLocaleGate locale={locale} csPath={`/vzdelavani/${slug}`} />
 
       {locale === "cs" ? (
-        <EducationArticleView article={article} related={related} />
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-7">
+          <EducationArticleView article={article} related={related} />
+        </div>
       ) : (
-        <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-6 text-sm text-body">
-          <p className="font-medium text-[var(--color-brand-950)]">{article.title}</p>
-          <p className="mt-2 text-xs text-muted">{article.description}</p>
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-5 text-sm text-body sm:p-7 sm:text-[15px]">
+          <p className="font-semibold text-[var(--color-brand-950)]">{article.title}</p>
+          <p className="mt-2 text-xs text-muted sm:text-sm">{article.description}</p>
         </div>
       )}
 
-      <div className="mt-12 flex flex-wrap gap-3">
+      <div className="mt-10">
         <Link
           href="/quiz"
-          className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-[var(--color-brand-600)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--color-brand-800)]"
+          className="btn-gradient-primary inline-flex min-h-[52px] w-full items-center justify-center rounded-xl px-5 text-base font-bold tracking-tight transition active:scale-[0.99] sm:min-h-[56px] sm:w-auto sm:px-8 sm:text-lg"
         >
-          Spustit orientační check
+          {t("nav.start")}
         </Link>
       </div>
     </div>

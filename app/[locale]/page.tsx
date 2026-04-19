@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { SiteLogoNav } from "@/components/site-logo-nav";
 import { Link } from "@/navigation";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { SiteToolbarHeader } from "@/components/site-toolbar-header";
 import { HeroGraphic } from "@/components/hero-graphic";
 import { HomeHowAccordion } from "@/components/home-how-accordion";
 import { HomeDataAccordion } from "@/components/home-data-accordion";
@@ -57,15 +56,7 @@ export default async function HomePage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <header className="home-top-bar mb-6 flex min-h-14 items-center justify-between gap-2 sm:mb-8 sm:min-h-[3.75rem] sm:gap-3">
-        <SiteLogoNav
-          logoLayout="inline"
-          className="home-top-bar-logo min-w-0 flex-1 basis-0 overflow-hidden pr-1 sm:pr-2"
-        />
-        <div className="home-top-bar-locale-shell flex min-h-11 w-[12.5rem] max-w-[calc(100%-6.5rem)] shrink-0 items-center justify-end sm:min-h-[3.25rem] sm:w-[14rem]">
-          <LocaleSwitcher gradientFrame className="h-full min-h-0 w-full" />
-        </div>
-      </header>
+      <SiteToolbarHeader />
 
       <section className="home-hero-band mb-8 rounded-2xl px-4 py-7 sm:px-7 sm:py-9" aria-labelledby="home-hero-heading">
         <p className="mb-3 inline-flex w-fit rounded-full bg-[var(--color-surface)]/90 px-3 py-1 text-xs font-medium text-[var(--color-brand-800)] ring-1 ring-[color-mix(in_srgb,var(--color-brand-600)_22%,var(--color-border))] dark:text-[var(--color-brand-200)]">
