@@ -25,7 +25,7 @@ export function HypoOnlineLogo({
   const sizes =
     density === "compact"
       ? "(max-width: 640px) 120px, 200px"
-      : "(max-width: 640px) 168px, (max-width: 1024px) 260px, 320px";
+      : "(max-width: 640px) 220px, (max-width: 1024px) 300px, 360px";
 
   return (
     <span className={shell}>
@@ -36,7 +36,7 @@ export function HypoOnlineLogo({
         height={682}
         priority
         sizes={sizes}
-        className={`h-auto w-auto object-contain object-left ${className}`.trim()}
+        className={`w-auto max-w-full object-contain object-left ${className}`.trim()}
       />
     </span>
   );
